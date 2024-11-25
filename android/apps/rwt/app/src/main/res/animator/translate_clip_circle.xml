@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<set xmlns:android="http://schemas.android.com/apk/res/android"
+    android:ordering="sequentially">
+
+    <!-- Step 1, animate the clipping circle diagonally down and right
+
+    Because we are animating a "clip-path" the only property we can change is the
+    path itself. As a general guidance, the initial values in the path are x,y coordinates.
+    0, 0 is the top left. We animate the circle through following coordinates.
+
+    -400, 0
+    200, 150
+    800, 0
+
+    The animators only consider a start and end value, so we must do this in 2 stages
+     -->
+    <objectAnimator
+        android:duration="1000"
+        android:interpolator="@android:anim/linear_interpolator"
+        android:propertyName="pathData"
+        android:valueFrom="M-400,0m-400,0a39.69,39.69 0,1 1,800 0a39.69,39.69 0,1 1,-800 0"
+        android:valueTo="M200,150m-400,0a39.69,39.69 0,1 1,800 0a39.69,39.69 0,1 1,-800 0"
+        android:valueType="pathType" />
+
+    <!-- Step 2, animate the clipping circle diagonally upwards and right -->
+    <objectAnimator
+        android:duration="1000"
+        android:interpolator="@android:anim/linear_interpolator"
+        android:propertyName="pathData"
+        android:valueFrom="M200,150m-400,0a39.69,39.69 0,1 1,800 0a39.69,39.69 0,1 1,-800 0"
+        android:valueTo="M800,0m-400,0a39.69,39.69 0,1 1,800 0a39.69,39.69 0,1 1,-800 0"
+        android:valueType="pathType" />
+
+</set>

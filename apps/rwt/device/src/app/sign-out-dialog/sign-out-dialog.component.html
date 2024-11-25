@@ -1,0 +1,11 @@
+<h2>
+  {{ 'sign_out_confirm' | translate }}
+</h2>
+<div class="buttons">
+  <fluent-button-wrapper data-testId="cancel" data-dd-action-name="sign_out_cancel" (click)="cancel()">{{
+    'cancel' | translate
+  }}</fluent-button-wrapper>
+  <fluent-button-wrapper data-testId="confirm" appearance="primary" mode="danger" data-dd-action-name="sign_out_confirm" (click)="confirmSignOut()">{{
+    'sign_out' | translate
+  }}</fluent-button-wrapper>
+</div>

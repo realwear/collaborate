@@ -1,0 +1,78 @@
+:host {
+  height: 90vh;
+  display: grid;
+  min-height: 0;
+  position: relative;
+  overflow: hidden;
+
+  grid-template: 'header' min-content 'report' 1fr 'actions' min-content / 1fr;
+}
+
+h2 {
+  grid-area: header;
+}
+
+.empty-report {
+  grid-area: report;
+  display: flex;
+  flex-direction: column;
+
+  justify-content: center;
+  align-items: center;
+
+  gap: 3em;
+
+  strong {
+    font-size: 2em;
+  }
+}
+
+.loading {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: 1em;
+
+  background-color: rgba(#eff1f7, 0.7);
+
+  display: grid;
+  justify-content: center;
+  align-items: center;
+}
+
+.full-report {
+  grid-area: report;
+
+  display: block;
+
+  .location,
+  .explanation,
+  .danger,
+  .services {
+    font-size: 1.2em;
+    margin-top: 1em;
+
+    strong {
+      margin-right: 1em;
+      letter-spacing: 1px;
+      display: block;
+    }
+
+    span {
+      margin-top: 0.3em;
+      display: block;
+    }
+
+    &.empty {
+      font-style: italic;
+    }
+  }
+}
+
+.actions {
+  grid-area: actions;
+  display: flex;
+  justify-content: space-between;
+}

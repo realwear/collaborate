@@ -1,0 +1,109 @@
+{
+  "name": "rwtdevice",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "prefix": "nx",
+  "sourceRoot": "apps/rwt/device/src",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:browser",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/rwtdevice",
+        "index": "apps/rwt/device/src/index.html",
+        "main": "apps/rwt/device/src/main.ts",
+        "polyfills": ["zone.js", "apps/rwt/device/src/polyfills.js"],
+        "tsConfig": "apps/rwt/device/tsconfig.app.json",
+        "inlineStyleLanguage": "scss",
+        "assets": [
+          "apps/rwt/device/src/favicon.ico",
+          "apps/rwt/device/src/assets",
+          {
+            "input": "libs/uxlib/assets",
+            "glob": "**/*",
+            "output": "assets/uxlib"
+          }
+        ],
+        "styles": [
+          "apps/rwt/device/src/styles.scss",
+          "@angular/material/prebuilt-themes/indigo-pink.css"
+        ],
+        "scripts": []
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "10mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
+          "fileReplacements": [
+            {
+              "replace": "apps/rwt/device/src/app/environment/environment.ts",
+              "with": "apps/rwt/device/src/app/environment/environment.prod.ts"
+            }
+          ],
+          "outputHashing": "all"
+        },
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "options": {
+        "proxyConfig": "apps/rwt/device/proxy.conf.json",
+        "host": "0.0.0.0",
+        "port": 4300
+      },
+      "configurations": {
+        "production": {
+          "buildTarget": "rwtdevice:build:production"
+        },
+        "development": {
+          "buildTarget": "rwtdevice:build:development"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "buildTarget": "rwtdevice:build"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"]
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/rwt/device/jest.config.ts"
+      }
+    },
+    "serve-static": {
+      "executor": "@nx/web:file-server",
+      "options": {
+        "buildTarget": "rwtdevice:build",
+        "staticFilePath": "dist/apps/rwtdevice/browser"
+      }
+    }
+  }
+}

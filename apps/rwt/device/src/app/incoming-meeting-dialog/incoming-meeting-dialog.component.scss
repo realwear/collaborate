@@ -1,0 +1,43 @@
+:host {
+  display: grid;
+  justify-items: center;
+  row-gap: .5rem;
+}
+
+h2 {
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin: 0;
+  padding: 0;
+}
+
+nx-fluent-avatar {
+  width: 120px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 1px solid var(--colorNeutralStroke1);
+  background-color: var(--colorBrandForegroundInverted);
+  margin-top: .5rem;
+}
+
+.caller_name {
+  font-size: 1.4em;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.caller_email {
+  font-size: 1.2em;
+  color: var(--colorNeutralForeground2);
+  letter-spacing: 1px;
+}
+
+.buttons {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  gap: 3em;
+  margin: auto;
+  margin-top: 3em;
+}

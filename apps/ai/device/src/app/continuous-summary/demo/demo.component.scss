@@ -1,0 +1,146 @@
+:host {
+  height: 90vh;
+  display: grid;
+  min-height: 0;
+  position: relative;
+  overflow: hidden;
+
+  .empty,
+  .summary,
+  .buttons,
+  .speech {
+    display: none;
+  }
+}
+
+.detection {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  transform: scaleY(4);
+}
+
+:host(.is-empty) {
+  grid-template-rows: min-content 1fr min-content;
+  align-items: center;
+
+  .empty {
+    display: grid;
+    place-items: center;
+    gap: 1.5em;
+
+    span {
+      font-size: 1.3em;
+    }
+
+    button {
+      font-size: 2em;
+    }
+  }
+
+  .buttons {
+    display: flex;
+
+    button:not(:first-child) {
+      display: none;
+    }
+  }
+}
+
+:host(.is-finished) {
+  // We need rows for the header, summary (1fr) and the buttons
+  grid-template-rows: min-content 1fr min-content;
+}
+
+:host(.is-recording) {
+  grid-template-rows: min-content 1fr 60px min-content;
+
+  .speech {
+    display: grid;
+  }
+}
+
+:host(.is-finished),
+:host(.is-recording) {
+  .summary {
+    display: grid;
+  }
+
+  .buttons {
+    display: flex;
+
+    button {
+      font-size: 1rem;
+    }
+  }
+}
+
+.buttons {
+  display: flex;
+  gap: 1em;
+}
+
+.current,
+.pending p {
+  margin: 0;
+}
+
+.summary {
+  max-height: 100%;
+  overflow-y: scroll;
+  min-height: 0;
+  margin-bottom: 0.5em;
+
+  .button-page-up {
+    // Fix the button to the top right, ontop of the scrollbar
+    position: fixed;
+    top: 15vh;
+    right: 5vw;
+  }
+
+  .button-page-down {
+    // Fix the button to the bottom right, ontop of the scrollbar
+    position: fixed;
+    bottom: 25vh;
+    right: 5vw;
+  }
+}
+
+.summary .output {
+  font-size: 1.2rem;
+  line-height: 2rem;
+  padding: 1em;
+
+  ::ng-deep {
+    p {
+      margin: 0;
+    }
+
+    ol,
+    ul {
+      margin-left: 1em;
+    }
+
+    & > ul {
+      & > li:not(:first-of-type) {
+        margin-top: 0.5em;
+      }
+    }
+
+    h1,
+    h2,
+    h3,
+    h4 {
+      margin: 0.2em 0;
+    }
+  }
+
+  img {
+    max-width: 300px;
+  }
+}
+
+.summary .output:last-of-type {
+  margin-bottom: 2rem;
+}

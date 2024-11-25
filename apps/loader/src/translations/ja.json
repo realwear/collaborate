@@ -1,0 +1,16 @@
+{
+  "connecting": "接続中",
+  "error_title": "サーバーに接続できません",
+  "error_tryagain": "再試行",
+  "error_message": "接続を確認してもう一度お試しください",
+  "offline": "ネットワーク接続を待機中",
+  "get_connected": "つながる",
+  "update_webview": "RealWear HMT-1 で RealWear Collaborate を使用するには、デバイスの更新が必要です。",
+  "update_size": "推定ダウンロードサイズ: {{number}} MB",
+  "update_now": "今すぐ更新",
+  "downloading_update": "アップデート中",
+  "download_failed_title": "ダウンロードに失敗しました",
+  "download_failed": "アップデートのダウンロードに失敗しました。接続を確認してもう一度お試しください。",
+  "installing_update": "アップデートをインストール中",
+  "installing_instructions": "アップデートをインストールするには、指示に従ってください。"
+}

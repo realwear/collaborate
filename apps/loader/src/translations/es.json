@@ -1,0 +1,16 @@
+{
+  "connecting": "Conectando",
+  "error_title": "No se puede conectar al servidor",
+  "error_tryagain": "Rever",
+  "error_message": "Por favor verifique su conexión y vuelva a intentarlo",
+  "offline": "Esperando conexión de red",
+  "get_connected": "Conectarse",
+  "update_webview": "Vaya, para usar RealWear Collaborate en tu RealWear HMT-1, necesitamos actualizar tu dispositivo.",
+  "update_size": "Tamaño de descarga estimado: {{number}} MB",
+  "update_now": "Actualizar Ahora",
+  "downloading_update": "Descarga Actualización",
+  "download_failed_title": "Descarga fallida",
+  "download_failed": "No se pudo descargar la actualización. Por favor verifique su conexión e inténtelo de nuevo.",
+  "installing_update": "Instalando Actualización",
+  "installing_instructions": "Por favor, sigue las instrucciones para instalar la actualización."
+}

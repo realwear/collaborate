@@ -1,0 +1,28 @@
+:host {
+  position: relative;
+
+  display: grid;
+  justify-items: center;
+
+  gap: 3em;
+
+  margin: auto 0;
+}
+
+button {
+  min-width: 200px;
+}
+
+p {
+  margin: 0;
+  padding: 0;
+
+  font-size: 1.7em;
+
+  color: #111;
+}
+
+.logo {
+  width: 250px;
+  aspect-ratio: 1.9;
+}

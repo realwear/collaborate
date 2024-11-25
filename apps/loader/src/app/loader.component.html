@@ -1,0 +1,31 @@
+<div class="outer" [class.error]="(state$ | async) === 'error'" [class.loading]="(state$ | async) === 'connecting'">
+  <img src="assets/app_icon.png" />
+
+  <div class="progress">
+    <div class="inner"></div>
+  </div>
+
+  <ng-container [ngSwitch]="state$ | async">
+    <ng-container *ngSwitchCase="'error'">
+      <h2>{{ 'error_title' | translate }}</h2>
+      <button nx-rounded-button data-testId="try-again" color="accent" class="try-again" (click)="tryAgain()">
+        {{ 'error_tryagain' | translate }}
+      </button>
+    </ng-container>
+    <ng-container *ngSwitchCase="'connecting'">
+      <h2>{{ 'connecting' | translate }}<rw-dotty></rw-dotty></h2>
+    </ng-container>
+    <ng-container *ngSwitchDefault>
+      <h2>{{ 'offline' | translate }}<rw-dotty></rw-dotty></h2>
+      <button nx-rounded-button data-testId="get-connected" color="primary" class="qr" (click)="openConfigurator()">
+        {{ 'get_connected' | translate }}
+      </button>
+
+      <button nx-rounded-button data-testId="try-again" color="accent" class="try-again" (click)="tryAgain()">
+        {{ 'error_tryagain' | translate }}
+      </button>
+    </ng-container>
+  </ng-container>
+
+  <p>{{ 'error_message' | translate }}</p>
+</div>

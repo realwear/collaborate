@@ -1,0 +1,8 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/teams/v1.16/MicrosoftTeams.Localization.schema.json",
+  "name.full": "RealWear${APP_NAME_SUFFIX}",
+  "name.short": "RealWear${APP_NAME_SUFFIX}",
+  "description.short": "Microsoft Teams経由でRealWearヘッドセットにハンズフリー通話。",
+  "description.full": "Microsoft Teams のアドインアプリは、Microsoft Teams 内から RealWear ヘッドセットへの直接通話を可能にし、コミュニケーションを革命的に変えます。Azure Communication Services (ACS) を活用することで、このアプリは、チームメンバーが場所を問わずリアルタイムで接続し、コラボレーションし、情報を共有するためのスムーズで効率的な方法を提供します。フィールドでもオフィスでも、当社のソリューションは、クリアでハンズフリーのコミュニケーションを保証し、モビリティと実践的な作業を必要とする業界に最適です。Microsoft Teams と RealWear テクノロジーの強力な統合により、生産性の向上とワークフローの効率化を体験してください。\nこのアプリは、Microsoft Teams、Microsoft Outlook、および Microsoft365 をサポートしています。\nこのアプリケーションを最大限に活用するには、ユーザーは RealWear ヘッドセットを持っている必要があります。\n\n新規ユーザー: RealWear ヘッドセットで Collaborate アプリを開き、リモートエキスパートに 5 桁のクイック接続コードを読み上げます。リモートエキスパートは RealWear Teams アプリの該当するボックスに 5 桁のコードを入力し、「接続」をタップします。その後、デスクトップ/モバイルユーザーと RealWear ヘッドセット間で会議が作成され、ヘッドセットユーザーは通話を受け入れる必要があります。\nRealWear について詳しくは https://realwear.com をご覧ください\nRealWear ヘッドセットの購入についてお問い合わせは、sales@realwear.com にご連絡ください\nサポートに関する質問は、support@realwear.com までお問い合わせください\nCollaborate に関する詳細情報は、https://support.realwear.com/knowledge/collaborate-with-teams をご覧ください",
+  "staticTabs[0].name": "アウトバウンドサポート"
+}

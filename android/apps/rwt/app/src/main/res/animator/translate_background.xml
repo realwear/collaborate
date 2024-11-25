@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<set xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Animate the thermal background slowly left-->
+    <objectAnimator
+        android:duration="2000"
+        android:interpolator="@android:anim/linear_interpolator"
+        android:propertyName="translateX"
+        android:valueFrom="0"
+        android:valueTo="-100" />
+
+</set>

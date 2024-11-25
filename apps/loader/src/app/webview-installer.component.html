@@ -1,0 +1,32 @@
+<div class="outer">
+  <img src="assets/app_icon.png" />
+
+  <div class="progress">
+    <div class="inner" [ngStyle]="{ transform: 'scaleX(' + downloadProgress + ')' }"></div>
+  </div>
+
+  <ng-container [ngSwitch]="state$ | async">
+    <ng-container *ngSwitchDefault>
+      <h2>{{ 'update_webview' | translate }}</h2>
+      <h2>{{ 'update_size' | translate : { number: updateSize } }}</h2>
+      <button nx-rounded-button data-testId="update-now" color="primary" (click)="update()">
+        {{ 'update_now' | translate }}
+      </button>
+    </ng-container>
+    <ng-container *ngSwitchCase="'downloading'">
+      <h2>{{ 'downloading_update' | translate }}<rw-dotty></rw-dotty></h2>
+      <h2>{{ 'update_size' | translate : { number: updateSize } }}</h2>
+    </ng-container>
+    <ng-container *ngSwitchCase="'download_failed'">
+      <h2>{{ 'download_failed_title' | translate }}</h2>
+      <h2>{{ 'download_failed' | translate }}</h2>
+      <button nx-rounded-button data-testId="update-now" color="primary" (click)="update()">
+        {{ 'error_tryagain' | translate }}
+      </button>
+    </ng-container>
+    <ng-container *ngSwitchCase="'installing'">
+      <h2>{{ 'installing_update' | translate }}<rw-dotty></rw-dotty></h2>
+      <h2>{{ 'installing_instructions' | translate }}</h2>
+    </ng-container>
+  </ng-container>
+</div>

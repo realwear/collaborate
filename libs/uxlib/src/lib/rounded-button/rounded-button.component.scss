@@ -1,0 +1,41 @@
+@use '@angular/material' as mat;
+
+:host {
+  all: unset;
+
+  cursor: pointer;
+
+  background: rgb(221, 232, 252);
+  color: #3d4858;
+  font-weight: 600;
+
+  line-height: 1.1em;
+
+  display: inline-grid;
+  // Pill shape border
+  border-radius: 27px;
+
+  justify-content: center;
+
+  min-width: 100px;
+
+  padding: 0.8em 1em;
+
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+:host(.rounded-button-primary) {
+  background: #cb4584;
+  color: white;
+}
+
+:host(.rounded-button-accent) {
+  background: #384f80;
+  color: white;
+}
+
+:host(.rounded-button-warn) {
+  background: rgb(209, 60, 60);
+  color: white;
+}

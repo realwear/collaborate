@@ -1,0 +1,25 @@
+/* You can add global styles to this file, and also import other style files */
+
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+}
+
+.help-dialog {
+  .mat-mdc-dialog-surface {
+    background-color: var(--colorNeutralBackground2) !important; /* Same background color */
+  }
+  .mat-mdc-dialog-title {
+    font-weight: var(--fontWeightSemibold) !important;
+    text-align: center; /* Center the heading */
+    color: var(--colorNeutralForeground1) !important;
+  }
+  .mat-mdc-dialog-actions {
+    display: block !important;
+  }
+  .mat-mdc-dialog-content {
+    color: var(--colorNeutralForeground1) !important;
+  }
+}

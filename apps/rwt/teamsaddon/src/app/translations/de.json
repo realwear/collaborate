@@ -1,0 +1,21 @@
+{
+  "connect_header": "Mit RealWear Navigator verbinden",
+  "connect_subheader": "Weisen Sie Ihren Kontakt an, sein RealWear Navigator-Gerät einzuschalten.",
+  "connect_instructions": "Bitten Sie ihn, den 5-stelligen Code anzugeben, der auf seinem Bildschirm angezeigt wird.",
+  "connect_button": "Verbinden",
+  "connect_help_button": "Hilfe erhalten",
+  "connect_required_error": "Code ist erforderlich.",
+  "connect_help_step1_header": "1. RealWear-Headset einschalten",
+  "connect_help_step2_header": "2. Mit WiFi verbinden",
+  "connect_help_step3_header": "3. Support-Code eingeben",
+  "connect_login_button": "Autorisieren und Verbinden",
+  "connect_placeholder": "z.B. XXXXX",
+  "connect_meeting_subject": "RealWear Quick Connect",
+  "outside_teams_error": "Installieren Sie diese App aus dem Microsoft Teams-Marktplatz, um diese Funktion zu verwenden.",
+  "join_meeting_error": "Das Meeting konnte nicht erstellt werden. Bitte überprüfen Sie den Code und versuchen Sie es erneut.",
+  "power_on": "<p>Befolgen Sie diese Schritte, um Ihr RealWear-Headset einzuschalten:</p><br><ol><li><strong>Finden Sie den Ein-/Ausschalter:</strong> Suchen Sie den Ein-/Ausschalter an der Seite Ihres RealWear-Headsets. Er ist mit einem quadratischen Symbol gekennzeichnet.</li><li><strong>Drücken und halten Sie den Ein-/Ausschalter:</strong> Drücken Sie den Knopf fest und halten Sie ihn <strong>2-3 Sekunden</strong> lang gedrückt.</li><li><strong>Warten Sie auf den Startvorgang:</strong> Der Bildschirm zeigt das RealWear-Logo, gefolgt von Ihrem Startbildschirm.</li></ol>",
+  "connect_to_wifi": "<p>Wenn Ihr RealWear-Headset nicht mit einem WLAN-Netzwerk verbunden ist, befolgen Sie diese Schritte:</p><br><ol><li><strong>Überprüfen Sie die Bildschirmanweisungen:</strong> Verwenden Sie Sprachbefehle, um ein nahegelegenes WLAN-Netzwerk auszuwählen und sich zu verbinden.</li><li><strong>Verwenden Sie die RealWear One App:</strong> Die App generiert einen WLAN-QR-Code für eine einfache Verbindung.</li><li><strong>Scannen Sie den QR-Code:</strong> Halten Sie den QR-Code vor die Kamera des Headsets, um eine Verbindung herzustellen.</li></ol>",
+  "enter_support_code": "<p>Bitten Sie Ihren Kontakt, die Collaborate-Anwendung auf seinem RealWear-Gerät zu starten und Ihnen einen 5-stelligen Code zu geben.</p><br>",
+  "learn_more": "Erfahren Sie mehr über RealWear und Microsoft Teams",
+  "close": "Schließen"
+}

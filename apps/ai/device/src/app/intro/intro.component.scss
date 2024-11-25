@@ -1,0 +1,168 @@
+@use '@angular/material' as mat;
+@use 'sass:color';
+
+/* SCSS mixin for a capability color, take a name and the base color */
+@mixin capability-color($name, $base) {
+  .capability.#{$name} {
+    background-color: $base;
+
+    &::before {
+      background-color: color.scale($base, $lightness: 5%);
+    }
+  }
+}
+
+:host {
+  display: grid;
+
+  grid-template:
+    'auth           auth            logo' min-content
+    'subheader      subheader       logo' min-content
+    'capabilities   capabilities    capabilities' 220px
+    'more           more            more' min-content
+    / 1fr 1fr min-content;
+
+  padding: 47px 54px;
+
+  row-gap: 32px;
+}
+
+.auth {
+  display: flex;
+  align-items: center;
+  gap: 0.8em;
+
+  grid-area: auth;
+
+  color: black;
+
+  button {
+    font-size: 0.8em;
+  }
+
+  .profile {
+    // SCSS to style the profile picture in a circle
+    border-radius: 50%;
+    width: 2em;
+    height: 2em;
+    border: 1px solid grey;
+  }
+}
+
+h1 {
+  grid-area: header;
+  align-self: end;
+}
+
+.subtitle {
+  grid-area: subheader;
+  font-size: 18px;
+  margin: 0;
+
+  strong {
+    letter-spacing: 1px;
+  }
+}
+
+.more {
+  margin-top: -16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  grid-area: more;
+  font-size: 0.8em;
+
+  span strong {
+    letter-spacing: 1px;
+    opacity: 0.8;
+  }
+}
+
+.logo {
+  grid-area: logo;
+  position: relative;
+  display: block;
+  align-self: flex-start;
+
+  &::after {
+    position: absolute;
+    right: -32px;
+    bottom: 0;
+    display: block;
+    z-index: 100;
+    opacity: 0.5;
+    font-family: monospace;
+    font-weight: bold;
+    content: '.ai';
+    font-size: 18px;
+  }
+}
+
+.capabilities {
+  grid-area: capabilities;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 16px;
+
+  &.single {
+    grid-template-columns: 1fr;
+  }
+}
+
+.capability {
+  display: grid;
+
+  @include mat.elevation(4);
+
+  $inner-radius: 12px;
+  $inner-padding: 5px;
+
+  border-radius: calc($inner-radius + $inner-padding);
+  border: 1px solid white;
+  background-color: grey;
+  position: relative;
+
+  & > * {
+    z-index: 1;
+    position: relative;
+    display: block;
+  }
+
+  .icon {
+    position: absolute;
+    bottom: 24px;
+    right: 24px;
+    width: 86px;
+    opacity: 0.5;
+    aspect-ratio: 1 / 1;
+    color: white;
+  }
+
+  h2 {
+    font-size: 38px;
+    color: white;
+    margin-top: calc(1em / 2);
+    margin-left: calc(1em / 2);
+    line-height: calc(1em * 1.2);
+    max-width: 100px;
+    text-align: left;
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: $inner-padding;
+    background-color: color.scale(grey, $lightness: 5%);
+    border-radius: $inner-radius;
+
+    border: 1px solid #ffffff19;
+
+    z-index: 0 !important;
+  }
+}
+
+@include capability-color('red', #c35055);
+@include capability-color('orange', #e4713a);
+@include capability-color('green', #0d731d);
+@include capability-color('purple', #61026a);

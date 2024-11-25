@@ -1,0 +1,24 @@
+:host {
+  display: grid;
+  height: 100%;
+}
+
+router-outlet {
+  display: none;
+}
+
+/* This is a hack */
+::ng-deep * > .rw-panel {
+  margin-top: 5vh;
+  margin-left: 2vw;
+  margin-right: 2vw;
+}
+
+.build {
+  position: fixed;
+  left: 3px;
+  bottom: 0;
+  font-family: monospace;
+  font-size: 0.8em;
+  color: rgb(73, 73, 73);
+}

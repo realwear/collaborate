@@ -1,0 +1,25 @@
+FROM cypress/base
+
+WORKDIR /app
+
+# Download Chrome 95
+RUN wget -O chrome-95.zip "https://www.googleapis.com/download/storage/v1/b/chromium-browser-snapshots/o/Linux_x64%2F916288%2Fchrome-linux.zip?generation=1630278892803209&alt=media" && unzip chrome-95.zip && rm chrome-95.zip
+
+COPY [ "tsconfig.base.json", "package.json", "yarn.lock", "." ]
+
+# Install the dependencies required for cypress
+RUN --mount=type=cache,target=/usr/local/share/.cache/yarn/v6 yarn --frozen-lockfile
+
+# Make sure the new chrome binary is in the PATH
+ENV PATH="/app/chrome-linux:${PATH}"
+
+# Copy the cypress tests and the translation files that are required for the tests
+COPY apps/rwt/device-e2e ./apps/rwt/device-e2e
+COPY apps/rwt/device/src/app/translations ./apps/rwt/device/src/app/translations
+
+WORKDIR /app/apps/rwt/device-e2e
+
+ENV CYPRESS_BASE_URL=http://localhost:4300
+
+# Run the cypress tests (current dir using chrome-95)
+CMD ["sh", "-c", "npx cypress run -P . --browser /app/chrome-linux/chrome -c baseUrl=$CYPRESS_BASE_URL,video=true --reporter junit --reporter-options mochaFile=/app/testresults/junit-[hash].xml"]

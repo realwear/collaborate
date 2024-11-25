@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "rwt.fullname" . }}-test-gzip"
+  labels:
+    {{- include "rwt.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": test
+spec:
+  containers:
+  - name: curl
+    image: alpine:3.14
+    imagePullPolicy: IfNotPresent
+    command: ["/bin/sh"]
+    args: ["-c", "
+      apk add --no-cache bash curl gzip grep file && \
+      cp /scripts/test-gzip.sh /tmp/test-gzip.sh && \
+      export HOST={{ include "rwt.fullname" . }} && \
+      export PORT={{ .Values.service.port }} && \
+      chmod +x /tmp/test-gzip.sh && \
+      /tmp/test-gzip.sh"]
+    volumeMounts:
+    - name: script
+      mountPath: /scripts
+  restartPolicy: Never
+  volumes:
+  - name: script
+    configMap:
+      name: {{ include "rwt.fullname" . }}-test-script
+      items:
+      - key: test-gzip.sh
+        path: test-gzip.sh

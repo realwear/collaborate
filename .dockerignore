@@ -1,0 +1,14 @@
+node_modules/
+.angular/
+.devcontainer/
+.nx/cache
+dist/
+
+./android/**/.idea/
+./android/**/.gradle/
+./android/**/.cxx/
+./android/**/build/
+
+Dockerfile
+
+.localConfigs

@@ -1,0 +1,6 @@
+<span class="time">{{ (timeToMeeting$ | async | relativeDate) || '&nbsp;' }}</span>
+<span class="title">{{ title || '&nbsp;' }}</span>
+<span class="organizer">{{ organizer || '&nbsp;' }}</span>
+<fluent-button-wrapper [nowrap]="true" appearance="primary" size="large" class="join" (click)="joinMeeting.emit()">{{ 'meetings_join_number' | translate: { number: (meetingIndex !== -1 ? meetingIndex : '') } }}</fluent-button-wrapper>
+
+<div class="no-meetings">No Upcoming Meeting</div>

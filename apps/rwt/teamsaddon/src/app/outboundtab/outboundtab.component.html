@@ -1,0 +1,67 @@
+<div class="bar">RealWear Collaborate</div>
+
+<h1>{{ 'connect_header' | translate }}</h1>
+
+<strong>{{ 'connect_subheader' | translate }}</strong>
+
+<p>{{ 'connect_instructions' | translate }}</p>
+
+<div [ngSwitch]="authState$ | async">
+  <fluent-spinner *ngSwitchCase="'loading'"></fluent-spinner>
+
+  <div class="inputcode" *ngSwitchCase="'authenticated'">
+    <fluent-text-input
+      [attr.disabled]="roomCodeControl.disabled"
+      [placeholder]="'connect_placeholder' | translate"
+      maxLength="5"
+      control-size="large"
+      #roomCode
+    ></fluent-text-input>
+    <fluent-button
+      appearance="primary"
+      size="large"
+      [attr.disabled]="roomCodeControl.invalid || roomCodeControl.disabled || undefined"
+      (click)="joinMeeting()"
+      >{{ 'connect_button' | translate }}</fluent-button
+    >
+  </div>
+
+  <fluent-button appearance="primary" size="large" *ngSwitchCase="'unauthenticated'" (click)="consent()">{{
+    'connect_login_button' | translate
+  }}</fluent-button>
+
+  <p *ngSwitchCase="'outside'" class="outside_teams_error">{{ 'outside_teams_error' | translate }}</p>
+
+  <p *ngIf="roomCodeControl.hasError('invalid')" class="outside_teams_error">{{ 'join_meeting_error' | translate }}</p>
+</div>
+
+<p class="error" [class.visible]="roomCodeControl.touched && roomCodeControl.hasError('required')">{{ 'connect_required_error' | translate }}</p>
+
+<hr />
+
+<div class="steps">
+  <div class="step step1">
+    <h2>{{ 'connect_help_step1_header' | translate }}</h2>
+
+    <div class="icon icon-power-on"></div>
+
+    <fluent-button appearance="primary" (click)="openDialog('power')">{{ 'connect_help_button' | translate }}</fluent-button>
+  </div>
+
+  <div class="step step1">
+    <h2>{{ 'connect_help_step2_header' | translate }}</h2>
+    <div class="icon icon-wifi"></div>
+    <fluent-button appearance="primary" (click)="openDialog('wifi')">{{ 'connect_help_button' | translate }}</fluent-button>
+  </div>
+
+  <div class="step step1">
+    <h2>{{ 'connect_help_step3_header' | translate }}</h2>
+    <div class="icon icon-text-cursor"></div>
+    <fluent-button appearance="primary" (click)="openDialog('code')">{{ 'connect_help_button' | translate }}</fluent-button>
+  </div>
+</div>
+
+<div>
+  <br>
+  <p><a href="https://support.realwear.com/knowledge/collaborate-with-teams" style="color: #6468bf" target="_blank">{{ 'learn_more' | translate }}</a></p>
+</div>

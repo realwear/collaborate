@@ -1,0 +1,27 @@
+<div class="cards">
+  <div class="rw-card brand-top left">
+    <svg class="microsoft-logo">
+      <use xlink:href="/assets/microsoft.svg#microsoft"></use>
+    </svg>
+
+    <p class="explanation">{{ 'login_explanation' | translate }}</p>
+
+    <fluent-button-wrapper
+      data-testId="sign-in"
+      data-dd-action-name="sign_in"
+      appearance="primary"
+      [extraCommands]="'login_button' | translate"
+      size="large"
+      (click)="signin()"
+      >{{ 'login_button' | translate }}</fluent-button-wrapper
+    >
+  </div>
+
+  <div class="rw-card brand-top right">
+    <h1>{{ 'connect_to_me' | translate }}</h1>
+
+    <nx-connect-code></nx-connect-code>
+  </div>
+</div>
+
+<nx-connectivity-lost-host></nx-connectivity-lost-host>

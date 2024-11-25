@@ -1,0 +1,60 @@
+<resources>
+  <string name="app_name">Collaborate</string>
+
+  <string name="permissions_required_meeting">Permissions are required to join meetings</string>
+  <string name="permissions_required_meeting_explanation">This app requires access to bluetooth as well as your microphone and camera to join meetings.</string>
+  <string name="permissions_required_meeting_instructions_denied">To proceed, please allow the necessary permissions.</string>
+  <string name="permissions_required_meeting_instructions_denied_permanent">To proceed, please enable the necessary permissions in your device settings.</string>
+  <string name="open_settings">GRANT PERMISSIONS</string>
+  <string name="request_permissions">REQUEST PERMISSIONS</string>
+
+  <string name="meeting_name_default">Meeting</string>
+
+  <string name="meeting_loading_title">%1$s - Connecting...</string>
+  <string name="meeting_loading_explanation">Establishing Connection...</string>
+  <string name="meeting_loading_instructions">Please wait</string>
+
+  <string name="lobby_title">%1$s - In Lobby</string>
+  <string name="lobby_explanation">You\'re the only one here</string>
+  <string name="lobby_instructions">Waiting for more attendees</string>
+
+  <string name="teams_lobby_explanation">Waiting to join</string>
+  <string name="teams_lobby_instructions">When the meeting starts, we\'ll let people know you\'re waiting</string>
+
+  <string name="network_error_title">%1$s - Failed To Connect</string>
+  <string name="network_error_explanation">There was a network error when connecting to the meeting.</string>
+  <string name="network_error_instructions">Please check your internet connection and try again.</string>
+
+  <string name="leave_meeting_title">Leave Meeting</string>
+  <string name="leave_meeting_explanation">Are you sure you want to leave the meeting?</string>
+  <string name="cancel">Cancel</string>
+
+  <string name="meeting_ended">Meeting Ended</string>
+
+  <string name="leave_meeting">LEAVE MEETING</string>
+  <string name="thermal_camera">THERMAL CAMERA</string>
+  <string name="classic_camera">MAIN CAMERA</string>
+  <string name="mute_mic">MUTE MIC</string>
+  <string name="unmute_mic">UNMUTE MIC</string>
+  <string name="hide_camera">HIDE CAMERA</string>
+  <string name="show_camera">SHOW CAMERA</string>
+  <string name="freeze_frame">FREEZE FRAME</string>
+  <string name="unfreeze">UNFREEZE</string>
+
+  <string name="zoom_in">ZOOM IN</string>
+  <string name="zoom_out">ZOOM OUT</string>
+  <string name="zoom_level">Zoom Level %d</string>
+  <string name="zoom_max">Maximum zoom level reached</string>
+  <string name="zoom_min">Minimum zoom level reached</string>
+
+  <string name="flash_on">Flash On</string>
+  <string name="flash_off">Flash Off</string>
+  <string name="flash_light_on">Flash Light On</string>
+  <string name="flash_light_off">Flash Light Off</string>
+  <string name="torch_on">Torch On</string>
+  <string name="torch_off">Torch Off</string>
+
+  <string name="muted_by_others">You have been muted my another participant</string>
+
+  <string name="camera_hidden">The camera is currently hidden.</string>
+</resources>

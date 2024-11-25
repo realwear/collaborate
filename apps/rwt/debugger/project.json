@@ -1,0 +1,76 @@
+{
+  "name": "rwtdebugger",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "prefix": "app",
+  "sourceRoot": "apps/rwt/debugger/src",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:browser",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/rwt/debugger",
+        "index": "apps/rwt/debugger/src/index.html",
+        "main": "apps/rwt/debugger/src/main.ts",
+        "polyfills": ["zone.js"],
+        "tsConfig": "apps/rwt/debugger/tsconfig.app.json",
+        "inlineStyleLanguage": "scss",
+        "assets": ["apps/rwt/debugger/src/favicon.ico", "apps/rwt/debugger/src/assets"],
+        "styles": ["apps/rwt/debugger/src/styles.scss"],
+        "scripts": []
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
+          "outputHashing": "all"
+        },
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "options": {
+        "host": "0.0.0.0",
+        "proxyConfig": "apps/rwt/debugger/proxy.conf.json"
+      },
+      "configurations": {
+        "production": {
+          "buildTarget": "rwtdebugger:build:production"
+        },
+        "development": {
+          "buildTarget": "rwtdebugger:build:development"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "buildTarget": "rwtdebugger:build"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    }
+  }
+}

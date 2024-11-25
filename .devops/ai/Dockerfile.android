@@ -1,0 +1,43 @@
+FROM node:20 AS builder
+SHELL ["/bin/bash", "-c"]
+
+WORKDIR /app
+
+RUN npm install -g nx
+
+COPY [ "package.json", "yarn.lock", "./" ]
+
+RUN --mount=type=cache,target=/usr/local/share/.cache/yarn/v6 yarn --frozen-lockfile
+
+COPY . .
+
+RUN yarn rwt:deploy_loader
+
+# Use the official Android SDK image
+FROM mobiledevops/android-sdk-image:latest
+
+# Copy the project files into the container
+COPY ./android/apps/ai /workspace
+
+COPY --from=builder /app/dist/apps/loader/browser/ /workspace/app/src/main/assets/
+
+# Set the working directory
+WORKDIR /workspace
+
+# Install the required dependencies
+RUN --mount=type=cache,target=/root/.gradle/caches ./gradlew
+
+# Write a build script to run the build, make sure to escale the $SITE_URL variable
+RUN echo "#!/bin/bash" > build.sh
+
+# Exit if the unit tests fail
+RUN echo "set -e" >> build.sh
+RUN echo "echo \"Building APK's with SITE_URL set to \$SITE_URL\"" >> build.sh
+RUN echo "./gradlew \\" >> build.sh && \
+    echo "  assembleDebug -PSITE_URL=\$SITE_URL \\" >> build.sh && \
+    echo "  assembleRelease -PSITE_URL=\$SITE_URL" >> build.sh
+
+ENV SITE_URL="http://localhost:4300"
+
+# Build the debug APK
+CMD ["bash", "build.sh"]

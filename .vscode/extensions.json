@@ -1,0 +1,12 @@
+{
+  "recommendations": [
+    "nrwl.angular-console",
+    "esbenp.prettier-vscode",
+    "firsttris.vscode-jest-runner",
+    "dbaeumer.vscode-eslint",
+    "Angular.ng-template",
+    "ryanluker.vscode-coverage-gutters",
+    "teamsdevapp.ms-teams-vscode-extension",
+    "ms-kubernetes-tools.vscode-kubernetes-tools"
+  ]
+}

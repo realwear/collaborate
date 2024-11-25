@@ -1,0 +1,91 @@
+{
+  "name": "rwtteamsaddon",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "prefix": "app",
+  "sourceRoot": "apps/rwt/teamsaddon/src",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:application",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/rwtteamsaddon",
+        "index": "apps/rwt/teamsaddon/src/index.html",
+        "baseHref": "/teamsaddon/",
+        "browser": "apps/rwt/teamsaddon/src/main.ts",
+        "polyfills": ["zone.js"],
+        "tsConfig": "apps/rwt/teamsaddon/tsconfig.app.json",
+        "inlineStyleLanguage": "scss",
+        "assets": ["apps/rwt/teamsaddon/src/favicon.ico", "apps/rwt/teamsaddon/src/assets"],
+        "styles": ["apps/rwt/teamsaddon/src/styles.scss","@angular/material/prebuilt-themes/indigo-pink.css" ],
+        "scripts": []
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "8kb",
+              "maximumError": "10kb"
+            }
+          ],
+          "outputHashing": "all"
+        },
+        "development": {
+          "optimization": false,
+          "extractLicenses": false,
+          "sourceMap": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "options": {
+        "port": 4200,
+        "servePath": "/teamsaddon/",
+        "proxyConfig": "apps/rwt/teamsaddon/proxy.conf.json"
+      },
+      "configurations": {
+        "production": {
+          "buildTarget": "rwtteamsaddon:build:production"
+        },
+        "development": {
+          "buildTarget": "rwtteamsaddon:build:development"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "buildTarget": "rwtteamsaddon:build"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/rwt/teamsaddon/jest.config.ts"
+      }
+    },
+    "serve-static": {
+      "executor": "@nx/web:file-server",
+      "options": {
+        "buildTarget": "rwtteamsaddon:build",
+        "port": 4500,
+        "staticFilePath": "dist/apps/rwtteamsaddon/browser",
+        "spa": true
+      }
+    }
+  }
+}

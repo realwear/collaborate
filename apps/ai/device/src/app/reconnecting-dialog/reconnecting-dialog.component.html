@@ -1,0 +1,15 @@
+<h2 mat-dialog-title>Session Timed Out</h2>
+
+<mat-dialog-content>
+  <p>Your session has timed out. Would you like to re-establish your connection?</p>
+
+  <ng-container *ngIf="!!!(isCurrentlyRefreshing$ | async); else refreshing">
+    <button nx-rounded-button color="accent" [disabled]="isCurrentlyRefreshing$ | async" (click)="refreshNow()">Try Again</button>
+
+    <button nx-rounded-button color="warn" (click)="signout()">Sign Out</button>
+  </ng-container>
+</mat-dialog-content>
+
+<ng-template #refreshing>
+  <mat-spinner diameter="25"></mat-spinner>
+</ng-template>

@@ -1,0 +1,14 @@
+:host {
+  display: grid;
+  justify-items: center;
+
+  gap: 3em;
+
+  margin: auto 0;
+}
+
+img {
+  object-fit: cover;
+  max-height: 300px;
+  max-width: 300px;
+}

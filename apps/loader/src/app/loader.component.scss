@@ -1,0 +1,98 @@
+.outer {
+  display: flex;
+  margin: auto;
+
+  height: 100vh;
+
+  flex-direction: column;
+
+  justify-content: center;
+  align-items: center;
+
+  position: relative;
+
+  gap: 20px;
+
+  .try-again {
+    position: fixed;
+    left: auto;
+    right: auto;
+
+    bottom: 50px;
+  }
+
+  p {
+    visibility: hidden;
+  }
+}
+
+img {
+  $img-size: 80px;
+
+  width: $img-size;
+  aspect-ratio: 1;
+  z-index: 1000;
+}
+
+h2 {
+  margin: 0;
+  padding: 0;
+  line-height: 1em;
+}
+
+.progress {
+  position: relative;
+  height: 16px;
+  width: 90vw;
+
+  // border: 1px solid #b0b0b0;
+  border-radius: 10px;
+  overflow: hidden;
+
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+  background-color: #e0e0e0;
+
+  .inner {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+
+    transform: scaleX(100%);
+    transform-origin: left;
+
+    background: linear-gradient(to right, #1e90ff, #800080); /* Blue and purple matching the icon */
+
+    border-radius: 10px;
+
+    animation: progress var(--max-wait) ease-out;
+    transition: transform 0.5s ease-out; /* Smooth transition */
+  }
+}
+
+.outer.error {
+  .progress {
+    .inner {
+      background: linear-gradient(to right, #ff0000, #ff8c00); /* Red and orange for error */
+
+      animation: unset;
+    }
+  }
+
+  p {
+    visibility: visible;
+  }
+}
+
+/** Animation to grow the scalex from 0% to 100%. It should really slow down towards the end with the last 20% taking longer than the first 80% **/
+@keyframes progress {
+  0% {
+    transform: scaleX(0);
+  }
+  40% {
+    transform: scaleX(0.9);
+  }
+  100% {
+    transform: scaleX(1);
+  }
+}

@@ -1,0 +1,60 @@
+<resources>
+  <string name="app_name">コラボレート</string>
+
+  <string name="permissions_required_meeting">会議に参加するには権限が必要です</string>
+  <string name="permissions_required_meeting_explanation">このアプリは、会議に参加するためにBluetoothおよびマイクとカメラへのアクセスが必要です。</string>
+  <string name="permissions_required_meeting_instructions_denied">続行するには、必要な権限を許可してください。</string>
+  <string name="permissions_required_meeting_instructions_denied_permanent">続行するには、デバイス設定で必要な権限を有効にしてください。</string>
+  <string name="open_settings">権限を許可する</string>
+  <string name="request_permissions">権限をリクエスト</string>
+
+  <string name="meeting_name_default">会議</string>
+
+  <string name="meeting_loading_title">%1$s - 接続中...</string>
+  <string name="meeting_loading_explanation">接続を確立中...</string>
+  <string name="meeting_loading_instructions">お待ちください</string>
+
+  <string name="lobby_title">%1$s - ロビーにいます</string>
+  <string name="lobby_explanation">あなたは唯一の参加者です</string>
+  <string name="lobby_instructions">他の参加者を待っています</string>
+
+  <string name="teams_lobby_explanation">参加を待っています</string>
+  <string name="teams_lobby_instructions">会議が始まると、あなたが待っていることをみんなに知らせます</string>
+
+  <string name="network_error_title">%1$s - 接続に失敗しました</string>
+  <string name="network_error_explanation">会議に接続する際にネットワークエラーが発生しました。</string>
+  <string name="network_error_instructions">インターネット接続を確認して、再試行してください。</string>
+
+  <string name="leave_meeting_title">会議を退出する</string>
+  <string name="leave_meeting_explanation">会議から退出してもよろしいですか？</string>
+  <string name="cancel">キャンセル</string>
+
+  <string name="meeting_ended">会議が終了しました</string>
+
+  <string name="leave_meeting">会議を退出する</string>
+  <string name="thermal_camera">サーマルカメラ</string>
+  <string name="classic_camera">メインカメラ</string>
+  <string name="mute_mic">マイクをミュート</string>
+  <string name="unmute_mic">マイクのミュートを解除</string>
+  <string name="hide_camera">カメラを非表示</string>
+  <string name="show_camera">カメラを表示</string>
+  <string name="freeze_frame">フリーズ フレーム</string>
+  <string name="unfreeze">フリーズ解除</string>
+
+  <string name="zoom_in">ズームイン</string>
+  <string name="zoom_out">ズームアウト</string>
+  <string name="zoom_level">ズームレベル %d</string>
+  <string name="zoom_max">最大ズームレベルに達しました</string>
+  <string name="zoom_min">最小ズームレベルに達しました</string>
+
+  <string name="flash_on">フラッシュを有効にする</string>
+  <string name="flash_off">フラッシュを無効にする</string>
+  <string name="flash_light_on">フラッシュライトオン</string>
+  <string name="flash_light_off">フラッシュライトオフ</string>
+  <string name="torch_on">懐中電灯オン</string>
+  <string name="torch_off">懐中電灯オフ</string>
+
+  <string name="muted_by_others">他の参加者によってミュートされました</string>
+
+  <string name="camera_hidden">カメラは現在非表示です。</string>
+</resources>

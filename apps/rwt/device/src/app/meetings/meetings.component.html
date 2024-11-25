@@ -1,0 +1,34 @@
+<div class="profile">
+  <img *ngIf="userProfileImage$ | async as profileImage" [src]="profileImage" class="avatar" />
+
+  <h2 class="welcome">{{ 'meetings_welcome' | translate : { name: userName$ | async } }}</h2>
+
+  <fluent-button-wrapper data-testId="sign-out" class="sign-out" size="small" data-dd-action-name="sign_out" (click)="signout()">{{ 'sign_out' | translate }}</fluent-button-wrapper>
+</div>
+
+<div class="meetings" *ngIf="hasLoaded$ | async; else noMeetings">
+  <nx-upcoming-meeting
+    *ngFor="let meeting of meetings$ | async; let index = index"
+    [title]="meeting.subject"
+    [startTime]="meeting.startTime"
+    [organizer]="meeting.organizer"
+    [meetingIndex]="index + 1"
+    (joinMeeting)="joinMeeting(meeting)"
+  ></nx-upcoming-meeting>
+
+  <div *ngIf="noMeetings$ | async" class="rw-card no-meetings brand-left">
+    <p>{{ 'meetings_empty_list' | translate }}</p>
+  </div>
+</div>
+
+<div class="connect rw-card brand-left">
+  <span>{{ 'connect_to_me' | translate }}</span>
+
+  <nx-connect-code></nx-connect-code>
+</div>
+
+<ng-template #noMeetings>
+  <nx-meetings-empty></nx-meetings-empty>
+</ng-template>
+
+<nx-connectivity-lost-host></nx-connectivity-lost-host>

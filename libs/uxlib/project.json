@@ -1,0 +1,72 @@
+{
+  "name": "uxlib",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/uxlib/src",
+  "prefix": "nx",
+  "tags": [],
+  "projectType": "library",
+  "targets": {
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "libs/uxlib/jest.config.ts"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"]
+    },
+    "storybook": {
+      "executor": "@storybook/angular:start-storybook",
+      "options": {
+        "port": 4400,
+        "configDir": "libs/uxlib/.storybook",
+        "browserTarget": "uxlib:build-storybook",
+        "compodoc": false,
+        "styles": [
+          "@angular/material/prebuilt-themes/indigo-pink.css",
+          "./apps/ng/src/styles.scss"
+        ]
+      },
+      "configurations": {
+        "ci": {
+          "quiet": true
+        }
+      }
+    },
+    "build-storybook": {
+      "executor": "@storybook/angular:build-storybook",
+      "outputs": ["{options.outputDir}"],
+      "options": {
+        "outputDir": "dist/storybook/uxlib",
+        "configDir": "libs/uxlib/.storybook",
+        "browserTarget": "uxlib:build-storybook",
+        "compodoc": false
+      },
+      "configurations": {
+        "ci": {
+          "quiet": true
+        }
+      }
+    },
+    "test-storybook": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "test-storybook -c libs/uxlib/.storybook --url=http://localhost:4400"
+      }
+    },
+    "static-storybook": {
+      "executor": "@nx/web:file-server",
+      "options": {
+        "buildTarget": "uxlib:build-storybook",
+        "staticFilePath": "dist/storybook/uxlib"
+      },
+      "configurations": {
+        "ci": {
+          "buildTarget": "uxlib:build-storybook:ci"
+        }
+      }
+    }
+  }
+}

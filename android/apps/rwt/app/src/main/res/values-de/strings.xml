@@ -1,0 +1,60 @@
+<resources>
+  <string name="app_name">Zusammenarbeiten</string>
+
+  <string name="permissions_required_meeting">Berechtigungen sind erforderlich, um an Besprechungen teilzunehmen</string>
+  <string name="permissions_required_meeting_explanation">Diese App benötigt Zugriff auf Bluetooth sowie Ihr Mikrofon und Ihre Kamera, um an Besprechungen teilzunehmen.</string>
+  <string name="permissions_required_meeting_instructions_denied">Um fortzufahren, erteilen Sie bitte die erforderlichen Berechtigungen.</string>
+  <string name="permissions_required_meeting_instructions_denied_permanent">Um fortzufahren, aktivieren Sie bitte die erforderlichen Berechtigungen in den Geräteeinstellungen.</string>
+  <string name="open_settings">BERECHTIGUNGEN ERTEILEN</string>
+  <string name="request_permissions">BERECHTIGUNGEN ANFORDERN</string>
+
+  <string name="meeting_name_default">Besprechung</string>
+
+  <string name="meeting_loading_title">%1$s - Verbinden...</string>
+  <string name="meeting_loading_explanation">Verbindung wird hergestellt...</string>
+  <string name="meeting_loading_instructions">Bitte warten</string>
+
+  <string name="lobby_title">%1$s - In der Lobby</string>
+  <string name="lobby_explanation">Sie sind der Einzige hier</string>
+  <string name="lobby_instructions">Warten auf weitere Teilnehmer</string>
+
+  <string name="teams_lobby_explanation">Warten auf Beitritt</string>
+  <string name="teams_lobby_instructions">Wenn die Besprechung beginnt, lassen wir die Leute wissen, dass Sie warten</string>
+
+  <string name="network_error_title">%1$s - Verbindung fehlgeschlagen</string>
+  <string name="network_error_explanation">Beim Herstellen der Verbindung zur Besprechung ist ein Netzwerkfehler aufgetreten.</string>
+  <string name="network_error_instructions">Bitte überprüfen Sie Ihre Internetverbindung und versuchen Sie es erneut.</string>
+
+  <string name="leave_meeting_title">Besprechung Verlassen</string>
+  <string name="leave_meeting_explanation">Möchten Sie die Besprechung wirklich verlassen?</string>
+  <string name="cancel">Abbrechen</string>
+
+  <string name="meeting_ended">Besprechung beendet</string>
+
+  <string name="leave_meeting">BESPRECHUNG VERLASSEN</string>
+  <string name="thermal_camera">THERMAL-KAMERA</string>
+  <string name="classic_camera">HAUPTKAMERA</string>
+  <string name="mute_mic">MIKRO STUMMSCHALTEN</string>
+  <string name="unmute_mic">MIKRO AKTIVIEREN</string>
+  <string name="hide_camera">KAMERA VERBERGEN</string>
+  <string name="show_camera">KAMERA ANZEIGEN</string>
+  <string name="freeze_frame">BILD EINFREIEREN</string>
+  <string name="unfreeze">ENTFROSTEN</string>
+
+  <string name="zoom_in">HERANZOOMEN</string>
+  <string name="zoom_out">HERAUSZOOMEN</string>
+  <string name="zoom_level">Vergrößern %d</string>
+  <string name="zoom_max">Maximale Zoomstufe erreicht</string>
+  <string name="zoom_min">Minimale Zoomstufe erreicht</string>
+
+  <string name="flash_on">Blitz ein</string>
+  <string name="flash_off">Blitz aus</string>
+  <string name="flash_light_on">Blitzlicht an</string>
+  <string name="flash_light_off">Blitzlicht aus</string>
+  <string name="torch_on">Taschenlampe an</string>
+  <string name="torch_off">Taschenlampe aus</string>
+
+  <string name="muted_by_others">Sie wurden von einem anderen Teilnehmer stummgeschaltet</string>
+
+  <string name="camera_hidden">Die Kamera ist derzeit verborgen.</string>
+</resources>

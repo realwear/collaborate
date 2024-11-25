@@ -1,0 +1,53 @@
+.outer {
+  display: flex;
+  margin: auto;
+  height: 100vh;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+img,
+h2,
+.progress {
+  margin-bottom: 20px;
+}
+
+img:last-child,
+h2:last-child,
+.progress:last-child {
+  margin-bottom: 0;
+}
+
+img {
+  width: 80px;
+  height: 80px;
+  z-index: 1000;
+}
+
+h2 {
+  padding: 0 30px;
+  text-align: center;
+}
+
+.progress {
+  position: relative;
+  height: 16px;
+  width: 90vw;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: #e0e0e0;
+}
+
+.progress .inner {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  transform: scaleX(0);
+  transform-origin: left;
+  background: linear-gradient(to right, #1e90ff, #800080);
+  border-radius: 10px;
+  transition: transform 0.5s ease-out;
+}

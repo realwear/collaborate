@@ -1,0 +1,23 @@
+:host {
+  font-size: 2em;
+  letter-spacing: 3px;
+  color: var(--colorBrandForeground1);
+  min-width: 70px;
+}
+
+:host(.refreshing) {
+  animation: flash 1.5s infinite;
+}
+
+// Animation to flash
+@keyframes flash {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}

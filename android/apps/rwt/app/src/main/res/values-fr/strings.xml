@@ -1,0 +1,60 @@
+<resources>
+  <string name="app_name">Collaborer</string>
+
+  <string name="permissions_required_meeting">Les autorisations sont requises pour rejoindre les réunions</string>
+  <string name="permissions_required_meeting_explanation">Cette application nécessite l\'accès au Bluetooth ainsi qu\'à votre microphone et caméra pour rejoindre les réunions.</string>
+  <string name="permissions_required_meeting_instructions_denied">Pour continuer, veuillez autoriser les permissions nécessaires.</string>
+  <string name="permissions_required_meeting_instructions_denied_permanent">Pour continuer, veuillez activer les permissions nécessaires dans les paramètres de votre appareil.</string>
+  <string name="open_settings">ACCORDER LES AUTORISATIONS</string>
+  <string name="request_permissions">DEMANDER LES AUTORISATIONS</string>
+
+  <string name="meeting_name_default">Réunion</string>
+
+  <string name="meeting_loading_title">%1$s - Connexion...</string>
+  <string name="meeting_loading_explanation">Établissement de la connexion...</string>
+  <string name="meeting_loading_instructions">Veuillez patienter</string>
+
+  <string name="lobby_title">%1$s - Dans le hall</string>
+  <string name="lobby_explanation">Vous êtes le seul ici</string>
+  <string name="lobby_instructions">En attente d\'autres participants</string>
+
+  <string name="teams_lobby_explanation">En attente de rejoindre</string>
+  <string name="teams_lobby_instructions">Lorsque la réunion commencera, nous informerons les gens que vous attendez</string>
+
+  <string name="network_error_title">%1$s - Échec de la connexion</string>
+  <string name="network_error_explanation">Une erreur réseau s\'est produite lors de la connexion à la réunion.</string>
+  <string name="network_error_instructions">Veuillez vérifier votre connexion Internet et réessayer.</string>
+
+  <string name="leave_meeting_title">Quitter La Réunion</string>
+  <string name="leave_meeting_explanation">Êtes-vous sûr de vouloir quitter la réunion ?</string>
+  <string name="cancel">Annuler</string>
+
+  <string name="meeting_ended">Réunion terminée</string>
+
+  <string name="leave_meeting">QUITTER LA RÉUNION</string>
+  <string name="thermal_camera">CAMÉRA THERMIQUE</string>
+  <string name="classic_camera">CAMÉRA PRINCIPALE</string>
+  <string name="mute_mic">COUPER LE MICRO</string>
+  <string name="unmute_mic">RÉACTIVER LE MICRO</string>
+  <string name="hide_camera">MASQUER LA CAMÉRA</string>
+  <string name="show_camera">AFFICHER LA CAMÉRA</string>
+  <string name="freeze_frame">GELER L\'IMAGE</string>
+  <string name="unfreeze">DÉGELER</string>
+
+  <string name="zoom_in">ZOOMER</string>
+  <string name="zoom_out">DÉZOOMER</string>
+  <string name="zoom_level">Niveau zoom %d</string>
+  <string name="zoom_max">Niveau de zoom maximum atteint</string>
+  <string name="zoom_min">Niveau de zoom minimum atteint</string>
+
+  <string name="flash_on">Activer flash</string>
+  <string name="flash_off">Désactiver flash</string>
+  <string name="flash_light_on">Lumière de flash activée</string>
+  <string name="flash_light_off">Lumière de flash désactivée</string>
+  <string name="torch_on">Lampe torche activée</string>
+  <string name="torch_off">Lampe torche désactivée</string>
+
+  <string name="muted_by_others">Vous avez été mis en sourdine par un autre participant</string>
+
+  <string name="camera_hidden">La caméra est actuellement masquée.</string>
+</resources>

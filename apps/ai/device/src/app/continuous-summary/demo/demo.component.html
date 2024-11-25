@@ -1,0 +1,63 @@
+<h2 *ngIf="!isRecording">{{ reportTitle }}</h2>
+<h2 *ngIf="isRecording">Listening<rw-dotty></rw-dotty></h2>
+
+<div class="empty">
+  <span>Start your {{ reportDescription }}, speak naturally</span>
+  <button nx-rounded-button color="primary" (click)="start()">Start Now</button>
+</div>
+
+<div class="summary" #summary [rwAutoScroll]="recordingActive$ | async">
+  <button
+    @myInsertRemoveTrigger
+    class="button-page-up"
+    *ngIf="!isRecording && summary.scrollTop !== 0"
+    nx-rounded-button
+    color="accent"
+    (click)="summary.scrollBy({ top: -300, behavior: 'smooth' }); performDelayedChangeDetection()"
+  >
+    Page Up
+  </button>
+
+  <div class="output" [rwMarkdown]="currentSummary$ | async"></div>
+
+  <div class="output" *ngIf="capturePhotoSafeUrl$ | async as photoUrl">
+    <img [src]="photoUrl" />
+  </div>
+
+  <button
+    @myInsertRemoveTrigger
+    class="button-page-down"
+    *ngIf="!isRecording && summary.scrollHeight - summary.scrollTop - summary.clientHeight > 60"
+    nx-rounded-button
+    color="accent"
+    (click)="summary.scrollBy({ top: 300, behavior: 'smooth' }); performDelayedChangeDetection()"
+  >
+    Page Down
+  </button>
+</div>
+
+<div class="speech" *ngIf="isRecording" @myInsertRemoveTrigger>
+  <!-- <p class="current">{{ currentlyRecognizing$ | async }}</p> -->
+  <nx-waveform-visualizer [useSelfStream]="true"></nx-waveform-visualizer>
+</div>
+
+<div class="buttons" *ngIf="isRecording">
+  <button nx-rounded-button color="primary" (click)="stop()">Stop Recording</button>
+</div>
+
+<div class="buttons" *ngIf="!isRecording">
+  <button routerLink="/" nx-rounded-button>Start Again</button>
+  <button nx-rounded-button color="accent" (click)="refine()">Refine Report</button>
+  <button nx-rounded-button color="accent" (click)="takePhoto()">Take Photo</button>
+  <button nx-rounded-button color="primary" (click)="sendReport()">Send Report</button>
+</div>
+
+<mat-progress-bar *ngIf="showCountdown" [value]="countdownValue$ | async" class="detection"></mat-progress-bar>
+
+<audio #audioPlayer src="/assets/uxlib/notification.mp3" style="visibility: collapse"></audio>
+
+<!-- <div class="spinning" *ngIf="thinking">
+    <mat-spinner></mat-spinner>
+
+    <span>Thinking...</span>
+</div> -->

@@ -1,0 +1,17 @@
+<h2 mat-dialog-title>Contact Us</h2>
+
+<mat-dialog-content class="industries">
+  <p>
+    Got questions about the RealWear AI Project? Click the button below to message our incredibly helpful team. One of our experts will reach out to you via
+    email soon!
+  </p>
+  <div *ngIf="emailSent"><strong>Email has been sent successfully!</strong></div>
+  <div *ngIf="emailError"><strong>Failed to send email. Please try again.</strong></div>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button nx-rounded-button (click)="sendEmail()">Send</button>
+</mat-dialog-actions>
+<mat-dialog-actions>
+  <button nx-rounded-button mat-dialog-close>Close</button>
+</mat-dialog-actions>

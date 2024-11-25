@@ -1,0 +1,17 @@
+:host {
+  display: grid;
+  height: 90vh;
+
+  row-gap: 1em;
+
+  grid-template-rows: min-content 1fr 1fr;
+}
+
+p.source {
+  font-size: 1.3em;
+  opacity: 0.8;
+}
+
+p.destination {
+  font-size: 1.5em;
+}

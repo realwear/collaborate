@@ -1,0 +1,5 @@
+<h2 mat-dialog-title>{{ title$ | async }}</h2>
+
+<mat-dialog-content>
+    {{ description$ | async }}<rw-dotty *ngIf="(notifyDialogRef.hideDotty$ | async) !== true"></rw-dotty>
+</mat-dialog-content>

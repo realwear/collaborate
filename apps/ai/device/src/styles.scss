@@ -1,0 +1,77 @@
+/* You can add global styles to this file, and also import other style files */
+@use '@angular/material' as mat;
+
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  height: 100vh;
+}
+body {
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
+}
+
+body {
+  background-color: #ddd;
+  position: relative;
+  overflow: hidden;
+}
+
+body::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url('assets/background.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  opacity: 0.6; /* Adjust the opacity as needed */
+  z-index: -1;
+}
+
+.rw-panel {
+  background-color: #eff1f7;
+  padding: 1.5em;
+
+  border-radius: 15px;
+
+  @include mat.elevation(8);
+
+  h2 {
+    margin: 0;
+    display: block;
+    line-height: 1.6em;
+    min-height: 1.6em;
+  }
+
+  .buttons {
+    display: flex;
+    justify-content: stretch;
+    gap: 2em;
+
+    a,
+    button {
+      flex: 1;
+      font-size: 20px;
+      font-weight: 500;
+    }
+  }
+}
+
+.cdk-dialog-container:focus-visible {
+  outline: none;
+  border: none;
+}
+
+.rw-self-video video {
+  width: 100%;
+}

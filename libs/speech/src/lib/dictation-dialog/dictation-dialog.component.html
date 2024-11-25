@@ -1,0 +1,42 @@
+<div class="listening" *ngIf="(state$ | async) === 'listening'">
+  <h2>{{ title || "I'm Listening" }}...</h2>
+
+  <div class="line"></div>
+
+  <p [attr.bulk]="textBulk">
+    {{ currentResults }}
+    <rw-dotty></rw-dotty>
+  </p>
+
+  <div class="line"></div>
+
+  <nx-waveform-visualizer class="waveform" [audioStream]="stream$ | async"></nx-waveform-visualizer>
+</div>
+
+<div class="pending" *ngIf="(state$ | async) === 'pending'">
+  <h2>Starting...</h2>
+  <div class="line"></div>
+  <mat-spinner class="spinner" diameter="25"></mat-spinner>
+</div>
+
+<div class="permission" *ngIf="(state$ | async) === 'permission'">
+  <h2>Permission Required</h2>
+
+  <div class="line"></div>
+
+  <p>Allow microphone use to continue.</p>
+
+  <button nx-rounded-button color="primary" (click)="cancel()">Cancel</button>
+</div>
+
+<div class="error" *ngIf="(state$ | async) === 'error'">
+  <h2>Error</h2>
+
+  <div class="line"></div>
+
+  <p>{{ errorMessage$ | async }}</p>
+
+  <button nx-rounded-button color="primary" (click)="cancel()">Cancel</button>
+</div>
+
+<audio #audioPlayer src="/assets/uxlib/notification.mp3" style="visibility: collapse"></audio>

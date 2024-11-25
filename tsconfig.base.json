@@ -1,0 +1,27 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "es2015",
+    "module": "esnext",
+    "lib": ["es2020", "dom"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@nx/uxlib": ["libs/uxlib/src/index.ts"],
+      "@rw/auth": ["libs/auth/src/index.ts"],
+      "@rw/backend/auth": ["libs/backend/auth/src/index.ts"],
+      "@rw/connectivity": ["libs/connectivity/src/index.ts"],
+      "@rw/rxjs": ["libs/rxjs/src/index.ts"],
+      "@rw/speech": ["libs/speech/src/index.ts"]
+    }
+  },
+  "exclude": ["node_modules", "tmp"]
+}

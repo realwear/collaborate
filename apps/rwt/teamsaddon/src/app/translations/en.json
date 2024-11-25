@@ -1,0 +1,21 @@
+{
+  "connect_header": "Connect to RealWear Navigator",
+  "connect_subheader": "Instruct your contact to switch on their RealWear Navigator device.",
+  "connect_instructions": "Ask them to provide the 5-digit code displayed on their screen.",
+  "connect_button": "Connect",
+  "connect_help_button": "Get Help",
+  "connect_required_error": "Code is required.",
+  "connect_help_step1_header": "1. Turn on RealWear Headset",
+  "connect_help_step2_header": "2. Connect to WiFi",
+  "connect_help_step3_header": "3. Enter Support Code",
+  "connect_login_button": "Authorize and Connect",
+  "connect_placeholder": "e.g. XXXXX",
+  "connect_meeting_subject": "RealWear Quick Connect",
+  "outside_teams_error": "Install this app from the Microsoft Teams Marketplace to use this feature.",
+  "join_meeting_error": "Failed to create the meeting. Please check the code and try again.", 
+  "power_on": "<p>Follow these steps to turn on your RealWear headset:</p><br><ol><li><strong>Locate the Power Button:</strong> Find the power button on the side of your RealWear headset. It’s marked by the square icon.</li><li><strong>Press and Hold the Power Button:</strong> Firmly press and hold the button for <strong>2-3 seconds</strong>.</li><li><strong>Wait for the Boot-Up Sequence:</strong> The screen will display the RealWear logo, followed by your home screen.</li></ol>",
+  "connect_to_wifi": "<p>If your RealWear headset isn't connected to a WiFi network, follow these steps:</p><br><ol><li><strong>Check On-Screen Instructions:</strong> Use voice commands to select and connect to a nearby WiFi network.</li><li><strong>Use the RealWear One App:</strong> The app generates a WiFi QR code for easy connection.</li><li><strong>Scan the QR Code:</strong> Hold the QR code in front of the headset’s camera to connect.</li></ol>",
+  "enter_support_code": "<p>Ask your contact to launch Collaborate application on their RealWear device and provide you with a 5-digit code</p><br>",
+  "learn_more": "Learn more about RealWear and Microsoft Teams",
+  "close": "Close"
+}

@@ -1,0 +1,9 @@
+<mat-dialog-content>
+  <img [src]="photoUrl" class="photo" />
+</mat-dialog-content>
+
+<mat-dialog-actions class="buttons">
+  <button nx-rounded-button mat-dialog-close>Cancel</button>
+
+  <button nx-rounded-button color="primary" (click)="startDescribe()">Describe Photo</button>
+</mat-dialog-actions>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animated-vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:drawable="@drawable/thermal_logo">
+
+    <!-- Animate the clipping circle -->
+    <target
+        android:name="circleClip"
+        android:animation="@animator/translate_clip_circle" />
+
+    <!-- Animate the background -->
+    <target
+        android:name="thermalBackground"
+        android:animation="@animator/translate_background" />
+
+</animated-vector>

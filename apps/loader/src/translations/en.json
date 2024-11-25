@@ -1,0 +1,16 @@
+{
+  "connecting": "Connecting",
+  "error_title": "Unable to connect to server",
+  "error_tryagain": "Try again",
+  "error_message": "Please check your connection and try again",
+  "offline": "Waiting for Network Connection",
+  "get_connected": "Get Connected",
+  "update_webview": "Uh oh, to use RealWear Collaborate on your RealWear HMT-1, we need to update your device.",
+  "update_size": "Estimated Download Size: {{number}}mb",
+  "update_now": "Update Now",
+  "downloading_update": "Downloading Update",
+  "download_failed_title": "Download Failed",
+  "download_failed": "The update failed to download. Please check your connection and try again.",
+  "installing_update": "Installing Update",
+  "installing_instructions": "Please follow the instructions to install the update."
+}

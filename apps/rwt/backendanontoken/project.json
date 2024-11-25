@@ -1,0 +1,47 @@
+{
+  "name": "rwtanontoken",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/rwt/backendanontoken/src",
+  "projectType": "application",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "target": "node",
+        "compiler": "tsc",
+        "outputPath": "dist/apps/rwt/backendanontoken",
+        "main": "apps/rwt/backendanontoken/src/main.ts",
+        "tsConfig": "apps/rwt/backendanontoken/tsconfig.app.json",
+        "assets": ["apps/rwt/backendanontoken/src/assets"],
+        "webpackConfig": "apps/rwt/backendanontoken/webpack.config.js"
+      },
+      "configurations": {
+        "development": {},
+        "production": {
+          "generatePackageJson": true
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "rwtanontoken:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "rwtanontoken:build:development"
+        },
+        "production": {
+          "buildTarget": "rwtanontoken:build:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    }
+  }
+}

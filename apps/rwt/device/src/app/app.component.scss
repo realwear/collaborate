@@ -1,0 +1,17 @@
+:host {
+  display: grid;
+  height: 100%;
+}
+
+router-outlet {
+  display: none;
+}
+
+.build {
+  position: fixed;
+  left: 3px;
+  bottom: 0;
+  font-family: monospace;
+  font-size: 0.8em;
+  opacity: 0.8;
+}

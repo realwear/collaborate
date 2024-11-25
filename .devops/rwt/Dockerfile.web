@@ -1,0 +1,35 @@
+FROM node:20 AS builder
+SHELL ["/bin/bash", "-c"]
+
+WORKDIR /app
+
+RUN npm install -g nx
+
+COPY [ "package.json", "yarn.lock", "./" ]
+
+RUN --mount=type=cache,target=/usr/local/share/.cache/yarn/v6 yarn --frozen-lockfile
+
+COPY . .
+
+# RUN yarn test
+
+RUN --mount=type=cache,target=/app/.nx/cache nx run-many -t build -p rwtteamsaddon rwtbackend rwtdevice -c production --parallel=$(grep -c ^processor /proc/cpuinfo) && \
+  .devops/set-build-props.sh -p=rwtdevice && .devops/set-build-props.sh -p=rwtteamsaddon
+
+RUN --mount=type=cache,target=/usr/local/share/.cache/yarn/v6 yarn --cwd dist/apps/rwtbackend --frozen-lockfile
+
+FROM node:20-slim AS runner
+WORKDIR /app
+SHELL ["/bin/bash", "-c"]
+
+COPY --from=builder /app/dist ./dist
+
+# Make sure we can read/write to the .msal-cache.json file
+RUN touch .msal-cache.json && chown -R node:node .msal-cache.json
+
+# Make sure the dist/apps/rwtdevice-processed directory is writable
+RUN mkdir -p dist/apps/rwtdevice-processed && chown -R node:node dist/apps/rwtdevice-processed
+
+USER node
+
+ENTRYPOINT node /app/dist/apps/rwtbackend/main.js

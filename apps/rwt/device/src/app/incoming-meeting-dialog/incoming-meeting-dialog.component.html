@@ -1,0 +1,12 @@
+<h2 data-testid="name">{{ data.name }}</h2>
+
+<span class="calling_you">{{ "incoming_call_calling_you" | translate }}</span>
+
+<nx-fluent-avatar [name]="data.name"></nx-fluent-avatar>
+
+<div class="buttons">
+  <fluent-button-wrapper data-testid="decline" data-dd-action-name="incoming_call_decline" [disabled]="disableButtons" mode="danger" appearance="primary" (click)="decline()">{{ "incoming_call_decline" | translate }}</fluent-button-wrapper>
+  <fluent-button-wrapper data-testid="accept" data-dd-action-name="incoming_call_accept" [disabled]="disableButtons" mode="success" appearance="primary" (click)="accept()">{{ "incoming_call_accept" | translate }}</fluent-button-wrapper>
+</div>
+
+<audio data-testid="ringtone" src="/assets/ringtone.mp3" preload="auto" loop #ringtone></audio>

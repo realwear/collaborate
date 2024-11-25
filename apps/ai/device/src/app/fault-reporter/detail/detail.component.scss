@@ -1,0 +1,39 @@
+:host {
+  height: 90vh;
+  display: grid;
+  grid-template-rows: min-content min-content 1fr min-content;
+  gap: 1em;
+}
+
+:host(.hidden) {
+  display: none;
+}
+
+p {
+  font-size: 18px;
+  line-height: 28px;
+}
+
+.capturedPhoto {
+  max-width: 300px;
+}
+
+.typing::after {
+  content: '|';
+  animation: blink-caret 0.75s step-end infinite;
+}
+
+button {
+  font-size: 1rem !important;
+}
+
+/* The typewriter cursor effect */
+@keyframes blink-caret {
+  from,
+  to {
+    color: transparent;
+  }
+  50% {
+    color: orange;
+  }
+}

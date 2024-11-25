@@ -1,0 +1,23 @@
+:host {
+  height: 100%;
+}
+
+.photo {
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
+  object-position: center;
+  overflow: hidden;
+  transform: scale(1.2);
+}
+
+.mat-mdc-dialog-content {
+  display: grid;
+  max-height: 80vh;
+  overflow: hidden;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+}

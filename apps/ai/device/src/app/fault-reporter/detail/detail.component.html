@@ -1,0 +1,26 @@
+<h2 [class.typing]="report.summarySubject.busy$ | async" [nxAppAsyncTyper]="report.summarySubject.resettableSubject$">&nbsp;</h2>
+
+<mat-divider></mat-divider>
+
+<div #summary>
+  <p [class.typing]="report.descriptionSubject.busy$ | async" [nxAppAsyncTyper]="report.descriptionSubject.resettableSubject$"></p>
+
+  <img class="capturedPhoto" *ngIf="capturedPhotoUrl$ | async as photoUrl" [src]="photoUrl" alt="Captured Photo" />
+</div>
+
+<div class="buttons">
+  <button nx-rounded-button color="warn" (click)="startAgain()">Start Again</button>
+
+  <button
+    nx-rounded-button
+    [extraCommands]="['Refine Report', 'Polish Report', 'review report', 'Make Changes', 'Tweak Report', 'Refine']"
+    color="primary"
+    (click)="refine()"
+  >
+    Refine
+  </button>
+
+  <button nx-rounded-button color="primary" (click)="takePhoto()">Take Photo</button>
+
+  <button nx-rounded-button [extraCommands]="['Send it', 'send report', 'send off']" color="accent" (click)="sendReport()">Send Report</button>
+</div>

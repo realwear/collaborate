@@ -1,0 +1,44 @@
+.mat-mdc-dialog-content {
+    display: grid;
+    gap: .8em;
+    grid-template-rows: repeat(3, min-content) 30px;
+}
+
+.mat-mdc-dialog-title {
+    display: grid;
+    justify-content: center;
+}
+
+.mat-mdc-progress-spinner {
+    justify-self: center;
+}
+
+p {
+    text-align: center;
+    margin: 0;
+}
+
+.domain {
+    font-weight: 500;
+    font-size: 1.2em;
+    letter-spacing: 1px;
+}
+
+.code {
+    font-weight: 500;
+    letter-spacing: 8px;
+    font-size: 1.8em;
+}
+
+.mat-mdc-dialog-actions {
+    display: grid;
+    justify-content: center;
+
+    margin-bottom: 2em;
+    margin-top: 1em;
+
+    button {
+        width: 200px;
+    }
+}
+

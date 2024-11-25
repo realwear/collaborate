@@ -1,0 +1,58 @@
+{
+  "name": "aibackend",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/ai/backend/src",
+  "projectType": "application",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "target": "node",
+        "compiler": "tsc",
+        "sourceMap": true,
+        "outputPath": "dist/apps/ai/backend",
+        "main": "apps/ai/backend/src/main.ts",
+        "tsConfig": "apps/ai/backend/tsconfig.app.json",
+        "assets": ["apps/ai/backend/src/assets"],
+        "webpackConfig": "apps/ai/backend/webpack.config.js"
+      },
+      "configurations": {
+        "development": {
+          "generatePackageJson": false
+        },
+        "production": {
+          "generatePackageJson": true
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "aibackend:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "aibackend:build:development"
+        },
+        "production": {
+          "buildTarget": "aibackend:build:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"]
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/ai/backend/jest.config.ts"
+      }
+    }
+  }
+}

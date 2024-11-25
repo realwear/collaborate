@@ -1,0 +1,21 @@
+{
+  "connect_header": "Connectez-vous à RealWear Navigator",
+  "connect_subheader": "Demandez à votre contact d'allumer son appareil RealWear Navigator.",
+  "connect_instructions": "Demandez-leur de fournir le code à 5 chiffres affiché sur leur écran.",
+  "connect_button": "Connecter",
+  "connect_help_button": "Obtenir de l'aide",
+  "connect_required_error": "Le code est requis",
+  "connect_help_step1_header": "1. Allumez le casque RealWear",
+  "connect_help_step2_header": "2. Connectez-vous au Wi-Fi",
+  "connect_help_step3_header": "3. Entrez le code d'assistance",
+  "connect_login_button": "Autoriser et Connecter",
+  "connect_placeholder": "ex. XXXXX",
+  "connect_meeting_subject": "Connexion Rapide de RealWear",
+  "outside_teams_error": "Installez cette application depuis le Marketplace de Microsoft Teams pour utiliser cette fonctionnalité.",
+  "join_meeting_error": "La réunion n'a pas pu être créée. Veuillez vérifier le code et réessayer.",
+  "power_on": "<p>Suivez ces étapes pour allumer votre casque RealWear :</p><br><ol><li><strong>Localisez le bouton d'alimentation :</strong> Trouvez le bouton d'alimentation sur le côté de votre casque RealWear. Il est marqué par l'icône carrée.</li><li><strong>Appuyez et maintenez le bouton d'alimentation :</strong> Appuyez fermement sur le bouton et maintenez-le enfoncé pendant <strong>2 à 3 secondes</strong>.</li><li><strong>Attendez la séquence de démarrage :</strong> L'écran affichera le logo RealWear, suivi de votre écran d'accueil.</li></ol>",
+  "connect_to_wifi": "<p>Si votre casque RealWear n'est pas connecté à un réseau WiFi, suivez ces étapes :</p><br><ol><li><strong>Vérifiez les instructions à l'écran :</strong> Utilisez des commandes vocales pour sélectionner et vous connecter à un réseau WiFi à proximité.</li><li><strong>Utilisez l'application RealWear One :</strong> L'application génère un code QR WiFi pour une connexion facile.</li><li><strong>Scannez le code QR :</strong> Tenez le code QR devant la caméra du casque pour vous connecter.</li></ol>",
+  "enter_support_code": "<p>Demandez à votre contact de lancer l'application Collaborate sur son appareil RealWear et de vous fournir un code à 5 chiffres.</p><br>",
+  "learn_more": "En savoir plus sur RealWear et Microsoft Teams",
+  "close": "Fermer"
+}

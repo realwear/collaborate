@@ -1,0 +1,20 @@
+<h2 mat-dialog-title>Select Persona to Imitate</h2>
+
+<mat-dialog-content class="industries">
+  <ng-container *ngTemplateOutlet="industryButton; context: { industry: 'Energy', industryDescription: 'Oil & Gas Engineer' }"></ng-container>
+  <ng-container *ngTemplateOutlet="industryButton; context: { industry: 'Healthcare', industryDescription: 'Healthcare Professional' }"></ng-container>
+  <ng-container *ngTemplateOutlet="industryButton; context: { industry: 'Manufacturing', industryDescription: 'Engineering Manager' }"></ng-container>
+  <ng-container *ngTemplateOutlet="industryButton; context: { industry: 'Automotive', industryDescription: 'Auto Technician' }"></ng-container>
+  <ng-container *ngTemplateOutlet="industryButton; context: { industry: 'Chemical Spill', industryDescription: 'Chemical Spill' }"></ng-container>
+</mat-dialog-content>
+
+<ng-template #industryButton let-industry="industry" let-industryDescription="industryDescription">
+  <div class="industry">
+    <button nx-rounded-button color="accent" [mat-dialog-close]="industry" extraCommands="Select {{ industry }}">Select {{ industry }}</button>
+    <span>{{ industryDescription }}</span>
+  </div>
+</ng-template>
+
+<mat-dialog-actions>
+  <button nx-rounded-button mat-dialog-close>Cancel</button>
+</mat-dialog-actions>

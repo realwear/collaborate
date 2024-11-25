@@ -1,0 +1,64 @@
+{
+  "$schema": "https://developer.microsoft.com/en-us/json-schemas/teams/v1.16/MicrosoftTeams.schema.json",
+  "manifestVersion": "1.16",
+  "version": "1.0.3",
+  "id": "${{TEAMS_APP_ID}}",
+  "developer": {
+    "name": "RealWear, Inc.",
+    "websiteUrl": "https://www.realwear.com",
+    "privacyUrl": "https://www.realwear.com/legal/collaborate-privacy-policy",
+    "termsOfUseUrl": "https://www.realwear.com/legal/collaborate-terms"
+  },
+  "localizationInfo": {
+    "defaultLanguageTag": "en",
+    "additionalLanguages": [
+      {
+        "languageTag": "fr",
+        "file": "fr.json"
+      },
+      {
+        "languageTag": "es",
+        "file": "es.json"
+      },
+      {
+        "languageTag": "ja",
+        "file": "jp.json"
+      },
+      {
+        "languageTag": "de",
+        "file": "de.json"
+      }
+    ]
+  },
+  "icons": {
+    "color": "newlogo.png",
+    "outline": "outline1.png"
+  },
+  "name": {
+    "short": "RealWear${{APP_NAME_SUFFIX}}",
+    "full": "RealWear${{APP_NAME_SUFFIX}}"
+  },
+  "description": {
+    "short": "Call RealWear headsets via Microsoft Teams for smooth, hands-free communication.",
+    "full": "Our Microsoft Teams add-in app revolutionizes communication by enabling direct calls to RealWear headsets from within Microsoft Teams. Leveraging Azure Communication Services (ACS), this app provides a smooth and efficient way for team members to connect, collaborate, and share information in real-time, regardless of their location. Whether you're in the field or in the office, our solution ensures clear, hands-free communication, making it ideal for industries that require mobility and hands-on work. Experience enhanced productivity and streamlined workflows with this powerful integration of Microsoft Teams and RealWear technology. \nThis app supports Microsoft Teams, Microsoft Outlook and Microsoft365. \nTo fully benefit from this application, users must have a RealWear headset.\n\nNew Users: Open the Collaborate App on your RealWear Headset, Read the 5-digit Quick Connect code to your Remote Expert. Remote Expert enter the 5-digit code in the relevant box in the RealWear Teams app, Tap Connect. A meeting will then be created between the desktop/mobile user and the RealWear Headset, the Headset user must accept the call.\nTo learn more about RealWear visit https://realwear.com\nTo enquire about getting a RealWear headset contact sales@realwear.com\nFor any support queries please contact support@realwear.com\nFor more information about Collaborate visit: https://support.realwear.com/knowledge/collaborate-with-teams"
+  },
+  "accentColor": "#FFFFFF",
+  "bots": [],
+  "composeExtensions": [],
+  "configurableTabs": [],
+  "staticTabs": [
+    {
+      "entityId": "outboundSupport",
+      "name": "Outbound Support",
+      "contentUrl": "https://${{BOT_DOMAIN}}/teamsaddon/",
+      "websiteUrl": "https://${{BOT_DOMAIN}}/teamsaddon/",
+      "scopes": ["personal"]
+    }
+  ],
+  "permissions": ["identity", "messageTeamMembers"],
+  "webApplicationInfo": {
+    "id": "${{WEB_APP_ID}}",
+    "resource": "api://${{BOT_DOMAIN}}/${{WEB_APP_ID}}"
+  },
+  "validDomains": ["${{BOT_DOMAIN}}"]
+}

@@ -1,0 +1,19 @@
+<html>
+  <head>
+    <!-- Microsoft Teams JavaScript API (via CDN) -->
+  <script
+    src="https://res.cdn.office.net/teams-js/2.24.0/js/MicrosoftTeams.min.js"
+    integrity="sha384-79NK4sbfVpgLoDFqyfj18/S1Uj8jhLBeRGvKO1Cqw5634RznExQ90myY/qV/0gsN"
+    crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <script>
+      window.onload = function() {
+        microsoftTeams.app.initialize().then(() => {
+          microsoftTeams.authentication.notifySuccess();
+        })
+      }
+    </script>
+  </body>
+</html>

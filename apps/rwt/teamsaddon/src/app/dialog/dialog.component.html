@@ -1,0 +1,13 @@
+<h1 mat-dialog-title>{{ title }}</h1>
+<mat-dialog-content>
+  <div [innerHTML]="content"></div>
+  <img
+    *ngIf="data.imgSrc"
+    [src]="data.imgSrc"
+    [alt]="data.imgAlt"
+    [ngClass]="{ 'large-image': data.type === 'wifi', 'small-image': data.type === 'power', 'medium-image': data.type === 'code' }"
+  />
+</mat-dialog-content>
+<mat-dialog-actions>
+  <fluent-button mat-dialog-close class="button" appearance="primary">{{ 'close' | translate }}</fluent-button>
+</mat-dialog-actions>

@@ -1,0 +1,21 @@
+{
+  "connect_header": "RealWear Navigatorに接続する",
+  "connect_subheader": "連絡先に RealWear Navigator デバイスの電源をオンにするよう指示します。",
+  "connect_instructions": "画面に表示されている5桁のコードを提供するように依頼してください。",
+  "connect_button": "今すぐ接続",
+  "connect_help_button": "ガイドを見る",
+  "connect_required_error": "コードが必要です",
+  "connect_help_step1_header": "1. RealWearヘッドセットをオンにする",
+  "connect_help_step2_header": "2. WiFiに接続する",
+  "connect_help_step3_header": "3. サポートコードを入力",
+  "connect_login_button": "承認して接続",
+  "connect_placeholder": "例: XXXXX",
+  "connect_meeting_subject": "RealWear クイック接続",
+  "outside_teams_error": "この機能を使用するには、Microsoft Teams マーケットプレイスからこのアプリをインストールしてください。",
+  "join_meeting_error": "ミーティングを作成できませんでした。コードを確認して、もう一度お試しください。",
+  "power_on": "<p>RealWearヘッドセットの電源を入れる手順は次のとおりです。</p><br><ol><li><strong>電源ボタンを探す:</strong> RealWearヘッドセットの側面にある電源ボタンを見つけてください。四角いアイコンでマークされています。</li><li><strong>電源ボタンを押し続ける:</strong> ボタンを<strong>2～3秒間</strong>しっかりと押し続けてください。</li><li><strong>起動シーケンスを待つ:</strong> 画面にRealWearのロゴが表示され、その後ホーム画面が表示されます。</li></ol>",
+  "connect_to_wifi": "<p>RealWearヘッドセットがWiFiネットワークに接続されていない場合は、次の手順に従ってください。</p><br><ol><li><strong>画面の指示を確認する:</strong> 音声コマンドを使用して、近くのWiFiネットワークを選択し接続してください。</li><li><strong>RealWear Oneアプリを使用する:</strong> このアプリは、簡単に接続できるWiFi QRコードを生成します。</li><li><strong>QRコードをスキャンする:</strong> ヘッドセットのカメラの前にQRコードをかざして接続してください。</li></ol>",
+  "enter_support_code": "<p>担当者にRealWearデバイスでCollaborateアプリケーションを起動し、5桁のコードを提供するように依頼してください。</p><br>",
+  "learn_more": "RealWear と Microsoft Teams について詳しく知る",
+  "close": "閉じる"
+}

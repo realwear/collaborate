@@ -1,0 +1,55 @@
+{
+  "name": "rwtbackend",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/rwt/backend/src",
+  "projectType": "application",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "target": "node",
+        "compiler": "tsc",
+        "sourceMap": true,
+        "outputPath": "dist/apps/rwtbackend",
+        "main": "apps/rwt/backend/src/main.ts",
+        "tsConfig": "apps/rwt/backend/tsconfig.app.json",
+        "assets": ["apps/rwt/backend/src/assets"],
+        "webpackConfig": "apps/rwt/backend/webpack.config.js"
+      },
+      "configurations": {
+        "development": {},
+        "production": {
+          "generatePackageJson": true
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "rwtbackend:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "rwtbackend:build:development"
+        },
+        "production": {
+          "buildTarget": "rwtbackend:build:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/rwt/backend/jest.config.ts"
+      }
+    }
+  }
+}

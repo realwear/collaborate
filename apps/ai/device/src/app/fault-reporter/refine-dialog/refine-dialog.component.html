@@ -1,0 +1,26 @@
+<h2>Refine Report</h2>
+
+<mat-divider></mat-divider>
+
+<div class="loading" *ngIf="questionsLoading">
+  <h3>Loading Questions...</h3>
+  <mat-spinner diameter="30"></mat-spinner>
+</div>
+
+<div class="question" *ngIf="currentQuestion">
+  <h3>{{ currentQuestion }}</h3>
+
+  <button nx-rounded-button color="accent" [extraCommands]="['answer question', 'answer this', 'answer']" (click)="answerQuestion(currentQuestion)">
+    Answer Question
+  </button>
+
+  <button nx-rounded-button color="primary" [extraCommands]="['skip question', 'skip', 'bypass answer']" (click)="skipQuestion()">Skip Question</button>
+</div>
+
+<div class="other" *ngIf="!currentQuestion && !questionsLoading">
+  <button nx-rounded-button color="primary" (click)="refineDescription()">More Information</button>
+</div>
+
+<div class="buttons">
+  <button nx-rounded-button [extraCommands]="['all done', 'cancel']" (click)="cancel()">All Done</button>
+</div>

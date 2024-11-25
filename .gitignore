@@ -1,0 +1,66 @@
+# See http://help.github.com/ignore-files/ for more about ignoring files.
+
+# compiled output
+dist
+tmp
+/out-tsc
+
+# TeamsFx files
+env/.env.*.user
+env/.env.local
+.DS_Store
+build
+appPackage/build
+
+# Local data
+.localConfigs.testTool
+.localConfigs
+.notification.localstore.json
+.notification.testtoolstore.json
+
+# Dev Tunnel
+DevTunnels
+
+# dependencies
+node_modules
+
+# IDEs and editors
+/.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# ID - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# misc
+/.sass-cache
+/connect.lock
+/coverage
+/libpeerconnection.log
+npm-debug.log
+yarn-error.log
+testem.log
+/typings
+
+# System Files
+.DS_Store
+Thumbs.db
+
+.nx/cache
+.angular
+
+.msal-cache.json
+testresults/
+
+cypressscreenshots/
+cypresstestresults/
+
+**/environment/environment.ts

@@ -1,0 +1,12 @@
+<h2 matDialogTitle>Enter Code</h2>
+
+<form mat-dialog-content #form (submit)="submit($event)">
+  <mat-form-field>
+    <input matInput placeholder="Code" [formControl]="codeControl" />
+  </mat-form-field>
+</form>
+
+<mat-dialog-actions>
+  <button nx-rounded-button color="accent" [mat-dialog-close]="codeControl.value?.trim()">OK</button>
+  <button nx-rounded-button [mat-dialog-close]="undefined">Cancel</button>
+</mat-dialog-actions>

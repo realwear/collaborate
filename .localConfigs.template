@@ -1,0 +1,17 @@
+# This file is a template for the .localConfigs file
+# Please copy this file to .localConfigs and fill in the required values
+# DO NOT COMMIT .localConfigs TO THE REPO, it contains sensitive information
+
+# Azure Communication Services connection string
+ACS_CONNECTION_STRING=""
+
+AZURE_CLIENT_ID=""
+AZURE_TENANT_ID="" # Optional - only needed if locking the login down to a specific tenant
+AZURE_CLIENT_SECRET=""
+
+AZURE_OPENAI_ENDPOINT="" # Required for the AI Demos app
+AZURE_OPENAI_KEY="" # Optional - API key for Azure OpenAI Service. If not supplied, use the AZURE_CLIENT_ID and AZURE_CLIENT_SECRET
+
+# Azure Speech Service
+AZURE_SPEECH_KEY="" # Required for the AI Demos app, used for dictation
+AZURE_SPEECH_REGION="" # Required for the AI Demos app, used for dictation

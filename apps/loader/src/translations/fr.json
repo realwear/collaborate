@@ -1,0 +1,16 @@
+{
+  "connecting": "De liaison",
+  "error_title": "Impossible de se connecter au serveur",
+  "error_tryagain": "Réessayer",
+  "error_message": "Veuillez vérifier votre connexion et réessayer",
+  "offline": "En attente de connexion réseau",
+  "get_connected": "Soyez connectés",
+  "update_webview": "Oh non, pour utiliser RealWear Collaborate sur votre RealWear HMT-1, nous devons mettre à jour votre appareil.",
+  "update_size": "Taille de téléchargement estimée : {{number}} Mo",
+  "update_now": "Mettre à Jour",
+  "downloading_update": "Mise à Jour",
+  "download_failed_title": "Échec du téléchargement",
+  "download_failed": "La mise à jour n'a pas pu être téléchargée. Veuillez vérifier votre connexion et réessayer.",
+  "installing_update": "Installation Mise À Jour",
+  "installing_instructions": "Veuillez suivre les instructions pour installer la mise à jour."
+}

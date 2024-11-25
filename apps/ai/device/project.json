@@ -1,0 +1,92 @@
+{
+  "name": "ai",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "prefix": "nx",
+  "sourceRoot": "apps/ai/device/src",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:browser",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/ai/device",
+        "index": "apps/ai/device/src/index.html",
+        "main": "apps/ai/device/src/main.ts",
+        "polyfills": ["zone.js"],
+        "tsConfig": "apps/ai/device/tsconfig.app.json",
+        "inlineStyleLanguage": "scss",
+        "assets": [
+          "apps/ai/device/src/favicon.ico",
+          "apps/ai/device/src/assets",
+          {
+            "input": "libs/uxlib/assets",
+            "glob": "**/*",
+            "output": "assets/uxlib"
+          }
+        ],
+        "styles": ["@angular/material/prebuilt-themes/indigo-pink.css", "apps/ai/device/src/styles.scss"],
+        "scripts": []
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "2500kb",
+              "maximumError": "20mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
+          "fileReplacements": [
+            {
+              "replace": "apps/ai/device/src/app/environment/environment.ts",
+              "with": "apps/ai/device/src/app/environment/environment.prod.ts"
+            }
+          ],
+          "outputHashing": "all",
+          "sourceMap": true
+        },
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "options": {
+        "proxyConfig": "apps/ai/device/src/proxy.conf.json",
+        "host": "0.0.0.0"
+      },
+      "configurations": {
+        "production": {
+          "buildTarget": "ai:build:production"
+        },
+        "development": {
+          "buildTarget": "ai:build:development"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "buildTarget": "ai:build"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"]
+    }
+  }
+}

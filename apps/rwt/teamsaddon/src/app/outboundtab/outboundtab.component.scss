@@ -1,0 +1,152 @@
+// Teams Color Styles = https://react.fluentui.dev/?path=/docs/theme-colors--page
+// Icons = https://icon-sets.iconify.design/f7/text-cursor/
+
+$topbar-height: calc(var(--fontSizeBase400) + (var(--spacingVerticalM) * 2));
+:host {
+  display: grid;
+
+  font-family: var(--fontFamilyBase);
+  font-size: var(--fontSizeBase300);
+  line-height: var(--lineHeightBase300);
+  color: var(--colorNeutralForeground1);
+
+  margin-left: 5vw;
+
+  margin-top: calc($topbar-height + var(--spacingVerticalM));
+
+  row-gap: var(--spacingVerticalL);
+}
+
+:host(.hidden) {
+  display: none;
+}
+
+fluent-button {
+  padding-left: var(--spacingHorizontalXL);
+  padding-right: var(--spacingHorizontalXL);
+}
+
+h1 {
+  font-family: var(--fontFamilyBase);
+  font-size: var(--fontSizeHero700);
+  line-height: var(--lineHeightHero700);
+  font-weight: var(--fontWeightSemibold);
+}
+
+p.outside_teams_error {
+  color: var(--colorStatusDangerForeground1);
+}
+
+strong {
+  font-weight: var(--fontWeightSemibold);
+}
+
+.inputcode {
+  display: flex;
+  gap: var(--spacingHorizontalM);
+
+  margin-top: var(--spacingVerticalXL);
+}
+
+p.error {
+  color: var(--colorStatusDangerForeground1);
+
+  &:not(.visible) {
+    visibility: hidden;
+  }
+}
+
+.bar {
+  position: absolute;
+  background-color: var(--colorBrandBackground2);
+  color: var(--colorNeutralForeground1);
+
+  margin: 0;
+
+  height: $topbar-height;
+  padding-left: var(--spacingHorizontalXL);
+
+  display: grid;
+  align-items: center;
+
+  font-size: var(--fontSizeBase400);
+
+  left: 0;
+  top: 0;
+  right: 0;
+}
+
+.steps {
+  display: flex;
+
+  flex-wrap: wrap;
+
+  gap: var(--spacingHorizontalXL);
+
+  width: 90vw;
+  width: 90cvw;
+
+  max-width: 800px;
+
+  margin-top: var(--spacingVerticalM);
+}
+
+hr {
+  border: 1px solid var(--colorNeutralStroke1);
+  max-width: 800px;
+  width: 90vw;
+}
+
+.step {
+  box-shadow: var(--shadow4);
+  background-color: var(--colorNeutralBackground2);
+  padding: var(--spacingVerticalM) var(--spacingHorizontalXL);
+  display: grid;
+  gap: var(--spacingVerticalM);
+  flex: 1 1 0px;
+  gap: var(--spacingVerticalM);
+
+  min-width: 200px;
+
+  text-align: center;
+  align-items: center;
+
+  h2 {
+    font-family: var(--fontFamilyBase);
+    font-size: var(--fontSizeBase400);
+    line-height: var(--lineHeightBase400);
+    font-weight: var(--fontWeightSemibold);
+
+    min-height: calc(2 * var(--lineHeightBase400));
+  }
+
+  fluent-button {
+    margin-top: var(--spacingVerticalM);
+  }
+
+  .icon {
+    width: 5em;
+    height: 5em;
+    margin: auto;
+    background-color: var(--colorNeutralForeground1);
+    opacity: 0.8;
+    -webkit-mask-image: var(--svg);
+    mask-image: var(--svg);
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-size: 100% 100%;
+    mask-size: 100% 100%;
+
+    &.icon-power-on {
+      --svg: url('data:image/svg+xml,<svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10.6904 5.26691C10.8522 5.64823 10.6742 6.08849 10.2929 6.25027C6.88678 7.69533 4.5 11.0698 4.5 15C4.5 20.2467 8.75329 24.5 14 24.5C19.2467 24.5 23.5 20.2467 23.5 15C23.5 11.0698 21.1132 7.69533 17.7071 6.25027C17.3258 6.08849 17.1478 5.64823 17.3096 5.26691C17.4713 4.8856 17.9116 4.70762 18.2929 4.8694C22.2336 6.54125 25 10.4467 25 15C25 21.0751 20.0751 26 14 26C7.92487 26 3 21.0751 3 15C3 10.4467 5.76636 6.54125 9.70708 4.8694C10.0884 4.70762 10.5287 4.8856 10.6904 5.26691ZM14 2C14.4142 2 14.75 2.33579 14.75 2.75V12.25C14.75 12.6642 14.4142 13 14 13C13.5858 13 13.25 12.6642 13.25 12.25V2.75C13.25 2.33579 13.5858 2 14 2Z" fill="%23212121"/></svg>');
+    }
+
+    &.icon-wifi {
+      --svg: url('data:image/svg+xml,<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M17.7449 10.7506C18.3357 11.3414 18.8472 12.058 19.2369 12.8199C19.4255 13.1886 19.2795 13.6405 18.9107 13.8291C18.5419 14.0177 18.09 13.8717 17.9014 13.5029C17.5811 12.8766 17.1608 12.2878 16.6843 11.8112C14.1216 9.24857 9.96674 9.24857 7.40409 11.8112C6.90627 12.309 6.50186 12.8688 6.1905 13.4844C6.00354 13.854 5.55234 14.0021 5.18272 13.8151C4.8131 13.6281 4.66503 13.1769 4.85198 12.8073C5.23479 12.0505 5.73283 11.3612 6.34343 10.7506C9.49187 7.60212 14.5965 7.60212 17.7449 10.7506ZM15.6431 13.8194C16.0907 14.267 16.4589 14.8167 16.7152 15.4016C16.8814 15.781 16.7087 16.2233 16.3293 16.3895C15.9499 16.5558 15.5076 16.383 15.3413 16.0036C15.1582 15.5858 14.8946 15.1922 14.5824 14.8801C13.1797 13.4773 10.9054 13.4773 9.50266 14.8801C9.19214 15.1906 8.94004 15.5688 8.75546 15.9906C8.58941 16.3701 8.14718 16.5431 7.76771 16.3771C7.38823 16.211 7.21521 15.7688 7.38125 15.3893C7.6387 14.8009 7.99509 14.2663 8.442 13.8194C10.4305 11.8309 13.6546 11.8309 15.6431 13.8194ZM20.4481 8.27868C20.9571 8.78773 21.4378 9.3693 21.8562 9.97556C22.0915 10.3165 22.0059 10.7836 21.665 11.0188C21.3241 11.2541 20.857 11.1685 20.6217 10.8276C20.2537 10.2944 19.8308 9.78273 19.3874 9.33934C15.3074 5.25928 8.69231 5.25928 4.61225 9.33934C4.19038 9.76121 3.77196 10.2728 3.39022 10.8231C3.15412 11.1634 2.68683 11.2479 2.34649 11.0118C2.00615 10.7757 1.92166 10.3084 2.15776 9.9681C2.58792 9.34803 3.06233 8.76794 3.55159 8.27868C8.21743 3.61284 15.7823 3.61284 20.4481 8.27868ZM13.0606 16.4391C13.6465 17.0249 13.6465 17.9748 13.0606 18.5607C12.4748 19.1465 11.5249 19.1465 10.9391 18.5607C10.3532 17.9748 10.3532 17.0249 10.9391 16.4391C11.5249 15.8532 12.4748 15.8532 13.0606 16.4391Z" fill="%23212121"/></svg>');
+    }
+
+    &.icon-text-cursor {
+      --svg: url('data:image/svg+xml,<svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5.75 3.5C4.50736 3.5 3.5 4.50736 3.5 5.75V8.75C3.5 9.16421 3.16421 9.5 2.75 9.5C2.33579 9.5 2 9.16421 2 8.75V5.75C2 3.67893 3.67893 2 5.75 2H8.75C9.16421 2 9.5 2.33579 9.5 2.75C9.5 3.16421 9.16421 3.5 8.75 3.5H5.75ZM5.75 24.5C4.50736 24.5 3.5 23.4926 3.5 22.25V19.25C3.5 18.8358 3.16421 18.5 2.75 18.5C2.33579 18.5 2 18.8358 2 19.25V22.25C2 24.3211 3.67893 26 5.75 26H8.75C9.16421 26 9.5 25.6642 9.5 25.25C9.5 24.8358 9.16421 24.5 8.75 24.5H5.75ZM24.5 5.75C24.5 4.50736 23.4926 3.5 22.25 3.5H19.25C18.8358 3.5 18.5 3.16421 18.5 2.75C18.5 2.33579 18.8358 2 19.25 2H22.25C24.3211 2 26 3.67893 26 5.75V8.75C26 9.16421 25.6642 9.5 25.25 9.5C24.8358 9.5 24.5 9.16421 24.5 8.75V5.75ZM22.25 24.5C23.4926 24.5 24.5 23.4926 24.5 22.25V19.25C24.5 18.8358 24.8358 18.5 25.25 18.5C25.6642 18.5 26 18.8358 26 19.25V22.25C26 24.3211 24.3211 26 22.25 26H19.25C18.8358 26 18.5 25.6642 18.5 25.25C18.5 24.8358 18.8358 24.5 19.25 24.5H22.25ZM8 8.75C8 8.33579 8.33579 8 8.75 8H19.25C19.6642 8 20 8.33579 20 8.75C20 9.16421 19.6642 9.5 19.25 9.5H8.75C8.33579 9.5 8 9.16421 8 8.75ZM8.75 13C8.33579 13 8 13.3358 8 13.75C8 14.1642 8.33579 14.5 8.75 14.5H19.25C19.6642 14.5 20 14.1642 20 13.75C20 13.3358 19.6642 13 19.25 13H8.75ZM8 18.75C8 18.3358 8.33579 18 8.75 18H14.25C14.6642 18 15 18.3358 15 18.75C15 19.1642 14.6642 19.5 14.25 19.5H8.75C8.33579 19.5 8 19.1642 8 18.75Z" fill="%23212121"/></svg>');
+    }
+  }
+}

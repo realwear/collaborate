@@ -1,0 +1,12 @@
+<h2>{{ 'lost_connectivity_title' | translate }}</h2>
+<p>
+  {{ 'lost_connectivity_message' | translate }}
+  <rw-dotty></rw-dotty>
+</p>
+
+<div class="buttons">
+  <fluent-button-wrapper *ngIf="displaySignOut" data-testId="sign-out" mode="danger" appearance="primary" (click)="signOut()">{{
+    'sign_out' | translate
+  }}</fluent-button-wrapper>
+  <fluent-button-wrapper data-testId="get-connected" appearance="primary" (click)="getConnected()">{{ 'get_connected' | translate }}</fluent-button-wrapper>
+</div>

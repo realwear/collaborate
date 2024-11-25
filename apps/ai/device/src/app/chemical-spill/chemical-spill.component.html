@@ -1,0 +1,40 @@
+<h2>Report a Chemical Spill</h2>
+
+<div class="full-report" *ngIf="currentSpillData$ | async as data; else empty">
+  <div class="location" [class.empty]="!data.location?.length">
+    <strong>Location</strong>
+    <span>{{ data.location || 'Where did this incident occur?' }}</span>
+  </div>
+
+  <div class="explanation" [class.empty]="!data.explanation?.length">
+    <strong>Description</strong>
+    <span>{{ data.explanation || 'What is the nature of the incident?' }}</span>
+  </div>
+
+  <div class="services" [class.empty]="!data.servicesRequired?.length">
+    <strong>Services Required</strong>
+    <span>{{ data.servicesRequired?.join(', ') || 'Do you need Police, Fire Rescue, Ambulance?' }}</span>
+  </div>
+
+  <div class="danger" [class.empty]="!data.immediateDanger?.length">
+    <strong>Immediate Danger</strong>
+    <span>{{ data.immediateDanger || 'What immediate danger exists?' }}</span>
+  </div>
+</div>
+
+<div class="actions" *ngIf="isNotEmpty$ | async">
+  <button nx-rounded-button (click)="reset()">Start Again</button>
+  <button nx-rounded-button color="primary" (click)="moreInfo()">Add Information</button>
+  <button *ngIf="canSubmit$ | async" nx-rounded-button color="accent" (click)="sendReport()">Send Report</button>
+</div>
+
+<ng-template #empty>
+  <div class="empty-report">
+    <strong>Describe your Incident</strong>
+    <button nx-rounded-button color="primary" (click)="moreInfo()">Start Report</button>
+  </div>
+</ng-template>
+
+<div class="loading" *ngIf="loading$ | async">
+  <mat-spinner diameter="35"></mat-spinner>
+</div>

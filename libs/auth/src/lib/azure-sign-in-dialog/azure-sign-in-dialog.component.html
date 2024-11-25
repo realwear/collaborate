@@ -1,0 +1,14 @@
+<h2 mat-dialog-title><img src="assets/uxlib/microsoft.svg" width="150"></h2>
+
+<mat-dialog-content>
+    <p class="instruction">{{ text_instruction }}</p>
+    <p class="domain">microsoft.com/devicelogin</p>
+    <p class="instruction">{{ text_entercode }}</p>
+    <p class="code" *ngIf="(userCode$ | async)?.length">{{ userCode$ | async }}</p>
+
+    <mat-spinner *ngIf="!(userCode$ | async)?.length" diameter="25"></mat-spinner>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+    <button class="cancel" data-dd-action-name="sign_in_cancel" nx-rounded-button (click)="cancel()">{{ text_cancel }}</button>
+</mat-dialog-actions>

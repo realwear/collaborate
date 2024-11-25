@@ -1,0 +1,59 @@
+::ng-deep ol {
+  list-style-type: decimal;
+  margin-left: 1em;
+  color: var(--colorNeutralForeground1);
+}
+
+.small-image {
+  max-width: 20%;
+  width: 40%;
+  height: auto;
+  display: block;
+  margin: 0 auto; /* Center the image */
+}
+
+.large-image {
+  max-width: 50%;
+  width: 50%;
+  height: auto;
+  display: block;
+  margin: 0 auto; /* Center the image */
+}
+
+.medium-image {
+  max-width: 40%;
+  width: 40%;
+  height: auto;
+  display: block;
+  margin: 0 auto; /* Center the image */
+}
+
+fluent-button {
+  margin-top: var(--spacingVerticalM);
+  margin-right: 1vw;
+  margin-bottom: 1vw;
+}
+
+h1 {
+  font-family: var(--fontFamilyBase);
+  font-size: var(--fontSizeHero700);
+  line-height: var(--lineHeightHero700);
+  font-weight: var(--fontWeightSemibold);
+  text-align: center; /* Center the heading */
+  color: var(--colorNeutralForeground1);
+}
+
+strong {
+  font-weight: var(--fontWeightSemibold);
+}
+
+hr {
+  border: 10px solid var(--colorNeutralStroke1);
+  max-width: 800px;
+  width: 90vw;
+}
+
+.button {
+  display: flex;
+  margin: 0 1em;
+}

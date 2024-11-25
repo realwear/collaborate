@@ -1,0 +1,43 @@
+<div class="auth">
+  <img *ngIf="hasProfileImage$ | async" class="profile" [src]="userProfileImage$ | async" />
+  <button *ngIf="isLoggedIn$ | async" nx-rounded-button color="accent" (click)="signout()">Sign Out</button>
+  <button *ngIf="userInfo$ | async" nx-rounded-button color="accent" (click)="refreshNow()">Refresh</button>
+  <button nx-rounded-button color="accent" (click)="openSwitch()">Select Persona</button>
+</div>
+
+<p class="subtitle">
+  Welcome <strong>{{ name$ | async }}</strong
+  >, How can I help you today?
+</p>
+
+<div class="logo">
+  <img src="assets/realwear_logo.svg" alt="RealWear AI" />
+</div>
+
+<div class="capabilities" *ngIf="(currentIndustry$ | async) !== 'Chemical Spill'; else chemicalSpill">
+  <button class="capability red" (click)="gotoIncidentReport()" title="hf_no_number|hf_commands:Incident Report">
+    <h2>Incident Report</h2>
+
+    <img src="assets/warning.svg" alt="Incident Report" class="icon" />
+  </button>
+
+  <button class="capability orange" (click)="gotoHandover()" title="hf_no_number|hf_commands:{{ handoverCommand }}">
+    <h2>{{ handoverCommand }}</h2>
+
+    <img src="assets/handover.svg" alt="Handover" class="icon" />
+  </button>
+</div>
+
+<ng-template #chemicalSpill>
+  <div class="capabilities single">
+    <button class="capability red" (click)="gotoChemicalSpill()" title="hf_no_number|hf_commands:Chemical Spill">
+      <h2>Chemical Spill</h2>
+
+      <img src="assets/warning.svg" alt="Incident Report" class="icon" />
+    </button>
+  </div>
+</ng-template>
+
+<div class="more">
+  <button nx-rounded-button color="accent" (click)="openSendEmailDialog()">Get in touch</button>
+</div>
