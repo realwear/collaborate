@@ -2,16 +2,27 @@
 # Please copy this file to .localConfigs and fill in the required values
 # DO NOT COMMIT .localConfigs TO THE REPO, it contains sensitive information
 
-# Azure Communication Services connection string
-ACS_CONNECTION_STRING=""
-
+# AZURE_CLIENT_ID - What the user will sign in to
 AZURE_CLIENT_ID=""
-AZURE_TENANT_ID="" # Optional - only needed if locking the login down to a specific tenant
+
+# AZURE_TENANT_ID - Optional, if not supplied, will use 'organizations'
+AZURE_TENANT_ID="organizations"
+
+# AZURE_CLIENT_SECRET - Used for authentication and converting Teams access tokens to GraphAPI access tokens
 AZURE_CLIENT_SECRET=""
 
-AZURE_OPENAI_ENDPOINT="" # Required for the AI Demos app
-AZURE_OPENAI_KEY="" # Optional - API key for Azure OpenAI Service. If not supplied, use the AZURE_CLIENT_ID and AZURE_CLIENT_SECRET
+# AZURE_OPENAI_ENDPOINT - Required for the AI Demos app
+AZURE_OPENAI_ENDPOINT=""
 
-# Azure Speech Service
-AZURE_SPEECH_KEY="" # Required for the AI Demos app, used for dictation
-AZURE_SPEECH_REGION="" # Required for the AI Demos app, used for dictation
+# AZURE_OPENAI_KEY - Required for the AI Demos app
+# Optional - API key for Azure OpenAI Service. If not supplied, setup Managed Identity or use the AZURE_CLIENT_ID and AZURE_CLIENT_SECRET
+AZURE_OPENAI_KEY=""
+
+# AZURE_SPEECH_KEY - Required for the AI Demos app, used for dictation
+AZURE_SPEECH_KEY=""
+
+# AZURE_SPEECH_REGION - Required for the AI Demos app, used for dictation
+AZURE_SPEECH_REGION=""
+
+# Azure Communication Services connection string
+ACS_CONNECTION_STRING=""
