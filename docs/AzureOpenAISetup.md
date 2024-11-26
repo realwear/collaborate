@@ -21,37 +21,37 @@ Copy these values when the script completes in your `.localConfigs` file.
 
 ```bash
 
-export RESOURCE_GROUP_NAME="[REPLACE WITH RESOURCE NAME]"
-export OPENAI_DEPLOYMENT_NAME="[REPLACE WITH DEPLOYMENT NAME]"
-export LOCATION="[REPLACE WITH REGION]"
+export REALWEAR_RESOURCE_GROUP_NAME="[REPLACE WITH RESOURCE NAME]"
+export REALWEAR_OPENAI_DEPLOYMENT_NAME="[REPLACE WITH DEPLOYMENT NAME]"
+export REALWEAR_LOCATION="[REPLACE WITH REGION]"
 
 az group create \
---name $RESOURCE_GROUP_NAME \
---location $LOCATION
+--name $REALWEAR_RESOURCE_GROUP_NAME \
+--location $REALWEAR_LOCATION
 
 az cognitiveservices account create \
---name $OPENAI_DEPLOYMENT_NAME \
---resource-group $RESOURCE_GROUP_NAME \
---location $LOCATION \
+--name $REALWEAR_OPENAI_DEPLOYMENT_NAME \
+--resource-group $REALWEAR_RESOURCE_GROUP_NAME \
+--location $REALWEAR_LOCATION \
 --kind OpenAI \
 --sku s0
 
 # Fetch the endpoint where the service is deployed (usually https://[region].api.cognitive.microsoft.com)
-export OPENAI_ENDPOINT=$(az cognitiveservices account show \
---name $OPENAI_DEPLOYMENT_NAME \
---resource-group $RESOURCE_GROUP_NAME \
+export REALWEAR_OPENAI_ENDPOINT=$(az cognitiveservices account show \
+--name $REALWEAR_OPENAI_DEPLOYMENT_NAME \
+--resource-group $REALWEAR_RESOURCE_GROUP_NAME \
 -o tsv --query properties.endpoint)
 
 # Fetch the primary key for the deployment (key1)
-export OPENAI_PRIMARY_KEY=$(az cognitiveservices account keys list \
---name $OPENAI_DEPLOYMENT_NAME \
---resource-group $RESOURCE_GROUP_NAME \
+export REALWEAR_OPENAI_PRIMARY_KEY=$(az cognitiveservices account keys list \
+--name $REALWEAR_OPENAI_DEPLOYMENT_NAME \
+--resource-group $REALWEAR_RESOURCE_GROUP_NAME \
 -o tsv --query key1)
 
 # Deploy the GPT3.5 model
 az cognitiveservices account deployment create \
---name $OPENAI_DEPLOYMENT_NAME \
---resource-group $RESOURCE_GROUP_NAME \
+--name $REALWEAR_OPENAI_DEPLOYMENT_NAME \
+--resource-group $REALWEAR_RESOURCE_GROUP_NAME \
 --deployment-name 35 \
 --model-name gpt-35-turbo \
 --model-version "0125" \
@@ -61,8 +61,8 @@ az cognitiveservices account deployment create \
 
 # Deploy the GPT4o model
 az cognitiveservices account deployment create \
---name $OPENAI_DEPLOYMENT_NAME \
---resource-group $RESOURCE_GROUP_NAME \
+--name $REALWEAR_OPENAI_DEPLOYMENT_NAME \
+--resource-group $REALWEAR_RESOURCE_GROUP_NAME \
 --deployment-name 4o \
 --model-name gpt-4o \
 --model-version 2024-08-06 \
@@ -72,7 +72,7 @@ az cognitiveservices account deployment create \
 
 echo "======================"
 echo "DEPLOYMENT COMPLETE"
-echo "For .localConfigs, set AZURE_OPENAI_ENDPOINT to ${OPENAI_ENDPOINT} and set AZURE_OPENAI_KEY to \"${OPENAI_PRIMARY_KEY}\""
+echo "For .localConfigs, set AZURE_OPENAI_ENDPOINT to ${REALWEAR_OPENAI_ENDPOINT} and set AZURE_OPENAI_KEY to \"${REALWEAR_OPENAI_PRIMARY_KEY}\""
 echo "======================"
 
 ```
@@ -85,6 +85,6 @@ To cleanup, simply remove the resource group that was created.
 > This action is irreversible
 
 ```bash
-az group delete --name $RESOURCE_GROUP_NAME
+az group delete --name $REALWEAR_RESOURCE_GROUP_NAME
 ```
 

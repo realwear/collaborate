@@ -180,7 +180,7 @@ chart. You can choose to host the Docker image manually, or within a Kubernetes 
   required dependencies to build the server components
 - **Azure Tenant** - RealWear Collaborate uses a Microsoft EntraID Application to authenticate the
   user for the AI Demos - See [Setting up EntraID](docs/AzureEntraSetup.md)
-- **Azure Speech Service**
+- **Azure Speech Service** - RealWear AI Demos uses Azure AI Speech for Dictation - See [Setting up Azure Speech](docs/AzureSpeechSetup.md)
 - **Azure OpenAI Service** - RealWear AI Demos uses Azure OpenAI for the LLM interactions - See [Setting up Azure OpenAI](docs/AzureOpenAISetup.md)
 
 ## Environment Variables
