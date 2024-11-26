@@ -76,3 +76,15 @@ echo "For .localConfigs, set AZURE_OPENAI_ENDPOINT to ${OPENAI_ENDPOINT} and set
 echo "======================"
 
 ```
+
+## Cleanup
+
+To cleanup, simply remove the resource group that was created.
+
+> [!WARNING]
+> This action is irreversible
+
+```bash
+az group delete --name $RESOURCE_GROUP_NAME
+```
+
