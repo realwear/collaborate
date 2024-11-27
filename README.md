@@ -46,7 +46,8 @@ chart. You can choose to host the Docker image manually, or within a Kubernetes 
     required
 - **Azure Tenant** - RealWear Collaborate uses a Microsoft EntraID Application to authenticate the
   user
-- **Azure Communication Services** - Used to connect to Microsoft Teams for meetings and calls
+- **Azure Communication Services** - Used to connect to Microsoft Teams for meetings and calls - See
+  [Setting up Azure Communication Services](docs/AzureCommunicationServices.md)
 - **Minikube** - To host locally the server
 
 ## Building the Android APK
@@ -180,8 +181,10 @@ chart. You can choose to host the Docker image manually, or within a Kubernetes 
   required dependencies to build the server components
 - **Azure Tenant** - RealWear Collaborate uses a Microsoft EntraID Application to authenticate the
   user for the AI Demos - See [Setting up EntraID](docs/AzureEntraSetup.md)
-- **Azure Speech Service** - RealWear AI Demos uses Azure AI Speech for Dictation - See [Setting up Azure Speech](docs/AzureSpeechSetup.md)
-- **Azure OpenAI Service** - RealWear AI Demos uses Azure OpenAI for the LLM interactions - See [Setting up Azure OpenAI](docs/AzureOpenAISetup.md)
+- **Azure Speech Service** - RealWear AI Demos uses Azure AI Speech for Dictation - See
+  [Setting up Azure Speech](docs/AzureSpeechSetup.md)
+- **Azure OpenAI Service** - RealWear AI Demos uses Azure OpenAI for the LLM interactions - See
+  [Setting up Azure OpenAI](docs/AzureOpenAISetup.md)
 
 ## Environment Variables
 
