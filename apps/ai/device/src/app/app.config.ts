@@ -22,7 +22,7 @@ import { HttpEvent, HttpHandlerFn, HttpRequest, provideHttpClient, withFetch, wi
 import { provideGPTSupport } from './gptsubject';
 import { CapturedReport } from './capturedreport.service';
 import { AzAuthModule, azureAuthInterceptor, DeviceCode2Service, TeamsChatService } from '@rw/auth';
-import { provideAzureAuthConfig } from '@rw/speech';
+import { provideAzureSpeechAuthConfig } from '@rw/speech';
 import { IndustryService } from './industry.service';
 import { MatDialogModule } from '@angular/material/dialog';
 import { Observable, first, from, switchMap } from 'rxjs';
@@ -58,7 +58,7 @@ export const appConfig: ApplicationConfig = {
     TeamsChatService,
     IndustryService,
     importProvidersFrom(MatDialogModule),
-    provideAzureAuthConfig({
+    provideAzureSpeechAuthConfig({
       subscriptionKey: environment.speech.subscriptionKey,
       region: environment.speech.region,
     }),

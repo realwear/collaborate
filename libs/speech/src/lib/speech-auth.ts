@@ -14,23 +14,23 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
-import { makeEnvironmentProviders } from "@angular/core";
-import { SpeechConfig, SpeechTranslationConfig } from "microsoft-cognitiveservices-speech-sdk";
+import { makeEnvironmentProviders } from '@angular/core';
+import { SpeechConfig, SpeechTranslationConfig } from 'microsoft-cognitiveservices-speech-sdk';
 
 export interface AzureSpeechAuthConfig {
-    subscriptionKey: string;
-    region: string;
+  subscriptionKey: string;
+  region: string;
 }
 
-export function provideAzureAuthConfig(config: AzureSpeechAuthConfig) {
-    return makeEnvironmentProviders([
-        {
-            provide: SpeechConfig,
-            useFactory: () => SpeechConfig.fromSubscription(config.subscriptionKey, config.region)
-        },
-        {
-            provide: SpeechTranslationConfig,
-            useFactory: () => SpeechTranslationConfig.fromSubscription(config.subscriptionKey, config.region)
-        }
-    ])
+export function provideAzureSpeechAuthConfig(config: AzureSpeechAuthConfig) {
+  return makeEnvironmentProviders([
+    {
+      provide: SpeechConfig,
+      useFactory: () => SpeechConfig.fromSubscription(config.subscriptionKey, config.region),
+    },
+    {
+      provide: SpeechTranslationConfig,
+      useFactory: () => SpeechTranslationConfig.fromSubscription(config.subscriptionKey, config.region),
+    },
+  ]);
 }
