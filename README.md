@@ -110,6 +110,10 @@ To test that this works:
 - http://localhost:4200 - The Teams addon
 - http://localhost:4300 - The Device frontend app
 
+## Building the Microsoft Teams addon package
+
+See [Setting up the Microsoft Teams Addon](docs/BuildingMicrosoftTeamsAddon.md).
+
 ## Exposing Localhost to Android
 
 If your Android device (RealWear Navigator-520) is plugged in via USB to your host computer, you can
