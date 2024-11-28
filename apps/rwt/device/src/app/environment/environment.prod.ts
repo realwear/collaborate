@@ -18,6 +18,6 @@ export const environment = {
   azure: {
     // Note, you don't need to anything here, the NodeJS server will replace these values at runtime
     clientId: 'REPLACE_AZURE_CLIENT_ID',
-    tenant: 'REPLACE_AZURE_TENANT_ID',
+    tenantId: 'REPLACE_AZURE_TENANT_ID',
   },
 };
