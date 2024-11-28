@@ -19,7 +19,7 @@ import { setTheme } from '@fluentui/web-components';
 import { teamsDarkTheme, teamsLightTheme } from '@fluentui/tokens';
 import { DeviceCode2Service } from '@rw/auth';
 import { DOCUMENT } from '@angular/common';
-import { getBuildProps } from '@nx/uxlib';
+import { detectColorScheme, getBuildProps } from '@nx/uxlib';
 import { TranslateService } from '@ngx-translate/core';
 import { CodeFetcher } from './code-fetcher';
 import { datadogRum } from '@datadog/browser-rum';
@@ -133,27 +133,4 @@ function initDatadog() {
   datadogRum.setGlobalContextProperty('model', deviceInfo.model);
   datadogRum.setGlobalContextProperty('release', deviceInfo.release);
   datadogRum.setGlobalContextProperty('sdkInt', deviceInfo.sdkInt);
-}
-
-function detectColorScheme(window: Window) {
-  const darkQueryOverride = window.sessionStorage.getItem('rw-dark-mode');
-  if (darkQueryOverride === 'dark') {
-    return 'dark';
-  } else if (darkQueryOverride === 'light') {
-    return 'light';
-  }
-
-  if (typeof AndroidInterface !== 'undefined') {
-    if (AndroidInterface.isDarkMode()) {
-      return 'dark';
-    } else {
-      return 'light';
-    }
-  }
-
-  if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-    return 'dark';
-  } else {
-    return 'light';
-  }
 }

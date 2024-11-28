@@ -22,3 +22,4 @@ export * from './lib/blob-utils';
 
 export * from './lib/notify-dialog/notify-dialog.component';
 export * from './lib/notify-dialog/notify-dialog-ref';
+export * from './lib/detect-color-scheme';
