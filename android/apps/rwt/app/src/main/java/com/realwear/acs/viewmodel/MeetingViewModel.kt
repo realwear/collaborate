@@ -121,6 +121,7 @@ class MeetingViewModel @Inject constructor(
     private var userToken = ""
     private var meetingLink = ""
     private var participantName = ""
+    private var participantId = ""
 
     private val participantStateListenersMap = mutableMapOf<String, ParticipantListeners>()
 
@@ -248,7 +249,33 @@ class MeetingViewModel @Inject constructor(
         return currentCamera.value == Camera.THERMAL || ThermalUtil.isThermalCameraAvailable(appContext.application)
     }
 
-    fun onPermissionsResult(
+    fun onPermissionsResultForCall(
+        activityContext: Activity,
+        lifecycleOwner: LifecycleOwner,
+        permissions: Map<String, Boolean>,
+        userToken: String,
+        participantId: String
+    ) {
+        if (permissions.all { it.value }) {
+            Timber.i("Permissions granted. Joining meeting. ${_currentState.value}")
+            if (_currentState.value == State.LOADING || _currentState.value == State.PERMISSIONS_REFUSED) {
+                _currentState.value = State.JOINING_MEETING
+
+                this.userToken = userToken
+                this.participantId = participantId
+                this._meetingName.value = "Hello World!"
+
+                startTeamsCall(activityContext, lifecycleOwner)
+            } else {
+                Timber.i("Meeting already joined.")
+            }
+        } else {
+            Timber.e("Required permissions denied.")
+            _currentState.value = State.PERMISSIONS_REFUSED
+        }
+    }
+
+    fun onPermissionsResultForMeeting(
         activityContext: Activity,
         lifecycleOwner: LifecycleOwner,
         permissions: Map<String, Boolean>,
@@ -277,6 +304,34 @@ class MeetingViewModel @Inject constructor(
         }
     }
 
+    private fun startTeamsCall(@ActivityContext activityContext: Context, lifecycleOwner: LifecycleOwner) {
+        if (currentState.value != State.LOADING) {
+            Timber.w("Meeting already joined.")
+            return
+        }
+
+        viewModelScope.launch(ioDispatcher) {
+            if (callAgent == null) {
+                Timber.i("Creating call agent.")
+                callAgent = acsRepository.createCallAgent(appContext, callClient, userToken, participantName)
+            } else {
+                Timber.e("Call agent already initialized.")
+            }
+
+            call = acsRepository.startCall(appContext, callAgent, participantId)
+
+            call?.setOnStateChangedListener(createOnStateChangedListener(activityContext, lifecycleOwner))
+            call?.setOnRemoteParticipantsUpdatedListener(
+                createOnRemoteParticipantsUpdatedListener(
+                    activityContext,
+                    lifecycleOwner
+                )
+            )
+            call?.setOnMutedByOthersListener(createOnMutedListener())
+            call?.startLoggingStatistics()
+        }
+    }
+
     private fun joinTeamsMeeting(@ActivityContext activityContext: Context, lifecycleOwner: LifecycleOwner) {
         if (currentState.value != State.JOINING_MEETING) {
             Timber.w("Meeting already joined.")
@@ -291,7 +346,7 @@ class MeetingViewModel @Inject constructor(
                 Timber.e("Call agent already initialized.")
             }
 
-            call = acsRepository.joinCall(appContext, callAgent, meetingLink)
+            call = acsRepository.joinMeeting(appContext, callAgent, meetingLink)
 
             call?.setOnStateChangedListener(createOnStateChangedListener(activityContext, lifecycleOwner))
             call?.setOnRemoteParticipantsUpdatedListener(

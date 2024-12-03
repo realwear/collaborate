@@ -21,6 +21,8 @@ import com.azure.android.communication.calling.CallAgent
 import com.azure.android.communication.calling.CallAgentOptions
 import com.azure.android.communication.calling.CallClient
 import com.azure.android.communication.calling.DeviceManager
+import com.azure.android.communication.calling.TeamsCallAgent
+import com.azure.android.communication.calling.TeamsCallAgentOptions
 import com.azure.android.communication.common.CommunicationTokenCredential
 import javax.inject.Inject
 
@@ -32,6 +34,12 @@ interface ICallClient {
         credential: CommunicationTokenCredential,
         options: CallAgentOptions
     ): CallAgent
+
+    fun createCallAgentForTeams(
+        appContext: Application,
+        credential: CommunicationTokenCredential,
+        options: TeamsCallAgentOptions
+    ): TeamsCallAgent
 }
 
 class CallClientWrapper @Inject constructor() : ICallClient {
@@ -47,5 +55,13 @@ class CallClientWrapper @Inject constructor() : ICallClient {
         options: CallAgentOptions
     ): CallAgent {
         return callClient.createCallAgent(appContext, credential, options).get()
+    }
+
+    override fun createCallAgentForTeams(
+        appContext: Application,
+        credential: CommunicationTokenCredential,
+        options: TeamsCallAgentOptions
+    ): TeamsCallAgent {
+        return callClient.createTeamsCallAgent(appContext, credential, options).get()
     }
 }
