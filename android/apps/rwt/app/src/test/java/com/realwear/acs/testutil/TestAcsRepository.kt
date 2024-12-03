@@ -60,7 +60,7 @@ class TestAcsRepository(private val testCallAgent: TestCallAgent) : IAcsReposito
         return testCallAgent
     }
 
-    override fun joinCall(
+    override fun joinMeeting(
         appContext: IApplication,
         callAgent: ICallAgent?,
         meetingLink: String?

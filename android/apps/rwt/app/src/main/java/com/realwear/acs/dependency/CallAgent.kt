@@ -19,12 +19,17 @@ package com.realwear.acs.dependency
 import android.app.Application
 import android.content.Context
 import com.azure.android.communication.calling.CallAgent
+import com.azure.android.communication.calling.CommonCallAgent
 import com.azure.android.communication.calling.JoinCallOptions
 import com.azure.android.communication.calling.OutgoingVideoOptions
+import com.azure.android.communication.calling.TeamsCallAgent
+import com.azure.android.communication.common.CommunicationUserIdentifier
 import javax.inject.Inject
 
 interface ICallAgent {
     fun join(appContext: Application, meetingLink: String): ICall
+
+    fun startCall(appContext: Application, participantIdentifier: String): ICall
 
     fun switchOutgoingVideoFeed(
         context: Context,
@@ -49,6 +54,21 @@ class CallAgentWrapper @Inject constructor(
                 appContext,
                 teamsMeetingLinkLocator.createTeamsMeetingLinkLocator(meetingLink),
                 options
+            )
+        )
+    }
+
+    override fun startCall(appContext: Application, participantIdentifier: String): ICall {
+        // Create a participant (CommunicationIdentifier)
+        val participant = CommunicationUserIdentifier(participantIdentifier)
+
+        // Put into a list
+        val participantList = listOf(participant)
+
+        return CallWrapper(
+            callAgent.startCall(
+                appContext,
+                participantList
             )
         )
     }

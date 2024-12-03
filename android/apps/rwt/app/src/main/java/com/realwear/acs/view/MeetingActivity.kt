@@ -226,6 +226,37 @@ class MeetingActivity : ComponentActivity() {
         }
     }
 
+    private fun internalLaunchForMeeting(userToken: String, permissions: Map<String, Boolean>) {
+        val meetingAddress = intent.getStringExtra(MEETING_LINK) ?: ""
+        if (meetingAddress.isNullOrBlank()) {
+            Timber.e("Meeting link not found in intent.")
+            finish()
+        }
+
+        val participantName = Utils.parseLocalParticipantName(intent.getStringExtra(PARTICIPANT_NAME), Build.MODEL)
+        val meetingName = intent.getStringExtra(MEETING_NAME) ?: ""
+
+        meetingViewModel.onPermissionsResultForMeeting(
+            this,
+            this,
+            permissions,
+            userToken,
+            meetingAddress,
+            participantName,
+            meetingName
+        )
+    }
+
+    private fun internalLaunchForCall(userToken: String, permissions: Map<String, Boolean>) {
+        val participantIdentifier = intent.getStringExtra(PARTICIPANT_ID) ?: ""
+        if (participantIdentifier.isNullOrBlank()) {
+            Timber.e("Participant identifier not found in intent.")
+            finish()
+        }
+
+        meetingViewModel.onPermissionsResultForCall(this, this, permissions, userToken, participantIdentifier)
+    }
+
     private val requestPermissionsLauncher = registerForActivityResult(
         ActivityResultContracts.RequestMultiplePermissions()
     ) { permissions ->
@@ -237,31 +268,39 @@ class MeetingActivity : ComponentActivity() {
             finish()
         }
 
-        val meetingAddress = intent.getStringExtra(MEETING_LINK) ?: ""
-        if (meetingAddress.isNullOrBlank()) {
-            Timber.e("Meeting link not found in intent.")
-            finish()
+        // If there is a Meeting Link, then we are joining a meeting
+        if (intent.hasExtra(MEETING_LINK)) {
+            return@registerForActivityResult internalLaunchForMeeting(userToken, permissions)
         }
 
-        val participantName = Utils.parseLocalParticipantName(intent.getStringExtra(PARTICIPANT_NAME), Build.MODEL)
-        val meetingName = intent.getStringExtra(MEETING_NAME) ?: ""
-
-        meetingViewModel.onPermissionsResult(
-            this,
-            this,
-            permissions,
-            userToken,
-            meetingAddress,
-            participantName,
-            meetingName
-        )
+        internalLaunchForCall(userToken, permissions)
     }
 
     companion object {
         private const val USER_TOKEN = "user_token"
         private const val MEETING_LINK = "meeting_link"
+        private const val PARTICIPANT_ID = "participant_id"
         private const val PARTICIPANT_NAME = "participant_name"
         private const val MEETING_NAME = "meeting_name"
+
+        fun startCall(context: Context, userToken: String, participantIdentifier: String): Boolean {
+            if (userToken.isBlank() || participantIdentifier.isBlank()) {
+                return false
+            }
+
+            try {
+                val intent = Intent(context, MeetingActivity::class.java).apply {
+                    putExtra(USER_TOKEN, userToken)
+                    putExtra(PARTICIPANT_ID, participantIdentifier)
+                }
+                context.startActivity(intent)
+            } catch (ex: ActivityNotFoundException) {
+                Timber.e("Failed to start MeetingActivity", ex)
+                return false
+            }
+
+            return true
+        }
 
         fun joinMeeting(
             context: Context,

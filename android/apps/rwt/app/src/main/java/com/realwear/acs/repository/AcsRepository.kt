@@ -23,6 +23,7 @@ import com.azure.android.communication.calling.CallVideoStream
 import com.azure.android.communication.calling.LocalVideoStream
 import com.azure.android.communication.calling.RemoteVideoStream
 import com.azure.android.communication.calling.StreamDirection
+import com.azure.android.communication.calling.TeamsCallAgentOptions
 import com.azure.android.communication.calling.VideoStreamRenderer
 import com.azure.android.communication.calling.VideoStreamRendererView
 import com.azure.android.communication.calling.VideoStreamState
@@ -64,10 +65,16 @@ interface IAcsRepository {
         participantName: String
     ): ICallAgent
 
-    fun joinCall(
+    fun joinMeeting(
         appContext: IApplication,
         callAgent: ICallAgent?,
         meetingLink: String?
+    ): ICall?
+
+    fun startCall(
+        appContext: IApplication,
+        callAgent: ICallAgent?,
+        participantId: String?
     ): ICall?
 
     fun streamClassicCameraVideoStream(
@@ -135,7 +142,20 @@ class AcsRepository @Inject constructor(
         )
     }
 
-    override fun joinCall(
+    override fun startCall(
+        appContext: IApplication,
+        callAgent: ICallAgent?,
+        participantId: String?
+    ): ICall? {
+        return participantId?.let {id ->
+            callAgent?.startCall(appContext.application, id)
+        } ?: run {
+            Timber.e("Failed to start call due to lack of participant ID.")
+            null
+        }
+    }
+
+    override fun joinMeeting(
         appContext: IApplication,
         callAgent: ICallAgent?,
         meetingLink: String?
