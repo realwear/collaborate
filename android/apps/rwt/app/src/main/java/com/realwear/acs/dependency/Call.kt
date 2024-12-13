@@ -17,9 +17,9 @@
 package com.realwear.acs.dependency
 
 import android.content.Context
-import com.azure.android.communication.calling.Call
 import com.azure.android.communication.calling.CallState
 import com.azure.android.communication.calling.CallVideoStream
+import com.azure.android.communication.calling.CommonCall
 import com.azure.android.communication.calling.Features
 import com.azure.android.communication.calling.MediaStatisticsReportReceivedEvent
 import com.azure.android.communication.calling.ParticipantsUpdatedEvent
@@ -81,7 +81,7 @@ interface ICall {
     }
 }
 
-class CallWrapper @Inject constructor(private val call: Call) : ICall {
+class CallWrapper @Inject constructor(private val call: CommonCall) : ICall {
     override val state: CallState
         get() = call.state
 

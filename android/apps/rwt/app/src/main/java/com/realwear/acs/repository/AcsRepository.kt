@@ -23,12 +23,14 @@ import com.azure.android.communication.calling.CallVideoStream
 import com.azure.android.communication.calling.LocalVideoStream
 import com.azure.android.communication.calling.RemoteVideoStream
 import com.azure.android.communication.calling.StreamDirection
+import com.azure.android.communication.calling.TeamsCallAgentOptions
 import com.azure.android.communication.calling.VideoStreamRenderer
 import com.azure.android.communication.calling.VideoStreamRendererView
 import com.azure.android.communication.calling.VideoStreamState
 import com.azure.android.communication.calling.VideoStreamStateChangedEvent
 import com.azure.android.communication.common.CommunicationTokenCredential
 import com.realwear.acs.cameracapturer.repository.ICameraRepository
+import com.realwear.acs.dependency.CallAgentType
 import com.realwear.acs.dependency.CallAgentWrapper
 import com.realwear.acs.dependency.FrameLayoutWrapper
 import com.realwear.acs.dependency.IApplication
@@ -64,10 +66,23 @@ interface IAcsRepository {
         participantName: String
     ): ICallAgent
 
+    fun createTeamsCallAgent(
+        appContext: IApplication,
+        callClient: ICallClient,
+        userToken: String,
+        participantName: String
+    ): ICallAgent
+
     fun joinCall(
         appContext: IApplication,
         callAgent: ICallAgent?,
         meetingLink: String?
+    ): ICall?
+
+    fun callUser(
+        appContext: IApplication,
+        callAgent: ICallAgent?,
+        user: String
     ): ICall?
 
     fun streamClassicCameraVideoStream(
@@ -129,8 +144,29 @@ class AcsRepository @Inject constructor(
         val callAgentOptions = CallAgentOptions().apply {
             displayName = participantName
         }
+
         return CallAgentWrapper(
-            callClient.createCallAgent(appContext.application, credential, callAgentOptions),
+            CallAgentType.StandardCallAgentType(
+                callClient.createCallAgent(appContext.application, credential, callAgentOptions)
+            ),
+            TeamsMeetingLinkLocatorWrapper()
+        )
+    }
+
+    override fun createTeamsCallAgent(
+        appContext: IApplication,
+        callClient: ICallClient,
+        userToken: String,
+        participantName: String
+    ): ICallAgent {
+        return CallAgentWrapper(
+            CallAgentType.TeamsCallAgentType(
+                callClient.createCallAgent(
+                    appContext.application,
+                    CommunicationTokenCredential(userToken),
+                    TeamsCallAgentOptions()
+                )
+            ),
             TeamsMeetingLinkLocatorWrapper()
         )
     }
@@ -146,6 +182,14 @@ class AcsRepository @Inject constructor(
             Timber.e("Failed to join call due to lack of meeting link.")
             null
         }
+    }
+
+    override fun callUser(appContext: IApplication, callAgent: ICallAgent?, user: String): ICall? {
+        val call = callAgent?.startCall(appContext.application, user)
+        if (call == null) {
+            Timber.e("Failed to start call.")
+        }
+        return call
     }
 
     override fun displayClassicCameraVideoStream(appContext: IApplication): IFrameLayout? {

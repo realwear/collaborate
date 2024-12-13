@@ -17,21 +17,23 @@
 package com.realwear.acs.dependency
 
 import android.app.Application
-import com.azure.android.communication.calling.CallAgent
 import com.azure.android.communication.calling.CallAgentOptions
 import com.azure.android.communication.calling.CallClient
+import com.azure.android.communication.calling.CommonCallAgent
+import com.azure.android.communication.calling.CommonCallAgentOptions
 import com.azure.android.communication.calling.DeviceManager
+import com.azure.android.communication.calling.TeamsCallAgentOptions
 import com.azure.android.communication.common.CommunicationTokenCredential
 import javax.inject.Inject
 
 interface ICallClient {
     fun getDeviceManager(appContext: Application): DeviceManager
 
-    fun createCallAgent(
+    fun <T : CommonCallAgent> createCallAgent(
         appContext: Application,
         credential: CommunicationTokenCredential,
-        options: CallAgentOptions
-    ): CallAgent
+        options: CommonCallAgentOptions
+    ): T
 }
 
 class CallClientWrapper @Inject constructor() : ICallClient {
@@ -41,11 +43,24 @@ class CallClientWrapper @Inject constructor() : ICallClient {
         return callClient.getDeviceManager(appContext).get()
     }
 
-    override fun createCallAgent(
+    override fun <T : CommonCallAgent> createCallAgent(
         appContext: Application,
         credential: CommunicationTokenCredential,
-        options: CallAgentOptions
-    ): CallAgent {
-        return callClient.createCallAgent(appContext, credential, options).get()
+        options: CommonCallAgentOptions
+    ): T {
+        return when (options) {
+            is CallAgentOptions -> {
+                callClient.createCallAgent(appContext, credential, options).get() as T
+            }
+
+            is TeamsCallAgentOptions -> {
+                callClient.createTeamsCallAgent(appContext, credential, options).get() as T
+            }
+
+            else -> {
+                throw IllegalArgumentException("Invalid options type")
+            }
+        }
     }
+
 }
