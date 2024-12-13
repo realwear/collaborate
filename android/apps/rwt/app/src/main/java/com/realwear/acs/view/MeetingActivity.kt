@@ -230,17 +230,32 @@ class MeetingActivity : ComponentActivity() {
         ActivityResultContracts.RequestMultiplePermissions()
     ) { permissions ->
         Timber.i("Permissions results received.")
+        val meetingType = intent.getStringExtra(MEETING_TYPE) ?: ""
+        if (meetingType.isNullOrBlank() || meetingType !in MeetingType.values().map { it.name }) {
+            Timber.e("Meeting type not found in intent.")
+            finish()
+            return@registerForActivityResult
+        }
 
+        when (MeetingType.valueOf(meetingType)) {
+            MeetingType.MEETING -> handleMeetingIntent(permissions)
+            MeetingType.CALL -> handleCallIntent(permissions)
+        }
+    }
+
+    private fun handleMeetingIntent(permissions: Map<String, Boolean>) {
         val userToken = intent.getStringExtra(USER_TOKEN) ?: ""
         if (userToken.isNullOrBlank()) {
             Timber.e("User token not found in intent.")
             finish()
+            return
         }
 
         val meetingAddress = intent.getStringExtra(MEETING_LINK) ?: ""
         if (meetingAddress.isNullOrBlank()) {
             Timber.e("Meeting link not found in intent.")
             finish()
+            return
         }
 
         val participantName = Utils.parseLocalParticipantName(intent.getStringExtra(PARTICIPANT_NAME), Build.MODEL)
@@ -257,11 +272,42 @@ class MeetingActivity : ComponentActivity() {
         )
     }
 
+    private fun handleCallIntent(permissions: Map<String, Boolean>) {
+        val userToken = intent.getStringExtra(USER_TOKEN) ?: ""
+        if (userToken.isNullOrBlank()) {
+            Timber.e("User token not found in intent.")
+            finish()
+            return
+        }
+
+        val participantId = intent.getStringExtra(PARTICIPANT_ID) ?: ""
+        if (participantId.isNullOrBlank()) {
+            Timber.e("Participant ID not found in intent.")
+            finish()
+            return
+        }
+
+        meetingViewModel.onPermissionsResultForCall(
+            this,
+            this,
+            permissions,
+            userToken,
+            participantId
+        )
+    }
+
     companion object {
+        private const val MEETING_TYPE = "meeting_type"
         private const val USER_TOKEN = "user_token"
         private const val MEETING_LINK = "meeting_link"
         private const val PARTICIPANT_NAME = "participant_name"
         private const val MEETING_NAME = "meeting_name"
+        private const val PARTICIPANT_ID = "participant_id"
+
+        private enum class MeetingType {
+            MEETING,
+            CALL
+        }
 
         fun joinMeeting(
             context: Context,
@@ -276,10 +322,31 @@ class MeetingActivity : ComponentActivity() {
 
             try {
                 val intent = Intent(context, MeetingActivity::class.java).apply {
+                    putExtra(MEETING_TYPE, MeetingType.MEETING.name)
                     putExtra(USER_TOKEN, userToken)
                     putExtra(MEETING_LINK, meetingLink)
                     putExtra(PARTICIPANT_NAME, participantName)
                     putExtra(MEETING_NAME, meetingName)
+                }
+                context.startActivity(intent)
+            } catch (ex: ActivityNotFoundException) {
+                Timber.e("Failed to start MeetingActivity", ex)
+                return false
+            }
+
+            return true
+        }
+
+        fun callParticipant(context: Context, userToken: String, participantId: String): Boolean {
+            if (userToken.isBlank() || participantId.isBlank()) {
+                return false
+            }
+
+            try {
+                val intent = Intent(context, MeetingActivity::class.java).apply {
+                    putExtra(MEETING_TYPE, MeetingType.CALL.name)
+                    putExtra(USER_TOKEN, userToken)
+                    putExtra(PARTICIPANT_ID, participantId)
                 }
                 context.startActivity(intent)
             } catch (ex: ActivityNotFoundException) {

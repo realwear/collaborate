@@ -24,6 +24,7 @@ import { datadogRum } from '@datadog/browser-rum';
 
 declare let AndroidInterface: {
   joinMeeting: (userToken: string, meetingLink: string, participantName: string | null, meetingName: string | null) => boolean;
+  callParticipant: (userToken: string, participantId: string) => boolean;
   launchBarcodeReader: (callback: string) => boolean;
   getDeviceSerialNumber: () => string | null;
 };
@@ -52,6 +53,27 @@ export class MeetingJoiner {
 
     return result;
   }
+
+  callParticipant(accessToken: string, participantId: string) {
+    if (typeof AndroidInterface === 'undefined') {
+      console.error('AndroidInterface is not defined');
+      return false;
+    }
+
+    if (!accessToken) {
+      console.error('accessToken is not defined');
+      return false;
+    }
+
+    if (!participantId) {
+      console.error('participantId is not defined');
+      return false;
+    }
+
+    const result = AndroidInterface.callParticipant(accessToken, participantId);
+
+    return result;
+  }  
 
   isZoomAvailable() {
     if (typeof ZoomAndroidInterface === 'undefined') {

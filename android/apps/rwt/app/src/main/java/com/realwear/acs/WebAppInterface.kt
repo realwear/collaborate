@@ -61,6 +61,13 @@ class WebAppInterface(
 
     @JavascriptInterface
     @Suppress("unused") // Called from JavaScript
+    fun callParticipant(userToken: String, participantId: String): Boolean {
+        validateOrigin()
+        return MeetingActivity.callParticipant(activity, userToken, participantId)
+    }
+
+    @JavascriptInterface
+    @Suppress("unused") // Called from JavaScript
     fun launchBarcodeReader(callback: String): Boolean {
         validateOrigin()
 
