@@ -504,6 +504,11 @@ class MeetingViewModel @Inject constructor(
         lifecycleOwner: LifecycleOwner,
         participant: Participant
     ) {
+        Timber.i("Adding participant: ${participant.identifier}")
+        if (_participants.value.any { it.identifier == participant.identifier }) {
+            return
+        }
+
         participantStateListenersMap[participant.identifier] = ParticipantListeners(
             videoStreamStateChangedListener = createVideoStreamStateChangedListener(
                 activityContext,
