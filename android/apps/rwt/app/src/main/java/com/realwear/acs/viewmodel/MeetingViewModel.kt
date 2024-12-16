@@ -126,8 +126,6 @@ class MeetingViewModel @Inject constructor(
 
     private val participantStateListenersMap = mutableMapOf<String, ParticipantListeners>()
 
-    private var callType: CallType = CallType.MEETING
-
     override fun onPause(activity: Activity, lifecycleOwner: LifecycleOwner) {
         if (_currentState.value == State.IN_MEETING && _cameraState.value == StreamingState.LIVE) {
             setCameraState(activity, lifecycleOwner, StreamingState.PAUSED)
@@ -313,8 +311,6 @@ class MeetingViewModel @Inject constructor(
             return
         }
 
-        callType = CallType.MEETING
-
         viewModelScope.launch(ioDispatcher) {
             if (callAgent == null) {
                 Timber.i("Creating call agent.")
@@ -342,8 +338,6 @@ class MeetingViewModel @Inject constructor(
             Timber.w("Call already in progress.")
             return
         }
-
-        callType = CallType.CALL
 
         viewModelScope.launch(ioDispatcher) {
             if (callAgent == null) {
@@ -461,35 +455,76 @@ class MeetingViewModel @Inject constructor(
     ): () -> Unit {
         return {
             Timber.i("Call state: ${call?.state}")
-            if (call?.state == CallState.CONNECTED) {
-                checkIsLobby(activityContext, lifecycleOwner)
-            } else if (call?.state == CallState.IN_LOBBY) {
-                _currentState.value = State.IN_TEAMS_LOBBY
-            } else if (call?.state == CallState.DISCONNECTED) {
-                call?.callEndedReason.let { callEndReason ->
-                    when (callEndReason) {
-                        ICall.CallEndedReason.USER_HUNG_UP -> {
-                            Timber.i("Call ended by user.")
-                            unsubscribeFromCallEvents()
-                            cleanup()
-                            _currentState.value = State.FINISHED
-                        }
+            when (call?.state) {
+                CallState.CONNECTED -> {
+                    call?.getParticipants()?.forEach { participant ->
+                        addParticipant(activityContext, lifecycleOwner, participant)
+                    }
+                    checkIsLobby(activityContext, lifecycleOwner)
+                }
 
-                        ICall.CallEndedReason.NETWORK_ERROR -> {
-                            Timber.i("Network error while connecting call.")
-                            _currentState.value = State.NETWORK_ERROR
-                        }
+                CallState.IN_LOBBY -> {
+                    _currentState.value = State.IN_TEAMS_LOBBY
+                }
 
-                        else -> {
-                            Timber.e("Call ended with an unknown reason.")
-                            unsubscribeFromCallEvents()
-                            cleanup()
-                            _currentState.value = State.FINISHED
+                CallState.DISCONNECTED -> {
+                    call?.callEndedReason.let { callEndReason ->
+                        when (callEndReason) {
+                            ICall.CallEndedReason.USER_HUNG_UP -> {
+                                Timber.i("Call ended by user.")
+                                unsubscribeFromCallEvents()
+                                cleanup()
+                                _currentState.value = State.FINISHED
+                            }
+
+                            ICall.CallEndedReason.NETWORK_ERROR -> {
+                                Timber.i("Network error while connecting call.")
+                                _currentState.value = State.NETWORK_ERROR
+                            }
+
+                            else -> {
+                                Timber.e("Call ended with an unknown reason.")
+                                unsubscribeFromCallEvents()
+                                cleanup()
+                                _currentState.value = State.FINISHED
+                            }
                         }
                     }
                 }
+
+                else -> {
+                    // Do nothing.
+                }
             }
         }
+    }
+
+    private fun addParticipant(
+        @ActivityContext activityContext: Context,
+        lifecycleOwner: LifecycleOwner,
+        participant: Participant
+    ) {
+        participantStateListenersMap[participant.identifier] = ParticipantListeners(
+            videoStreamStateChangedListener = createVideoStreamStateChangedListener(
+                activityContext,
+                lifecycleOwner,
+                participant
+            ),
+            isTalkingStateChangedListener = createIsTalkingStateChangedListener(participant)
+        ).apply {
+            call?.addOnRemoteParticipantVideoStreamStateChangedListener(
+                participant.identifier,
+                videoStreamStateChangedListener
+            )
+            call?.addOnRemoteParticipantSpeakingChangedListener(
+                participant.identifier,
+                isTalkingStateChangedListener
+            )
+        }
+
+        _participants.value += participant
+
+        checkIsLobby(activityContext, lifecycleOwner)
     }
 
     private fun createOnRemoteParticipantsUpdatedListener(
@@ -499,28 +534,7 @@ class MeetingViewModel @Inject constructor(
         return { updatedParticipants ->
             updatedParticipants.addedParticipants.forEach { participant ->
                 Timber.i("Participant added")
-
-                participantStateListenersMap[participant.identifier] = ParticipantListeners(
-                    videoStreamStateChangedListener = createVideoStreamStateChangedListener(
-                        activityContext,
-                        lifecycleOwner,
-                        participant
-                    ),
-                    isTalkingStateChangedListener = createIsTalkingStateChangedListener(participant)
-                ).apply {
-                    call?.addOnRemoteParticipantVideoStreamStateChangedListener(
-                        participant.identifier,
-                        videoStreamStateChangedListener
-                    )
-                    call?.addOnRemoteParticipantSpeakingChangedListener(
-                        participant.identifier,
-                        isTalkingStateChangedListener
-                    )
-                }
-
-                _participants.value = _participants.value + participant
-
-                checkIsLobby(activityContext, lifecycleOwner)
+                addParticipant(activityContext, lifecycleOwner, participant)
             }
 
             updatedParticipants.removedParticipants.forEach { participant ->
@@ -539,8 +553,7 @@ class MeetingViewModel @Inject constructor(
                 }
                 organizeSpeakers()
 
-                _participants.value =
-                    _participants.value - _participants.value.first { it.identifier == participant.identifier }
+                _participants.value -= _participants.value.first { it.identifier == participant.identifier }
 
                 checkIsLobby(activityContext, lifecycleOwner)
 
@@ -675,11 +688,7 @@ class MeetingViewModel @Inject constructor(
         }
 
         Timber.i("Meeting participants: ${_participants.value.size}")
-        val newState = if (callType == CallType.CALL) {
-            State.IN_MEETING
-        } else {
-            if (_participants.value.isEmpty()) State.IN_LOBBY else State.IN_MEETING
-        }
+        val newState = if (_participants.value.isEmpty()) State.IN_LOBBY else State.IN_MEETING
 
         if (newState == _currentState.value) {
             Timber.i("No change in state.")
@@ -810,10 +819,5 @@ abstract class IMeetingViewModel : ViewModel() {
         LIVE,
         PAUSED,
         OFF
-    }
-
-    enum class CallType {
-        MEETING,
-        CALL
     }
 }

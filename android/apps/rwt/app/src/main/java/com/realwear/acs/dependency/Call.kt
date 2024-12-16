@@ -39,6 +39,8 @@ interface ICall {
     val state: CallState
     val callEndedReason: CallEndedReason
 
+    fun getParticipants(): List<Participant>
+
     fun setOnStateChangedListener(listener: () -> Unit)
     fun removeOnStateChangedListener()
 
@@ -108,6 +110,26 @@ class CallWrapper @Inject constructor(private val call: CommonCall) : ICall {
                 else -> ICall.CallEndedReason.NONE
             }
         }
+
+    override fun getParticipants(): List<Participant> {
+        val participants = mutableListOf<Participant>()
+
+        call.remoteParticipants.forEach { participant ->
+            participantMap[participant.identifier.rawId] = participant
+
+            val participantName = Utils.parseParticipantName(participant.displayName)
+            participants.add(
+                Participant(
+                    identifier = participant.identifier.rawId,
+                    firstName = participantName.first,
+                    lastName = participantName.second,
+                    isTalking = participant.isSpeaking,
+                )
+            )
+        }
+
+        return participants
+    }
 
     override fun setOnStateChangedListener(listener: () -> Unit) {
         removeOnStateChangedListener()
