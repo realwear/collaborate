@@ -49,6 +49,7 @@ import com.realwear.acs.repository.PermissionsRepository
 import com.realwear.acs.ui.theme.TeamsForRealWearTheme
 import com.realwear.acs.util.EisUtils
 import com.realwear.acs.util.Utils
+import com.realwear.acs.view.composable.loading.Calling
 import com.realwear.acs.view.composable.loading.Loading
 import com.realwear.acs.view.composable.loading.NetworkError
 import com.realwear.acs.viewmodel.IMeetingViewModel.State
@@ -153,6 +154,8 @@ class MeetingActivity : ComponentActivity() {
                         State.LOADING -> Loading(meetingViewModel)
 
                         State.JOINING_MEETING -> Loading(meetingViewModel)
+
+                        State.CALLING_PARTICIPANT -> Calling(meetingViewModel)
 
                         State.PERMISSIONS_REFUSED -> PermissionsRefused(permissionsRefusedViewModel)
 

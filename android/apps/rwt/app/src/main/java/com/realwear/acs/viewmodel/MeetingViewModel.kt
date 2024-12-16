@@ -290,7 +290,7 @@ class MeetingViewModel @Inject constructor(
             Timber.i("Permissions granted. Calling participant. ${_currentState.value}")
 
             if (_currentState.value == State.LOADING || _currentState.value == State.PERMISSIONS_REFUSED) {
-                _currentState.value = State.JOINING_MEETING
+                _currentState.value = State.CALLING_PARTICIPANT
 
                 this.userToken = userToken
                 this.participantId = participantId
@@ -334,8 +334,8 @@ class MeetingViewModel @Inject constructor(
     }
 
     private fun joinTeamsCall(@ActivityContext activityContext: Context, lifecycleOwner: LifecycleOwner) {
-        if (currentState.value != State.JOINING_MEETING) {
-            Timber.w("Meeting already joined.")
+        if (currentState.value != State.CALLING_PARTICIPANT) {
+            Timber.w("Call already in progress.")
             return
         }
 
@@ -780,6 +780,7 @@ abstract class IMeetingViewModel : ViewModel() {
         PERMISSIONS_REFUSED,
         NETWORK_ERROR,
         JOINING_MEETING,
+        CALLING_PARTICIPANT,
         IN_TEAMS_LOBBY,
         IN_LOBBY,
         IN_MEETING,

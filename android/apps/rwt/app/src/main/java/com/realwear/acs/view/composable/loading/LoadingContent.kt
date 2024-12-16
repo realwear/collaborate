@@ -25,11 +25,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -38,7 +35,6 @@ import com.realwear.acs.DevicesPreview
 import com.realwear.acs.R
 import com.realwear.acs.ui.theme.TeamsForRealWearTheme
 import com.realwear.acs.util.PreviewUtils
-import com.realwear.acs.util.Utils.parseMeetingName
 import com.realwear.acs.viewmodel.IMeetingViewModel
 
 @Composable
@@ -46,13 +42,10 @@ fun LoadingContent(
     meetingViewModel: IMeetingViewModel = viewModel(),
     icon: Int,
     animate: Boolean,
-    titleResource: Int,
+    title: String,
     explanation: String,
     instruction: String
 ) {
-    val context = LocalContext.current
-    val meetingName by meetingViewModel.meetingName.observeAsState("")
-
     Box(
         modifier = Modifier
             .background(MaterialTheme.colorScheme.background)
@@ -64,7 +57,7 @@ fun LoadingContent(
                 Spacer(modifier = Modifier.weight(1f))
 
                 Text(
-                    text = stringResource(id = titleResource, parseMeetingName(context, meetingName)),
+                    text = title,
                     style = MaterialTheme.typography.titleLarge
                 )
 
@@ -108,7 +101,7 @@ private fun LoadingContentPreview() {
             meetingViewModel = PreviewUtils.previewMeetingViewModel(),
             icon = R.drawable.supervised_user_circle_24dp,
             animate = true,
-            titleResource = R.string.meeting_loading_title,
+            title = "Title for the Meeting",
             explanation = "Explanation about the current state",
             instruction = "Instructions on what to try next"
         )

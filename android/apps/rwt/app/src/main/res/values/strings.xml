@@ -14,6 +14,8 @@
   <string name="meeting_loading_explanation">Establishing Connection...</string>
   <string name="meeting_loading_instructions">Please wait</string>
 
+  <string name="call_loading_title">Calling %1$s...</string>
+
   <string name="lobby_title">%1$s - In Lobby</string>
   <string name="lobby_explanation">You\'re the only one here</string>
   <string name="lobby_instructions">Waiting for more attendees</string>

@@ -25,7 +25,6 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.realwear.acs.R
 import com.realwear.acs.testutil.TestMeetingViewModel
 import com.realwear.acs.testutil.assertNodeWithTagIsNotDisplayed
-import com.realwear.acs.util.Utils.parseMeetingName
 import org.junit.Assert
 import org.junit.Rule
 import org.junit.Test
@@ -44,7 +43,7 @@ class LoadingContentTest {
                 meetingViewModel = TestMeetingViewModel(),
                 icon = R.drawable.supervised_user_circle_24dp,
                 animate = true,
-                titleResource = R.string.meeting_loading_title,
+                title = context.getString(R.string.meeting_loading_title),
                 explanation = context.getString(R.string.meeting_loading_explanation),
                 instruction = context.getString(R.string.meeting_loading_instructions)
             )
@@ -52,10 +51,7 @@ class LoadingContentTest {
 
         // Check the loading content is displayed
         composeTestRule.onNodeWithText(
-            context.getString(
-                R.string.meeting_loading_title,
-                parseMeetingName(context, TestMeetingViewModel.MEETING_TITLE),
-            )
+            context.getString(R.string.meeting_loading_title)
         ).assertExists()
         composeTestRule.onNodeWithText(context.getString(R.string.meeting_loading_explanation))
             .assertExists()
@@ -78,7 +74,7 @@ class LoadingContentTest {
                 meetingViewModel = testMeetingViewModel,
                 icon = R.drawable.supervised_user_circle_24dp,
                 animate = true,
-                titleResource = R.string.meeting_loading_title,
+                title = context.getString(R.string.meeting_loading_title),
                 explanation = context.getString(R.string.meeting_loading_explanation),
                 instruction = context.getString(R.string.meeting_loading_instructions)
             )
@@ -102,7 +98,7 @@ class LoadingContentTest {
                 meetingViewModel = testMeetingViewModel,
                 icon = R.drawable.supervised_user_circle_24dp,
                 animate = true,
-                titleResource = R.string.meeting_loading_title,
+                title = context.getString(R.string.meeting_loading_title),
                 explanation = context.getString(R.string.meeting_loading_explanation),
                 instruction = context.getString(R.string.meeting_loading_instructions)
             )
@@ -120,7 +116,7 @@ class LoadingContentTest {
                 meetingViewModel = testMeetingViewModel,
                 icon = R.drawable.error_24px,
                 animate = false,
-                titleResource = R.string.meeting_loading_title,
+                title = context.getString(R.string.meeting_loading_title),
                 explanation = context.getString(R.string.meeting_loading_explanation),
                 instruction = context.getString(R.string.meeting_loading_instructions)
             )

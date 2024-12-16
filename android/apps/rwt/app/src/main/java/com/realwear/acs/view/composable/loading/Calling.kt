@@ -29,22 +29,22 @@ import com.realwear.acs.util.Utils.parseMeetingName
 import com.realwear.acs.viewmodel.IMeetingViewModel
 
 @Composable
-fun NetworkError(meetingViewModel: IMeetingViewModel = viewModel()) {
+fun Calling(meetingViewModel: IMeetingViewModel = viewModel()) {
     val context = LocalContext.current
     val meetingName by meetingViewModel.meetingName.observeAsState("")
 
     LoadingContent(
         meetingViewModel = meetingViewModel,
-        icon = R.drawable.error_24px,
-        animate = false,
-        title = stringResource(id = R.string.network_error_title, parseMeetingName(context, meetingName)),
-        explanation = stringResource(id = R.string.network_error_explanation),
-        instruction = stringResource(id = R.string.network_error_instructions)
+        icon = R.drawable.supervised_user_circle_24dp,
+        animate = true,
+        title = stringResource(id = R.string.call_loading_title, parseMeetingName(context, meetingName)),
+        explanation = stringResource(id = R.string.meeting_loading_explanation),
+        instruction = stringResource(id = R.string.meeting_loading_instructions)
     )
 }
 
 @Composable
 @DevicesPreview
-private fun NetworkErrorPreview() {
-    NetworkError(meetingViewModel = PreviewUtils.previewMeetingViewModel())
+private fun LoadingPreview() {
+    Calling(meetingViewModel = PreviewUtils.previewMeetingViewModel())
 }

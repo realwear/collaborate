@@ -17,20 +17,27 @@
 package com.realwear.acs.view.composable.loading
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.realwear.acs.DevicesPreview
 import com.realwear.acs.R
 import com.realwear.acs.util.PreviewUtils
+import com.realwear.acs.util.Utils.parseMeetingName
 import com.realwear.acs.viewmodel.IMeetingViewModel
 
 @Composable
 fun Loading(meetingViewModel: IMeetingViewModel = viewModel()) {
+    val context = LocalContext.current
+    val meetingName by meetingViewModel.meetingName.observeAsState("")
+
     LoadingContent(
         meetingViewModel = meetingViewModel,
         icon = R.drawable.supervised_user_circle_24dp,
         animate = true,
-        titleResource = R.string.meeting_loading_title,
+        title = stringResource(id = R.string.meeting_loading_title, parseMeetingName(context, meetingName)),
         explanation = stringResource(id = R.string.meeting_loading_explanation),
         instruction = stringResource(id = R.string.meeting_loading_instructions)
     )
