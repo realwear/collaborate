@@ -61,9 +61,9 @@ class WebAppInterface(
 
     @JavascriptInterface
     @Suppress("unused") // Called from JavaScript
-    fun callParticipant(userToken: String, participantId: String): Boolean {
+    fun callParticipantWithTeamsToken(teamsToken: String, participantId: String): Boolean {
         validateOrigin()
-        return MeetingActivity.callParticipant(activity, userToken, participantId)
+        return MeetingActivity.callParticipant(activity, teamsToken, participantId)
     }
 
     @JavascriptInterface
