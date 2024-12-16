@@ -126,6 +126,8 @@ class MeetingViewModel @Inject constructor(
 
     private val participantStateListenersMap = mutableMapOf<String, ParticipantListeners>()
 
+    private var callType: CallType = CallType.MEETING
+
     override fun onPause(activity: Activity, lifecycleOwner: LifecycleOwner) {
         if (_currentState.value == State.IN_MEETING && _cameraState.value == StreamingState.LIVE) {
             setCameraState(activity, lifecycleOwner, StreamingState.PAUSED)
@@ -311,6 +313,8 @@ class MeetingViewModel @Inject constructor(
             return
         }
 
+        callType = CallType.MEETING
+
         viewModelScope.launch(ioDispatcher) {
             if (callAgent == null) {
                 Timber.i("Creating call agent.")
@@ -338,6 +342,8 @@ class MeetingViewModel @Inject constructor(
             Timber.w("Call already in progress.")
             return
         }
+
+        callType = CallType.CALL
 
         viewModelScope.launch(ioDispatcher) {
             if (callAgent == null) {
@@ -669,7 +675,12 @@ class MeetingViewModel @Inject constructor(
         }
 
         Timber.i("Meeting participants: ${_participants.value.size}")
-        val newState = if (_participants.value.isEmpty()) State.IN_LOBBY else State.IN_MEETING
+        val newState = if (callType == CallType.CALL) {
+            State.IN_MEETING
+        } else {
+            if (_participants.value.isEmpty()) State.IN_LOBBY else State.IN_MEETING
+        }
+
         if (newState == _currentState.value) {
             Timber.i("No change in state.")
             return
@@ -799,5 +810,10 @@ abstract class IMeetingViewModel : ViewModel() {
         LIVE,
         PAUSED,
         OFF
+    }
+
+    enum class CallType {
+        MEETING,
+        CALL
     }
 }
