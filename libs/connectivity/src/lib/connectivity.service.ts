@@ -108,7 +108,7 @@ export class ConnectivityService implements OnDestroy {
     return LoadingAndroidInterface.downloadProgress();
   }
 
-  restartAcivity() {
+  restartActivity() {
     if (typeof LoadingAndroidInterface === 'undefined' || LoadingAndroidInterface === null) {
       console.error('LoadingAndroidInterface is not defined');
       return true;

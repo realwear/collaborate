@@ -158,7 +158,7 @@ export class LoaderComponent implements OnInit, OnDestroy {
   }
 
   tryAgain() {
-    this.connectivityService.restartAcivity();
+    this.connectivityService.restartActivity();
     this.isError$.next(false);
   }
 
