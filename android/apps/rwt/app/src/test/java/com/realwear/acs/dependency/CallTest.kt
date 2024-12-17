@@ -33,6 +33,7 @@ import com.azure.android.communication.calling.VideoStreamState
 import com.azure.android.communication.calling.VideoStreamStateChangedEvent
 import com.azure.android.communication.calling.VideoStreamStateChangedListener
 import com.azure.android.communication.common.CommunicationIdentifier
+import com.realwear.acs.model.Participant
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
@@ -106,6 +107,25 @@ class CallTest {
     fun testInitialState() {
         Mockito.`when`(mockCall.state).thenReturn(CallState.NONE)
         assertEquals(CallState.NONE, callWrapper.state)
+        assertEquals(emptyList<Participant>(), callWrapper.getParticipants())
+    }
+
+    @Test
+    fun testGetParticipants() {
+        //
+        // Create a dummy participant.
+        //
+        Mockito.`when`(mockRemoteParticipant.identifier).thenReturn(TEST_IDENTIFIER)
+        Mockito.`when`(mockRemoteParticipant.displayName).thenReturn(TEST_DISPLAY_NAME)
+        Mockito.`when`(mockRemoteParticipant.isSpeaking).thenReturn(TEST_IS_SPEAKING)
+        Mockito.`when`(mockCall.remoteParticipants).thenReturn(listOf(mockRemoteParticipant))
+
+        val result = callWrapper.getParticipants()
+
+        assertEquals(
+            listOf(Participant(TEST_IDENTIFIER.rawId, TEST_FIRST_NAME, TEST_LAST_NAME, TEST_IS_SPEAKING)),
+            result
+        )
     }
 
     @Test
@@ -295,6 +315,8 @@ class CallTest {
 
     companion object {
         private val TEST_IDENTIFIER = CommunicationIdentifier.fromRawId("123")
+        private const val TEST_FIRST_NAME = "John"
+        private const val TEST_LAST_NAME = "Doe"
         private const val TEST_DISPLAY_NAME = "John Doe"
         private const val TEST_IS_SPEAKING = false
     }
