@@ -24,6 +24,9 @@ import android.webkit.JavascriptInterface
 import android.webkit.WebView
 import androidx.activity.ComponentActivity
 import com.realwear.acs.BuildConfig
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import timber.log.Timber
 
 class LoadingWebAppInterface(
@@ -77,6 +80,16 @@ class LoadingWebAppInterface(
         validateOrigin()
 
         return WEB_VIEW_SIZE
+    }
+
+    @JavascriptInterface
+    @Suppress("unused")
+    fun restartActivity() {
+        validateOrigin()
+
+        CoroutineScope(Dispatchers.Main).launch {
+            activity.recreate()
+        }
     }
 
     private fun validateOrigin() {

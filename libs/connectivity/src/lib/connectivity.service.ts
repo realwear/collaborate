@@ -27,6 +27,7 @@ declare let LoadingAndroidInterface: {
   updateWebView: () => void;
   webViewSize: () => number;
   downloadProgress: () => number;
+  restartActivity: () => void;
 };
 
 @Injectable({
@@ -105,6 +106,15 @@ export class ConnectivityService implements OnDestroy {
     }
 
     return LoadingAndroidInterface.downloadProgress();
+  }
+
+  restartAcivity() {
+    if (typeof LoadingAndroidInterface === 'undefined' || LoadingAndroidInterface === null) {
+      console.error('LoadingAndroidInterface is not defined');
+      return true;
+    }
+
+    return LoadingAndroidInterface.restartActivity();
   }
 
   openConfigurator() {
