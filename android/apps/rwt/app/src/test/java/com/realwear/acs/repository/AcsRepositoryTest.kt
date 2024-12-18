@@ -40,6 +40,7 @@ import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.MockitoAnnotations
 import org.mockito.junit.MockitoJUnitRunner
+import kotlin.test.assertNotNull
 
 @ExperimentalCoroutinesApi
 @RunWith(MockitoJUnitRunner::class)
@@ -152,5 +153,17 @@ class AcsRepositoryTest {
 
         assertFalse( testThermalRepository.isFlashOn)
         assertTrue(testMainCameraRepository.isFlashOn)
+    }
+
+    @Test
+    fun testCallUser() = testScope.runTest {
+        val call = acsRepository.callUser(testApplication, testCallAgent, TEST_USER) as? TestCall
+
+        assertNotNull(call)
+        assertTrue(testCallAgent.hasStartCallBeenCalled)
+    }
+
+    companion object {
+        private const val TEST_USER = "8:orgid:1234567890"
     }
 }
