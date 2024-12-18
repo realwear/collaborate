@@ -31,13 +31,13 @@ interface ICallClient {
 
     fun createCallAgent(
         appContext: Application,
-        credential: CommunicationTokenCredential,
+        userToken: String,
         commonCallAgentOptions: ICommonCallAgentOptions
     ): CallAgent
 
     fun createTeamsCallAgent(
         appContext: Application,
-        credential: CommunicationTokenCredential,
+        userToken: String,
         commonCallAgentOptions: ICommonCallAgentOptions
     ): TeamsCallAgent
 }
@@ -103,24 +103,35 @@ sealed class CallClientType {
     }
 }
 
-class CallClientWrapper<T : CallClientType> @Inject constructor(private val callClient: T) : ICallClient {
+class CallClientWrapper<T : CallClientType> @Inject constructor(
+    private val callClient: T,
+    private val communicationTokenCredential: ICommunicationTokenCredential
+) : ICallClient {
     override fun getDeviceManager(appContext: Application): DeviceManager {
         return callClient.getDeviceManager(appContext)
     }
 
     override fun createCallAgent(
         appContext: Application,
-        credential: CommunicationTokenCredential,
+        userToken: String,
         commonCallAgentOptions: ICommonCallAgentOptions
     ): CallAgent {
-        return callClient.createCallAgent(appContext, credential, commonCallAgentOptions)
+        return callClient.createCallAgent(
+            appContext,
+            communicationTokenCredential.createCommunicationTokenCredential(userToken),
+            commonCallAgentOptions
+        )
     }
 
     override fun createTeamsCallAgent(
         appContext: Application,
-        credential: CommunicationTokenCredential,
+        userToken: String,
         commonCallAgentOptions: ICommonCallAgentOptions
     ): TeamsCallAgent {
-        return callClient.createTeamsCallAgent(appContext, credential, commonCallAgentOptions)
+        return callClient.createTeamsCallAgent(
+            appContext,
+            communicationTokenCredential.createCommunicationTokenCredential(userToken),
+            commonCallAgentOptions
+        )
     }
 }

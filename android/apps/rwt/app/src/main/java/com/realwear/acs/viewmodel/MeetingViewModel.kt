@@ -342,7 +342,7 @@ class MeetingViewModel @Inject constructor(
         viewModelScope.launch(ioDispatcher) {
             if (callAgent == null) {
                 Timber.i("Creating call agent.")
-                callAgent = acsRepository.createTeamsCallAgent(appContext, callClient, userToken, participantName)
+                callAgent = acsRepository.createTeamsCallAgent(appContext, callClient, userToken)
             } else {
                 Timber.e("Call agent already initialized.")
             }

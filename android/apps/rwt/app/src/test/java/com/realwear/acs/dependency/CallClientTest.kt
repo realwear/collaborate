@@ -51,14 +51,21 @@ class CallClientTest {
     fun setUp() {
         MockitoAnnotations.openMocks(this)
 
-        callClientWrapper = CallClientWrapper(TestStandardCallClientType(mockCallAgent, mockTeamsCallAgent))
+        callClientWrapper = CallClientWrapper(
+            TestStandardCallClientType(mockCallAgent, mockTeamsCallAgent),
+            object : ICommunicationTokenCredential {
+                override fun createCommunicationTokenCredential(userToken: String): CommunicationTokenCredential {
+                    return mockCommunicationTokenCredential
+                }
+            }
+        )
     }
 
     @Test
     fun testCreatingCallClient() {
         val callAgent = callClientWrapper.createCallAgent(
             mockApplication,
-            mockCommunicationTokenCredential,
+            USER_TOKEN,
             TestCommonCallAgentOptions()
         )
 
@@ -69,10 +76,14 @@ class CallClientTest {
     fun testCreatingTeamsCallClient() {
         val teamsCallAgent = callClientWrapper.createTeamsCallAgent(
             mockApplication,
-            mockCommunicationTokenCredential,
+            USER_TOKEN,
             TestCommonCallAgentOptions()
         )
 
         assert(teamsCallAgent is TeamsCallAgent)
+    }
+
+    companion object {
+        private const val USER_TOKEN = "user_token"
     }
 }

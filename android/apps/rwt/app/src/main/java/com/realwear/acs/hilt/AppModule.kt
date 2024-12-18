@@ -23,9 +23,11 @@ import com.azure.android.communication.calling.CallClient
 import com.realwear.acs.dependency.ApplicationWrapper
 import com.realwear.acs.dependency.CallClientType
 import com.realwear.acs.dependency.CallClientWrapper
+import com.realwear.acs.dependency.CommunicationTokenCredentialWrapper
 import com.realwear.acs.dependency.EisManager
 import com.realwear.acs.dependency.IApplication
 import com.realwear.acs.dependency.ICallClient
+import com.realwear.acs.dependency.ICommunicationTokenCredential
 import com.realwear.acs.dependency.IEisManager
 import com.realwear.acs.dependency.IOutgoingVideoStream
 import com.realwear.acs.dependency.OutgoingVideoStreamWrapper
@@ -68,7 +70,12 @@ object AppModule {
     fun provideMainDispatcher(): CoroutineDispatcher = Dispatchers.Main
 
     @Provides
-    fun provideCallClient(): ICallClient = CallClientWrapper(CallClientType.StandardCallClientType(CallClient()))
+    fun provideCallClient(
+        communicationTokenCredentialWrapper: CommunicationTokenCredentialWrapper
+    ): ICallClient = CallClientWrapper(
+        CallClientType.StandardCallClientType(CallClient()),
+        communicationTokenCredentialWrapper
+    )
 
     @Provides
     @Singleton
@@ -114,4 +121,7 @@ object AppModule {
 
     @Provides
     fun provideEisManager(): IEisManager = EisManager()
+
+    @Provides
+    fun provideCommunicationTokenCredential(): ICommunicationTokenCredential = CommunicationTokenCredentialWrapper()
 }

@@ -63,8 +63,7 @@ class TestAcsRepository(private val testCallAgent: TestCallAgent) : IAcsReposito
     override fun createTeamsCallAgent(
         appContext: IApplication,
         callClient: ICallClient,
-        userToken: String,
-        participantName: String
+        userToken: String
     ): ICallAgent {
         return testCallAgent
     }

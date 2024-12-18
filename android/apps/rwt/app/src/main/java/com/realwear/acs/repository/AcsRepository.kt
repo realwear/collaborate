@@ -29,7 +29,6 @@ import com.azure.android.communication.calling.VideoStreamRenderer
 import com.azure.android.communication.calling.VideoStreamRendererView
 import com.azure.android.communication.calling.VideoStreamState
 import com.azure.android.communication.calling.VideoStreamStateChangedEvent
-import com.azure.android.communication.common.CommunicationTokenCredential
 import com.realwear.acs.cameracapturer.repository.ICameraRepository
 import com.realwear.acs.dependency.CallAgentType
 import com.realwear.acs.dependency.CallAgentWrapper
@@ -72,8 +71,7 @@ interface IAcsRepository {
     fun createTeamsCallAgent(
         appContext: IApplication,
         callClient: ICallClient,
-        userToken: String,
-        participantName: String
+        userToken: String
     ): ICallAgent
 
     fun joinCall(
@@ -143,7 +141,6 @@ class AcsRepository @Inject constructor(
         userToken: String,
         participantName: String
     ): ICallAgent {
-        val credential = CommunicationTokenCredential(userToken)
         val callAgentOptions = CallAgentOptions().apply {
             displayName = participantName
         }
@@ -152,7 +149,7 @@ class AcsRepository @Inject constructor(
             CallAgentType.StandardCallAgentType(
                 callClient.createCallAgent(
                     appContext.application,
-                    credential,
+                    userToken,
                     CommonCallAgentOptionsWrapper(callAgentOptions)
                 )
             ),
@@ -163,14 +160,13 @@ class AcsRepository @Inject constructor(
     override fun createTeamsCallAgent(
         appContext: IApplication,
         callClient: ICallClient,
-        userToken: String,
-        participantName: String
+        userToken: String
     ): ICallAgent {
         return CallAgentWrapper(
             CallAgentType.TeamsCallAgentType(
                 callClient.createTeamsCallAgent(
                     appContext.application,
-                    CommunicationTokenCredential(userToken),
+                    userToken,
                     CommonCallAgentOptionsWrapper(TeamsCallAgentOptions())
                 )
             ),
