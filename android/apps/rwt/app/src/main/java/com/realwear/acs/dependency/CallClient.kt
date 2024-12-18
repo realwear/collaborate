@@ -17,11 +17,11 @@
 package com.realwear.acs.dependency
 
 import android.app.Application
+import com.azure.android.communication.calling.CallAgent
 import com.azure.android.communication.calling.CallAgentOptions
 import com.azure.android.communication.calling.CallClient
-import com.azure.android.communication.calling.CommonCallAgent
-import com.azure.android.communication.calling.CommonCallAgentOptions
 import com.azure.android.communication.calling.DeviceManager
+import com.azure.android.communication.calling.TeamsCallAgent
 import com.azure.android.communication.calling.TeamsCallAgentOptions
 import com.azure.android.communication.common.CommunicationTokenCredential
 import javax.inject.Inject
@@ -29,38 +29,98 @@ import javax.inject.Inject
 interface ICallClient {
     fun getDeviceManager(appContext: Application): DeviceManager
 
-    fun <T : CommonCallAgent> createCallAgent(
+    fun createCallAgent(
         appContext: Application,
         credential: CommunicationTokenCredential,
-        options: CommonCallAgentOptions
-    ): T
+        commonCallAgentOptions: ICommonCallAgentOptions
+    ): CallAgent
+
+    fun createTeamsCallAgent(
+        appContext: Application,
+        credential: CommunicationTokenCredential,
+        commonCallAgentOptions: ICommonCallAgentOptions
+    ): TeamsCallAgent
 }
 
-class CallClientWrapper @Inject constructor() : ICallClient {
-    private val callClient = CallClient()
-
-    override fun getDeviceManager(appContext: Application): DeviceManager {
-        return callClient.getDeviceManager(appContext).get()
-    }
-
-    override fun <T : CommonCallAgent> createCallAgent(
+sealed class CallClientType {
+    abstract fun getDeviceManager(appContext: Application): DeviceManager
+    abstract fun createCallAgent(
         appContext: Application,
         credential: CommunicationTokenCredential,
-        options: CommonCallAgentOptions
-    ): T {
-        return when (options) {
-            is CallAgentOptions -> {
-                callClient.createCallAgent(appContext, credential, options).get() as T
-            }
+        commonCallAgentOptions: ICommonCallAgentOptions
+    ): CallAgent
 
-            is TeamsCallAgentOptions -> {
-                callClient.createTeamsCallAgent(appContext, credential, options).get() as T
-            }
+    abstract fun createTeamsCallAgent(
+        appContext: Application,
+        credential: CommunicationTokenCredential,
+        commonCallAgentOptions: ICommonCallAgentOptions
+    ): TeamsCallAgent
 
-            else -> {
-                throw IllegalArgumentException("Invalid options type")
-            }
+    open class StandardCallClientType(private val callClient: CallClient) : CallClientType() {
+        override fun getDeviceManager(appContext: Application): DeviceManager {
+            return callClient.getDeviceManager(appContext).get()
+        }
+
+        override fun createCallAgent(
+            appContext: Application,
+            credential: CommunicationTokenCredential,
+            commonCallAgentOptions: ICommonCallAgentOptions
+        ): CallAgent {
+            val options = commonCallAgentOptions.commonCallAgentOptions() as CallAgentOptions
+            return callClient.createCallAgent(appContext, credential, options).get()
+        }
+
+        override fun createTeamsCallAgent(
+            appContext: Application,
+            credential: CommunicationTokenCredential,
+            commonCallAgentOptions: ICommonCallAgentOptions
+        ): TeamsCallAgent {
+            val options = commonCallAgentOptions.commonCallAgentOptions() as TeamsCallAgentOptions
+            return callClient.createTeamsCallAgent(appContext, credential, options).get()
         }
     }
 
+    open class TestCallClientType : CallClientType() {
+        override fun getDeviceManager(appContext: Application): DeviceManager {
+            error("Override this method in your test implementation.")
+        }
+
+        override fun createCallAgent(
+            appContext: Application,
+            credential: CommunicationTokenCredential,
+            commonCallAgentOptions: ICommonCallAgentOptions
+        ): CallAgent {
+            error("Override this method in your test implementation.")
+        }
+
+        override fun createTeamsCallAgent(
+            appContext: Application,
+            credential: CommunicationTokenCredential,
+            commonCallAgentOptions: ICommonCallAgentOptions
+        ): TeamsCallAgent {
+            error("Override this method in your test implementation.")
+        }
+    }
+}
+
+class CallClientWrapper<T : CallClientType> @Inject constructor(private val callClient: T) : ICallClient {
+    override fun getDeviceManager(appContext: Application): DeviceManager {
+        return callClient.getDeviceManager(appContext)
+    }
+
+    override fun createCallAgent(
+        appContext: Application,
+        credential: CommunicationTokenCredential,
+        commonCallAgentOptions: ICommonCallAgentOptions
+    ): CallAgent {
+        return callClient.createCallAgent(appContext, credential, commonCallAgentOptions)
+    }
+
+    override fun createTeamsCallAgent(
+        appContext: Application,
+        credential: CommunicationTokenCredential,
+        commonCallAgentOptions: ICommonCallAgentOptions
+    ): TeamsCallAgent {
+        return callClient.createTeamsCallAgent(appContext, credential, commonCallAgentOptions)
+    }
 }

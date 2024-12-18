@@ -19,7 +19,9 @@ package com.realwear.acs.hilt
 import android.app.Application
 import android.content.Context
 import android.view.WindowManager
+import com.azure.android.communication.calling.CallClient
 import com.realwear.acs.dependency.ApplicationWrapper
+import com.realwear.acs.dependency.CallClientType
 import com.realwear.acs.dependency.CallClientWrapper
 import com.realwear.acs.dependency.EisManager
 import com.realwear.acs.dependency.IApplication
@@ -66,7 +68,7 @@ object AppModule {
     fun provideMainDispatcher(): CoroutineDispatcher = Dispatchers.Main
 
     @Provides
-    fun provideCallClient(): ICallClient = CallClientWrapper()
+    fun provideCallClient(): ICallClient = CallClientWrapper(CallClientType.StandardCallClientType(CallClient()))
 
     @Provides
     @Singleton

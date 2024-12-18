@@ -33,6 +33,7 @@ import com.azure.android.communication.common.CommunicationTokenCredential
 import com.realwear.acs.cameracapturer.repository.ICameraRepository
 import com.realwear.acs.dependency.CallAgentType
 import com.realwear.acs.dependency.CallAgentWrapper
+import com.realwear.acs.dependency.CommonCallAgentOptionsWrapper
 import com.realwear.acs.dependency.FrameLayoutWrapper
 import com.realwear.acs.dependency.IApplication
 import com.realwear.acs.dependency.ICall
@@ -149,7 +150,11 @@ class AcsRepository @Inject constructor(
 
         return CallAgentWrapper(
             CallAgentType.StandardCallAgentType(
-                callClient.createCallAgent(appContext.application, credential, callAgentOptions)
+                callClient.createCallAgent(
+                    appContext.application,
+                    credential,
+                    CommonCallAgentOptionsWrapper(callAgentOptions)
+                )
             ),
             TeamsMeetingLinkLocatorWrapper()
         )
@@ -163,10 +168,10 @@ class AcsRepository @Inject constructor(
     ): ICallAgent {
         return CallAgentWrapper(
             CallAgentType.TeamsCallAgentType(
-                callClient.createCallAgent(
+                callClient.createTeamsCallAgent(
                     appContext.application,
                     CommunicationTokenCredential(userToken),
-                    TeamsCallAgentOptions()
+                    CommonCallAgentOptionsWrapper(TeamsCallAgentOptions())
                 )
             ),
             TeamsMeetingLinkLocatorWrapper()

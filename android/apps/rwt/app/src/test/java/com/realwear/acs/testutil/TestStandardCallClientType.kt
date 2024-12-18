@@ -18,23 +18,21 @@ package com.realwear.acs.testutil
 
 import android.app.Application
 import com.azure.android.communication.calling.CallAgent
-import com.azure.android.communication.calling.DeviceManager
 import com.azure.android.communication.calling.TeamsCallAgent
 import com.azure.android.communication.common.CommunicationTokenCredential
-import com.realwear.acs.dependency.ICallClient
+import com.realwear.acs.dependency.CallClientType
 import com.realwear.acs.dependency.ICommonCallAgentOptions
 
-class TestCallClient : ICallClient {
-    override fun getDeviceManager(appContext: Application): DeviceManager {
-        TODO("Not yet implemented")
-    }
-
+class TestStandardCallClientType(
+    private val callAgent: CallAgent,
+    private val teamsCallAgent: TeamsCallAgent
+) : CallClientType.TestCallClientType() {
     override fun createCallAgent(
         appContext: Application,
         credential: CommunicationTokenCredential,
         commonCallAgentOptions: ICommonCallAgentOptions
     ): CallAgent {
-        TODO("Not yet implemented")
+        return callAgent
     }
 
     override fun createTeamsCallAgent(
@@ -42,6 +40,6 @@ class TestCallClient : ICallClient {
         credential: CommunicationTokenCredential,
         commonCallAgentOptions: ICommonCallAgentOptions
     ): TeamsCallAgent {
-        TODO("Not yet implemented")
+        return teamsCallAgent
     }
 }
