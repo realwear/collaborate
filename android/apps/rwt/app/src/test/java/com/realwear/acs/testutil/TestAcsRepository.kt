@@ -60,6 +60,15 @@ class TestAcsRepository(private val testCallAgent: TestCallAgent) : IAcsReposito
         return testCallAgent
     }
 
+    override fun createTeamsCallAgent(
+        appContext: IApplication,
+        callClient: ICallClient,
+        userToken: String,
+        participantName: String
+    ): ICallAgent {
+        return testCallAgent
+    }
+
     override fun joinCall(
         appContext: IApplication,
         callAgent: ICallAgent?,
@@ -68,7 +77,7 @@ class TestAcsRepository(private val testCallAgent: TestCallAgent) : IAcsReposito
         hasJoinCallBeenCalled = true
 
         return meetingLink?.let { link ->
-            testCallAgent.join(appContext.application, link)
+            testCallAgent.join(appContext.application, link, TestJoinCallOptions())
         }
     }
 

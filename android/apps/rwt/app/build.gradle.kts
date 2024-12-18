@@ -83,6 +83,7 @@ dependencies {
     var cameraXVersion by extra("1.3.4")
 
     var mockitoVersion by extra("5.0.0")
+    var kotlinTestVersion by extra("1.7.3")
 
     implementation("androidx.core:core-ktx:1.13.1")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVersion")
@@ -130,7 +131,8 @@ dependencies {
     testImplementation("org.mockito.kotlin:mockito-kotlin:$mockitoVersion")
 
     testImplementation("androidx.arch.core:core-testing:2.2.0")
-    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:$kotlinTestVersion")
+    testImplementation("org.jetbrains.kotlin:kotlin-test:$kotlinTestVersion")
 
     androidTestImplementation("androidx.test.ext:junit:1.2.1")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.6.1")

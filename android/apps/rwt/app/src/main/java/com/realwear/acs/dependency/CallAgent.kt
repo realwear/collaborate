@@ -18,17 +18,17 @@ package com.realwear.acs.dependency
 
 import android.app.Application
 import android.content.Context
+import com.azure.android.communication.calling.Call
 import com.azure.android.communication.calling.CallAgent
 import com.azure.android.communication.calling.CommonCall
 import com.azure.android.communication.calling.CommonCallAgent
-import com.azure.android.communication.calling.JoinCallOptions
-import com.azure.android.communication.calling.OutgoingVideoOptions
+import com.azure.android.communication.calling.TeamsCall
 import com.azure.android.communication.calling.TeamsCallAgent
 import com.azure.android.communication.common.MicrosoftTeamsUserIdentifier
 import javax.inject.Inject
 
 interface ICallAgent {
-    fun join(appContext: Application, meetingLink: String): ICall
+    fun join(appContext: Application, meetingLink: String, joinCallOptions: IJoinCallOptions): ICall
 
     fun startCall(appContext: Application, participantIdentifier: String): ICall
 
@@ -46,22 +46,66 @@ sealed class CallAgentType {
     abstract val calls: List<CommonCall>
     abstract val agent: CommonCallAgent
 
-    class StandardCallAgentType(
+    abstract fun join(
+        appContext: Application,
+        meetingLink: String,
+        joinCallOptions: IJoinCallOptions,
+        teamsMeetingLinkLocator: ITeamsMeetingLinkLocator
+    ): Call
+
+    abstract fun startCall(context: Context, participantIdentifier: String): TeamsCall
+
+    open class StandardCallAgentType(
         private val callAgent: CallAgent
     ) : CallAgentType() {
         override val calls: List<CommonCall>
             get() = callAgent.calls
 
-        override val agent: CommonCallAgent = callAgent
+        override val agent: CallAgent = callAgent
+
+        override fun join(
+            appContext: Application,
+            meetingLink: String,
+            joinCallOptions: IJoinCallOptions,
+            teamsMeetingLinkLocator: ITeamsMeetingLinkLocator
+        ): Call {
+            return agent.join(
+                appContext,
+                teamsMeetingLinkLocator.createTeamsMeetingLinkLocator(meetingLink),
+                joinCallOptions.joinCallOptions()
+            )
+        }
+
+        override fun startCall(context: Context, participantIdentifier: String): TeamsCall {
+            throw UnsupportedOperationException("Starting a call is not supported for standard call agents")
+        }
     }
 
-    class TeamsCallAgentType(
+    open class TeamsCallAgentType(
         private val teamsCallAgent: TeamsCallAgent
     ) : CallAgentType() {
         override val calls: List<CommonCall>
             get() = teamsCallAgent.calls
 
         override val agent: CommonCallAgent = teamsCallAgent
+
+        override fun join(
+            appContext: Application,
+            meetingLink: String,
+            joinCallOptions: IJoinCallOptions,
+            teamsMeetingLinkLocator: ITeamsMeetingLinkLocator
+        ): Call {
+            throw UnsupportedOperationException("Joining a call is not supported for Teams call agents")
+        }
+
+        override fun startCall(context: Context, participantIdentifier: String): TeamsCall {
+            val participant = MicrosoftTeamsUserIdentifier(participantIdentifier)
+
+            return teamsCallAgent.startCall(
+                context,
+                participant
+            )
+        }
     }
 }
 
@@ -69,36 +113,30 @@ class CallAgentWrapper<T : CallAgentType> @Inject constructor(
     private val callAgent: T,
     private val teamsMeetingLinkLocator: ITeamsMeetingLinkLocator
 ) : ICallAgent {
-    override fun join(appContext: Application, meetingLink: String): ICall {
-        val options = JoinCallOptions()
-        options.outgoingVideoOptions = OutgoingVideoOptions()
-
+    override fun join(appContext: Application, meetingLink: String, joinCallOptions: IJoinCallOptions): ICall {
         if (callAgent !is CallAgentType.StandardCallAgentType) {
             throw IllegalArgumentException("Call agent is not a standard call agent")
         }
 
-        val agent = callAgent.agent as CallAgent
         return CallWrapper(
-            agent.join(
+            callAgent.join(
                 appContext,
-                teamsMeetingLinkLocator.createTeamsMeetingLinkLocator(meetingLink),
-                options
+                meetingLink,
+                joinCallOptions,
+                teamsMeetingLinkLocator
             )
         )
     }
 
     override fun startCall(appContext: Application, participantIdentifier: String): ICall {
-        val participant = MicrosoftTeamsUserIdentifier(participantIdentifier)
-
         if (callAgent !is CallAgentType.TeamsCallAgentType) {
             throw IllegalArgumentException("Call agent is not a Teams call agent")
         }
 
-        val agent = callAgent.agent as TeamsCallAgent
         return CallWrapper(
-            agent.startCall(
+            callAgent.startCall(
                 appContext,
-                participant
+                participantIdentifier
             )
         )
     }

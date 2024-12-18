@@ -20,15 +20,22 @@ import android.app.Application
 import android.content.Context
 import com.realwear.acs.dependency.ICall
 import com.realwear.acs.dependency.ICallAgent
+import com.realwear.acs.dependency.IJoinCallOptions
 import com.realwear.acs.dependency.IOutgoingVideoStream
 
 class TestCallAgent(private val testCall: TestCall) : ICallAgent {
     var hasJoinBeenCalled = false
+    var hasStartCallBeenCalled = false
     var hasDisposeBeenCalled = false
     var hasStopOutgoingVideoBeenCalled = false
 
-    override fun join(appContext: Application, meetingLink: String): ICall {
+    override fun join(appContext: Application, meetingLink: String, joinCallOptions: IJoinCallOptions): ICall {
         hasJoinBeenCalled = true
+        return testCall
+    }
+
+    override fun startCall(appContext: Application, participantIdentifier: String): ICall {
+        hasStartCallBeenCalled = true
         return testCall
     }
 

@@ -20,6 +20,7 @@ import android.content.Context
 import androidx.lifecycle.LifecycleOwner
 import com.azure.android.communication.calling.CallAgentOptions
 import com.azure.android.communication.calling.CallVideoStream
+import com.azure.android.communication.calling.JoinCallOptions
 import com.azure.android.communication.calling.LocalVideoStream
 import com.azure.android.communication.calling.RemoteVideoStream
 import com.azure.android.communication.calling.StreamDirection
@@ -40,6 +41,7 @@ import com.realwear.acs.dependency.ICallClient
 import com.realwear.acs.dependency.IEisManager
 import com.realwear.acs.dependency.IFrameLayout
 import com.realwear.acs.dependency.IOutgoingVideoStream
+import com.realwear.acs.dependency.JoinCallOptionsWrapper
 import com.realwear.acs.dependency.TeamsMeetingLinkLocatorWrapper
 import com.realwear.acs.util.EisUtils
 import com.realwear.acs.util.thermal.VideoFrameSender
@@ -177,7 +179,7 @@ class AcsRepository @Inject constructor(
         meetingLink: String?
     ): ICall? {
         return meetingLink?.let { link ->
-            callAgent?.join(appContext.application, link)
+            callAgent?.join(appContext.application, link, JoinCallOptionsWrapper(JoinCallOptions()))
         } ?: run {
             Timber.e("Failed to join call due to lack of meeting link.")
             null
