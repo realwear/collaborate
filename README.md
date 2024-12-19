@@ -30,6 +30,8 @@ build scripts for both.
   joining a call with a 5 digit code
 - **RWT Backend** - A NodeJS Express Server used for generating ACS (Azure Communication Services)
   Tokens and facilitating the Teams Addon connect codes
+- **Sample App - Customised Dashboard** - A demo application showing how Collaborate can be
+  customised for specific front line worker scenarios
 
 The RealWear Collaborate server builds as a self-contained Docker image with a corresponding Helm
 chart. You can choose to host the Docker image manually, or within a Kubernetes cluser using Helm.

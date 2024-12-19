@@ -51,6 +51,7 @@
       "executor": "@angular-devkit/build-angular:dev-server",
       "options": {
         "host": "0.0.0.0",
+        "port": 4300,
         "proxyConfig": "apps/rwt/debugger/proxy.conf.json"
       },
       "configurations": {

@@ -1,0 +1,104 @@
+/* You can add global styles to this file, and also import other style files */
+@use '@angular/material' as mat;
+
+:root {
+  --foreground-on-light: #000;
+  --foreground-on-dark: #fff;
+
+  --background: #f7f7f7;
+  --foreground: #737373;
+
+  --card-background: #fff;
+  --card-border: #e1dfdd;
+}
+
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  height: 100vh;
+}
+
+body {
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
+  color: var(--colorNeutralForeground1);
+  background: var(--colorNeutralBackground1);
+  position: relative;
+}
+
+.rw-card {
+  background: var(--colorNeutralCardBackground);
+  padding: 42px 0 48px;
+  border-radius: var(--borderRadiusLarge);
+
+  border: var(--strokeWidthThin) solid var(--colorNeutralStroke1);
+
+  position: relative;
+
+  &.brand-top {
+    border-top: var(--strokeWidthThickest) solid var(--colorBrandBackground);
+  }
+
+  &.brand-left {
+    border-left: var(--strokeWidthThickest) solid var(--colorBrandBackground);
+  }
+}
+
+fluent-button {
+  text-transform: uppercase;
+  width: 100%;
+  padding: 0 12px;
+
+  &.nowrap {
+    white-space: nowrap;
+  }
+
+  &:not(:disabled) {
+    &.warning {
+      background-color: var(--colorStatusWarningBackground3);
+    }
+
+    &.success {
+      background-color: var(--colorStatusSuccessBackground3);
+    }
+
+    &.danger {
+      background-color: var(--colorStatusDangerBackground3);
+    }
+  }
+}
+
+.rw-panel {
+  background-color: var(--colorNeutralCardBackground);
+  padding: 1.5em;
+
+  border-radius: 5px;
+
+  @include mat.elevation(8);
+
+  h2 {
+    margin: 0;
+    display: block;
+    line-height: 1.6em;
+    min-height: 1.6em;
+  }
+
+  .buttons {
+    display: flex;
+    justify-content: stretch;
+    gap: 2em;
+
+    a,
+    button {
+      flex: 1;
+      font-size: 20px;
+      font-weight: 500;
+    }
+  }
+}

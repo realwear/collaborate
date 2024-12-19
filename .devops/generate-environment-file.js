@@ -27,3 +27,4 @@ const environment = `export const environment = {
 
 fs.writeFileSync('apps/ai/device/src/app/environment/environment.ts', environment);
 fs.writeFileSync('apps/rwt/device/src/app/environment/environment.ts', environment);
+fs.writeFileSync('apps/sample/custom-dashboard/src/app/environment/environment.ts', environment);

@@ -1,0 +1,58 @@
+:host {
+  display: grid;
+}
+
+.actions,
+.meeting {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  column-gap: 1em;
+  margin: 1em;
+}
+
+.logo {
+  margin: 2em auto;
+  margin-bottom: 1em;
+  width: 500px;
+  text-align: center;
+
+  font-size: 2em;
+  display: grid;
+}
+
+.call-help fluent-button-wrapper {
+  max-width: 190px;
+  display: block;
+  margin: auto;
+}
+
+.call-derrick {
+  display: grid;
+  row-gap: 1em;
+  padding: 1em;
+}
+
+.call-derrick img {
+  border-radius: 50%;
+  width: 76px;
+  margin: auto;
+}
+
+.signout {
+  position: absolute;
+
+  right: 0;
+  top: 0;
+
+  margin: 1em;
+}
+
+.rw-card.meeting {
+  display: block;
+
+  .inner {
+    display: flex;
+    justify-content: space-between;
+    margin: 1em;
+  }
+}

@@ -257,7 +257,7 @@ class MeetingViewModel @Inject constructor(
         participantId: String
     ) {
         if (permissions.all { it.value }) {
-            Timber.i("Permissions granted. Joining meeting. ${_currentState.value}")
+            Timber.i("Permissions granted. Starting Call. ${_currentState.value}")
             if (_currentState.value == State.LOADING || _currentState.value == State.PERMISSIONS_REFUSED) {
                 _currentState.value = State.JOINING_MEETING
 
@@ -306,7 +306,7 @@ class MeetingViewModel @Inject constructor(
 
     private fun startTeamsCall(@ActivityContext activityContext: Context, lifecycleOwner: LifecycleOwner) {
         if (currentState.value != State.LOADING) {
-            Timber.w("Meeting already joined.")
+            Timber.w("Call already joined.")
             return
         }
 

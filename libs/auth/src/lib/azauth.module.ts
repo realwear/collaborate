@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
-import { inject, ModuleWithProviders, NgModule } from '@angular/core';
+import { importProvidersFrom, inject, ModuleWithProviders, NgModule } from '@angular/core';
 import { MatDialogModule } from '@angular/material/dialog';
 import { AzureSignInDialogComponent } from './azure-sign-in-dialog/azure-sign-in-dialog.component';
 import { CommonModule } from '@angular/common';
@@ -90,4 +90,8 @@ export function azureAuthInterceptor(req: HttpRequest<unknown>, next: HttpHandle
   });
 
   return next(newReq);
+}
+
+export function provideAzureAdConfig(clientId: string, tenantId: string | null) {
+  return importProvidersFrom(AzAuthModule.forRoot2(clientId, tenantId));
 }

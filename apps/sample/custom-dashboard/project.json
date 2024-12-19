@@ -1,0 +1,81 @@
+{
+  "name": "sample-custom-dashboard",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "prefix": "app",
+  "sourceRoot": "apps/sample/custom-dashboard/src",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:application",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/sample/custom-dashboard",
+        "index": "apps/sample/custom-dashboard/src/index.html",
+        "browser": "apps/sample/custom-dashboard/src/main.ts",
+        "polyfills": ["zone.js"],
+        "tsConfig": "apps/sample/custom-dashboard/tsconfig.app.json",
+        "inlineStyleLanguage": "scss",
+        "assets": [
+          "apps/sample/custom-dashboard/src/favicon.ico",
+          "apps/sample/custom-dashboard/src/assets",
+          {
+            "input": "libs/uxlib/assets",
+            "glob": "**/*",
+            "output": "assets/uxlib"
+          }
+        ],
+        "styles": ["apps/sample/custom-dashboard/src/styles.scss", "@angular/material/prebuilt-themes/indigo-pink.css"],
+        "scripts": []
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "2mb",
+              "maximumError": "3mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
+          "outputHashing": "all"
+        },
+        "development": {
+          "optimization": false,
+          "extractLicenses": false,
+          "sourceMap": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "configurations": {
+        "production": {
+          "buildTarget": "sample-custom-dashboard:build:production"
+        },
+        "development": {
+          "buildTarget": "sample-custom-dashboard:build:development"
+        }
+      },
+      "defaultConfiguration": "development",
+      "options": {
+        "proxyConfig": "apps/sample/custom-dashboard/proxy.conf.json",
+        "port": 4300
+      }
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "buildTarget": "sample-custom-dashboard:build"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    }
+  }
+}

@@ -4,3 +4,4 @@
 /.nx/cache
 .angular
 /android
+nx.json
