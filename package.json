@@ -1,7 +1,7 @@
 {
   "name": "@nx/source",
   "version": "0.0.0",
-  "license": "MIT",
+  "license": "Apache-2.0",
   "scripts": {
     "ai:local": "yarn dev:generateenv && AZ_USE_CLI=true env-cmd --silent -f .localConfigs nx run-many -t serve -p aibackend ai loader",
     "ai:deploy_loader": "nx build loader --configuration production && cp -r dist/apps/loader/browser/* android/apps/ai/app/src/main/assets/",
