@@ -240,50 +240,20 @@ registry and run on your cloud provider.
 # License and Usage Guidelines
 
 RealWear Collaborate is licensed under the
-[Affero General Public License (AGPL) version 3](./LICENSE.md). This license ensures that any
-modifications, derivative works, or use of this software in a hosted service remain open source and
-available to the community. The following guidelines clarify what is permissible under this license:
+[Apache License, Version 2.0](https://www.apache.org/licenses/LICENSE-2.0). This permissive license
+allows use, reproduction, and distribution of the software with or without modifications, provided
+that the terms of the license are met.
 
-## **Do's:**
+Key Points:
 
-- **Do** modify and extend this codebase to suit your needs, as long as you make your changes open
-  source under the same AGPL v3 license.
-- **Do** use this software as part of a larger open-source project, provided that all integrated
-  components comply with the AGPL license.
-- **Do** call external APIs or services, as long as the interaction is limited to network
-  communication (e.g., REST, GraphQL) and does not involve embedding or linking closed-source SDKs
-  or libraries into the codebase.
-- **Do** host this software as part of a public or private service, provided you make the source
-  code (including modifications) freely available.
-
-## **Don'ts:**
-
-- **Don't** link this software with proprietary libraries or modules (e.g., closed-source SDKs) that
-  would create a derivative work unless you open-source those components under the AGPL license.
-- **Don't** distribute a modified version of this software without sharing the complete source code
-  of your modifications, as required by the AGPL license.
-- **Don't** attempt to obfuscate or conceal modifications, derivative works, or the source code of
-  any hosted services using this software.
+- You may use, modify, and distribute this software in source or object form.
+- Redistributions must include a copy of the license and retain the copyright notice.
+- Any significant contributions you make to this project are subject to the same license.
 
 ## **Commercial Licensing**
 
-If your use case cannot comply with the terms of the AGPL license—such as linking to proprietary
-components or requiring additional support—commercial licenses are available. A commercial license
-includes:
+If your use case cannot comply with the terms of the Apache 2.0 license or you require additional
+support, commercial licenses are available. A commercial license includes:
 
-- Permission to link and distribute with closed-source components.
 - Access to proprietary extensions and tools.
 - Dedicated support and consulting.
-
-## **Using External APIs:**
-
-- Calling an external API (e.g., to fetch data or trigger actions) does not violate the AGPL, as
-  long as the backend system remains a separate entity.
-- However, if your use of an API requires embedding proprietary SDKs, libraries, or client code into
-  this software, you must ensure those components are open-source or avoid using them.
-
-## **Further Clarifications:**
-
-For more details about the AGPL license and how it applies to this software, refer to the
-[LICENSE.md](./LICENSE.md) file. If you are unsure whether your use case complies with the AGPL
-terms, we recommend consulting an open-source licensing expert.
