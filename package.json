@@ -15,7 +15,7 @@
     "rwt:deploy_loader": "nx build loader --configuration production && cp -r dist/apps/loader/browser/* android/apps/rwt/app/src/main/assets/",
     "rwt:local": "yarn dev:generateenv && env-cmd --silent -f .localConfigs nx run-many -t serve -p rwtdevice rwtteamsaddon rwtbackend",
     "rwt:local:backend": "env-cmd --silent -f .localConfigs nx serve rwtbackend",
-    "gpl:header": "node .devops/add-header.js"
+    "apache:header": "node .devops/add-header.js"
   },
   "private": true,
   "resolutions": {
