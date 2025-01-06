@@ -54,19 +54,14 @@ We encourage smaller, focused PRs rather than large, sweeping changes.
 
 To maintain a high-quality codebase and ensure smooth collaboration, please follow these guidelines:
 
-1. **Sign the Contributor Agreement**  
-   Before we can accept your contributions, you must agree to our
-   [Contributor Agreement](https://tbd.com). This agreement clarifies the terms under which your
-   contributions are made, ensuring compliance with the AGPL license and other project requirements.
-
-2. **Adhere to the Coding Standards**  
+1. **Adhere to the Coding Standards**  
    Follow the project's coding style and conventions. Consistent code helps everyone understand and
    maintain the project. Run `yarn lint` against the project as a quick sanity check.
 
-3. **Write Clear Commit Messages**  
+1. **Write Clear Commit Messages**  
    Use meaningful, descriptive commit messages that explain your changes.
 
-4. **Be Respectful and Collaborative**  
+1. **Be Respectful and Collaborative**  
    Engage with other contributors and maintainers in a respectful and professional manner. We're all
    here to improve the project!
 
