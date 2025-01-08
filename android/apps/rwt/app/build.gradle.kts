@@ -108,7 +108,7 @@ dependencies {
 
     implementation("com.jakewharton.timber:timber:5.0.1")
 
-    implementation(project(":cameracapturer"))
+    implementation(project(":modules"))
 
     "thermalImplementation"(project(":thermal"))
 

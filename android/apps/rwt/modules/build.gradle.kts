@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.realwear.acs.cameracapturer"
+    namespace = "com.realwear.acs.modules"
     compileSdk = 34
 
     defaultConfig {

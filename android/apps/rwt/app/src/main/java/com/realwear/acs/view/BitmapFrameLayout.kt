@@ -24,7 +24,7 @@ import android.view.Gravity
 import android.widget.FrameLayout
 import android.widget.ImageView
 import com.realwear.acs.R
-import com.realwear.acs.cameracapturer.repository.ICameraRepository
+import com.realwear.acs.modules.repository.ICameraRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job

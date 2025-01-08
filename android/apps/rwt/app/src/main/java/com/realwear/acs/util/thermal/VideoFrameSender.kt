@@ -22,7 +22,7 @@ import com.azure.android.communication.calling.RawVideoFrame
 import com.azure.android.communication.calling.RawVideoFrameBuffer
 import com.azure.android.communication.calling.VideoStreamState
 import com.realwear.acs.R
-import com.realwear.acs.cameracapturer.repository.ICameraRepository
+import com.realwear.acs.modules.repository.ICameraRepository
 import com.realwear.acs.dependency.IOutgoingVideoStream
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

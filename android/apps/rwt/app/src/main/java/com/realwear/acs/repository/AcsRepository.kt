@@ -27,7 +27,7 @@ import com.azure.android.communication.calling.VideoStreamRendererView
 import com.azure.android.communication.calling.VideoStreamState
 import com.azure.android.communication.calling.VideoStreamStateChangedEvent
 import com.azure.android.communication.common.CommunicationTokenCredential
-import com.realwear.acs.cameracapturer.repository.ICameraRepository
+import com.realwear.acs.modules.repository.ICameraRepository
 import com.realwear.acs.dependency.CallAgentWrapper
 import com.realwear.acs.dependency.FrameLayoutWrapper
 import com.realwear.acs.dependency.IApplication

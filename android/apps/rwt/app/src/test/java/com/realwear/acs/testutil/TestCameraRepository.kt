@@ -18,7 +18,7 @@ package com.realwear.acs.testutil
 import android.content.Context
 import android.graphics.Bitmap
 import androidx.lifecycle.LifecycleOwner
-import com.realwear.acs.cameracapturer.repository.ICameraRepository
+import com.realwear.acs.modules.repository.ICameraRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
