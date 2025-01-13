@@ -54,6 +54,9 @@
   <string name="torch_on">Taschenlampe an</string>
   <string name="torch_off">Taschenlampe aus</string>
 
+  <string name="transcription_on">Transkription an</string>
+  <string name="transcription_off">Transkription aus</string>
+
   <string name="muted_by_others">Sie wurden von einem anderen Teilnehmer stummgeschaltet</string>
 
   <string name="camera_hidden">Die Kamera ist derzeit verborgen.</string>

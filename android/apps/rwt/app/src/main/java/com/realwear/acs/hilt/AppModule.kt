@@ -30,8 +30,10 @@ import com.realwear.acs.model.VideoStreamFormat
 import com.realwear.acs.model.VideoStreamFormat.Companion.PixelFormat
 import com.realwear.acs.model.VideoStreamFormat.Companion.Resolution
 import com.realwear.acs.repository.IPermissionsRepository
+import com.realwear.acs.repository.ITranscriptionRepository
 import com.realwear.acs.repository.MainCameraRepository
 import com.realwear.acs.repository.PermissionsRepository
+import com.realwear.acs.repository.TranscriptionRepository
 import com.realwear.acs.util.thermal.VideoFrameSender.Companion.RGBA_CHANNELS
 import com.realwear.acs.view.BitmapFrameLayout
 import dagger.Module
@@ -111,4 +113,7 @@ object AppModule {
 
     @Provides
     fun provideEisManager(): IEisManager = EisManager()
+
+    @Provides
+    fun provideTranscriptionRepository(): ITranscriptionRepository = TranscriptionRepository()
 }

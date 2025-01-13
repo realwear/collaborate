@@ -117,6 +117,14 @@ object PreviewUtils {
             override fun setFlash(on: Boolean) {
                 // Not required for preview.
             }
+
+            override fun startIncomingTranscription() {
+                // Not required for preview.
+            }
+
+            override fun stopIncomingTranscription() {
+                // Not required for preview.
+            }
         }
     }
 }

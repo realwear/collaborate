@@ -30,6 +30,15 @@ android {
             buildConfigField("String", "DATADOG_CLIENT_TOKEN", "\"$it\"")
         }
 
+        //
+        // Microsoft Azure Cognitive Services speech token used to enable live transcription in a
+        // call or meeting.
+        // Set the token using gradle -P parameter.
+        //
+        project.findProperty("COGNITIVE_SERVICES_SPEECH_TOKEN")?.toString().let {
+            buildConfigField("String", "COGNITIVE_SERVICES_SPEECH_TOKEN", "\"$it\"")
+        }
+
         ndk {
             abiFilters.add("arm64-v8a")
         }
@@ -102,6 +111,7 @@ dependencies {
     implementation("androidx.webkit:webkit:1.10.0")
 
     implementation("com.azure.android:azure-communication-calling:2.9.0")
+    implementation("com.microsoft.cognitiveservices.speech:client-sdk:1.41.1")
 
     implementation("com.google.dagger:hilt-android:2.50")
     kapt("com.google.dagger:hilt-compiler:2.50")

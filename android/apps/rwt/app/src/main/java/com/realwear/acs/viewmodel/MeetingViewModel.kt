@@ -36,6 +36,7 @@ import com.realwear.acs.model.Participant
 import com.realwear.acs.model.ParticipantListeners
 import com.realwear.acs.model.UpdatedParticipants
 import com.realwear.acs.repository.IAcsRepository
+import com.realwear.acs.repository.ITranscriptionRepository
 import com.realwear.acs.util.thermal.ThermalUtil
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ActivityContext
@@ -58,7 +59,8 @@ class MeetingViewModel @Inject constructor(
     @AppModule.IoDispatcher private val ioDispatcher: CoroutineDispatcher,
     @AppModule.MainDispatcher private val mainDispatcher: CoroutineDispatcher,
     private val callClient: ICallClient,
-    private val acsRepository: IAcsRepository
+    private val acsRepository: IAcsRepository,
+    private val transcriptionRepository: ITranscriptionRepository
 ) : IMeetingViewModel() {
     private val _currentState = MutableStateFlow(State.LOADING)
     val currentState: StateFlow<State> get() = _currentState
@@ -111,6 +113,9 @@ class MeetingViewModel @Inject constructor(
 
     private val _isFlashOn = MutableLiveData(false)
     override val isFlashOn: LiveData<Boolean> = _isFlashOn
+
+    private val _isTranscriptionOn = MutableLiveData(false)
+    override val isTranscriptionOn: LiveData<Boolean> = _isTranscriptionOn
 
     private var call: ICall? = null
     private var callAgent: ICallAgent? = null
@@ -383,6 +388,36 @@ class MeetingViewModel @Inject constructor(
             cleanup()
             _currentState.value = State.FINISHED
         }
+    }
+
+    override fun canUseTranscription(): Boolean {
+        return transcriptionRepository.canUseTranscription()
+    }
+
+    override fun startIncomingTranscription() {
+        if (_isTranscriptionOn.value == true) {
+            Timber.w("Transcription already started.")
+            return
+        }
+
+        callAgent?.getIncomingAudioQueue()?.let { incomingAudioQueue ->
+            if (transcriptionRepository.setup()) {
+                _isTranscriptionOn.value = true
+                transcriptionRepository.startIncomingTranscription(incomingAudioQueue)
+                callAgent?.captureIncomingAudio()
+            } else {
+                Timber.e("Transcription setup failed.")
+                callAgent?.releaseIncomingAudioQueue()
+            }
+        }
+    }
+
+    override fun stopIncomingTranscription() {
+        callAgent?.releaseIncomingAudio()
+        transcriptionRepository.stopIncomingTranscription()
+        transcriptionRepository.teardown()
+        callAgent?.releaseIncomingAudioQueue()
+        _isTranscriptionOn.value = false
     }
 
     private fun unsubscribeFromCallEvents() {
@@ -690,6 +725,7 @@ abstract class IMeetingViewModel : ViewModel() {
     abstract val isFreezeFrame: LiveData<Boolean>
     abstract val zoomLevel: LiveData<Int>
     abstract val isFlashOn: LiveData<Boolean>
+    abstract val isTranscriptionOn: LiveData<Boolean>
 
     abstract val isCameraDisplayDisabled: LiveData<Boolean>
     abstract val isCameraDisplayPipDisabled: LiveData<Boolean>
@@ -714,6 +750,10 @@ abstract class IMeetingViewModel : ViewModel() {
     abstract fun setFlash(on: Boolean)
 
     abstract fun hangUp()
+
+    abstract fun canUseTranscription(): Boolean
+    abstract fun startIncomingTranscription()
+    abstract fun stopIncomingTranscription()
 
     abstract fun onPause(activity: Activity, lifecycleOwner: LifecycleOwner)
     abstract fun onResume(activity: Activity, lifecycleOwner: LifecycleOwner)

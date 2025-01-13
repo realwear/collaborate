@@ -30,6 +30,7 @@ import com.realwear.acs.testutil.TestCall
 import com.realwear.acs.testutil.TestCallAgent
 import com.realwear.acs.testutil.TestCallClient
 import com.realwear.acs.testutil.TestFrameLayout
+import com.realwear.acs.testutil.TestTranscriptionRepository
 import com.realwear.acs.viewmodel.IMeetingViewModel.Camera
 import com.realwear.acs.viewmodel.IMeetingViewModel.State
 import com.realwear.acs.viewmodel.IMeetingViewModel.StreamingState
@@ -79,6 +80,7 @@ class MeetingViewModelTest {
     private val testCall = TestCall()
     private val testCallAgent = TestCallAgent(testCall)
     private val testAcsRepository = TestAcsRepository(testCallAgent)
+    private val testTranscriptionRepository = TestTranscriptionRepository()
 
     private lateinit var application: TestApplication
     private lateinit var viewModel: MeetingViewModel
@@ -95,7 +97,8 @@ class MeetingViewModelTest {
             testDispatcher,
             testDispatcher,
             callClient,
-            testAcsRepository
+            testAcsRepository,
+            testTranscriptionRepository
         )
     }
 
@@ -111,6 +114,7 @@ class MeetingViewModelTest {
         assertEquals(1, viewModel.zoomLevel.value)
         assertEquals(false, viewModel.isFlashOn.value)
         assertEquals(false, viewModel.isFreezeFrame.value)
+        assertEquals(false, viewModel.isTranscriptionOn.value)
     }
 
     @Test
@@ -2230,6 +2234,120 @@ class MeetingViewModelTest {
         viewModel.setFlash(false)
 
         assertEquals(false, viewModel.isFlashOn.value)
+    }
+
+    @Test
+    fun testCanUseTranscription() = testScope.runTest {
+        testTranscriptionRepository.canUseTranscription = true
+        assertTrue(viewModel.canUseTranscription())
+    }
+
+    @Test
+    fun testCanNotUseTranscription() = testScope.runTest {
+        testTranscriptionRepository.canUseTranscription = false
+        assertFalse(viewModel.canUseTranscription())
+    }
+
+    @Test
+    fun testStartingIncomingTranscription() = testScope.runTest {
+        viewModel.onPermissionsResult(
+            activity,
+            lifecycleOwner,
+            emptyMap(),
+            USER_TOKEN,
+            MEETING_LINK,
+            PARTICIPANT_NAME,
+            MEETING_NAME
+        )
+        testDispatcher.scheduler.advanceUntilIdle()
+
+        viewModel.startIncomingTranscription()
+
+        assertEquals(true, viewModel.isTranscriptionOn.value)
+        assertTrue(testCallAgent.hasGetIncomingAudioQueueBeenCalled)
+        assertTrue(testTranscriptionRepository.hasSetupBeenCalled)
+        assertTrue(testTranscriptionRepository.hasStartIncomingTranscriptionBeenCalled)
+        assertTrue(testCallAgent.hasCaptureIncomingAudioBeenCalled)
+        assertFalse(testCallAgent.hasReleaseIncomingAudioQueueBeenCalled)
+    }
+
+    @Test
+    fun testStartingIncomingTranscriptionWhenSetUpFails() = testScope.runTest {
+        viewModel.onPermissionsResult(
+            activity,
+            lifecycleOwner,
+            emptyMap(),
+            USER_TOKEN,
+            MEETING_LINK,
+            PARTICIPANT_NAME,
+            MEETING_NAME
+        )
+        testDispatcher.scheduler.advanceUntilIdle()
+
+        testTranscriptionRepository.isSetupSuccessful = false
+        viewModel.startIncomingTranscription()
+
+        assertEquals(false, viewModel.isTranscriptionOn.value)
+        assertTrue(testCallAgent.hasGetIncomingAudioQueueBeenCalled)
+        assertTrue(testTranscriptionRepository.hasSetupBeenCalled)
+        assertFalse(testTranscriptionRepository.hasStartIncomingTranscriptionBeenCalled)
+        assertFalse(testCallAgent.hasCaptureIncomingAudioBeenCalled)
+        assertTrue(testCallAgent.hasReleaseIncomingAudioQueueBeenCalled)
+    }
+
+    @Test
+    fun testStartingIncomingTranscriptionWhenAlreadyRunning() = testScope.runTest {
+        viewModel.onPermissionsResult(
+            activity,
+            lifecycleOwner,
+            emptyMap(),
+            USER_TOKEN,
+            MEETING_LINK,
+            PARTICIPANT_NAME,
+            MEETING_NAME
+        )
+        testDispatcher.scheduler.advanceUntilIdle()
+
+        // Start successfully, then reset all flags
+        viewModel.startIncomingTranscription()
+        testDispatcher.scheduler.advanceUntilIdle()
+        testCallAgent.hasGetIncomingAudioQueueBeenCalled = false
+        testTranscriptionRepository.hasSetupBeenCalled = false
+        testTranscriptionRepository.hasStartIncomingTranscriptionBeenCalled = false
+        testCallAgent.hasCaptureIncomingAudioBeenCalled = false
+
+        // Try to start a second time
+        viewModel.startIncomingTranscription()
+        testDispatcher.scheduler.advanceUntilIdle()
+
+        assertEquals(true, viewModel.isTranscriptionOn.value)
+        assertFalse(testCallAgent.hasGetIncomingAudioQueueBeenCalled)
+        assertFalse(testTranscriptionRepository.hasSetupBeenCalled)
+        assertFalse(testTranscriptionRepository.hasStartIncomingTranscriptionBeenCalled)
+        assertFalse(testCallAgent.hasCaptureIncomingAudioBeenCalled)
+        assertFalse(testCallAgent.hasReleaseIncomingAudioQueueBeenCalled)
+    }
+
+    @Test
+    fun testStoppingIncomingTranscription() = testScope.runTest {
+        viewModel.onPermissionsResult(
+            activity,
+            lifecycleOwner,
+            emptyMap(),
+            USER_TOKEN,
+            MEETING_LINK,
+            PARTICIPANT_NAME,
+            MEETING_NAME
+        )
+        testDispatcher.scheduler.advanceUntilIdle()
+
+        viewModel.stopIncomingTranscription()
+
+        assertEquals(false, viewModel.isTranscriptionOn.value)
+        assertTrue(testCallAgent.hasReleaseIncomingAudioBeenCalled)
+        assertTrue(testTranscriptionRepository.hasStopIncomingTranscription)
+        assertTrue(testTranscriptionRepository.hasTeardownBeenCalled)
+        assertTrue(testCallAgent.hasReleaseIncomingAudioQueueBeenCalled)
     }
 
     companion object {

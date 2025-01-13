@@ -63,6 +63,9 @@ class TestMeetingViewModel : IMeetingViewModel() {
     private val _isFlashOn = MutableLiveData(false)
     override val isFlashOn = _isFlashOn
 
+    private val _isTranscriptionOn = MutableLiveData(false)
+    override val isTranscriptionOn = _isTranscriptionOn
+
     private val _participants = MutableStateFlow(
         listOf(
             createParticipant("a"),
@@ -139,6 +142,18 @@ class TestMeetingViewModel : IMeetingViewModel() {
 
     override fun setFlash(on: Boolean) {
         _isFlashOn.value = on
+    }
+
+    override fun canUseTranscription(): Boolean {
+        TODO("Not yet implemented")
+    }
+
+    override fun startIncomingTranscription() {
+        _isTranscriptionOn.value = true
+    }
+
+    override fun stopIncomingTranscription() {
+        _isTranscriptionOn.value = false
     }
 
     private fun createParticipant(id: String): Participant {

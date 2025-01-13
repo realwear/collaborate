@@ -95,6 +95,7 @@ fun InMeeting(
     val isPipActive = meetingViewModel.isPipActive.observeAsState(false)
     val isCameraCalibrating = meetingViewModel.isCameraCalibrating.observeAsState(false)
     val isFlashOn = meetingViewModel.isFlashOn.observeAsState(false)
+    val isTranscriptionOn = meetingViewModel.isTranscriptionOn.observeAsState(false)
 
     val isCameraDisplayDisabled = meetingViewModel.isCameraDisplayDisabled.observeAsState(false)
     val isCameraDisplayPipDisabled = meetingViewModel.isCameraDisplayPipDisabled.observeAsState(false)
@@ -139,6 +140,14 @@ fun InMeeting(
                     context.getString(R.string.flash_light_off),
                     context.getString(R.string.torch_off) -> {
                         meetingViewModel.setFlash(false)
+                    }
+
+                    context.getString(R.string.transcription_on) -> {
+                        meetingViewModel.startIncomingTranscription()
+                    }
+
+                    context.getString(R.string.transcription_off) -> {
+                        meetingViewModel.stopIncomingTranscription()
                     }
 
                     else -> {
@@ -274,6 +283,14 @@ fun InMeeting(
                     add(context.getString(R.string.flash_on))
                     add(context.getString(R.string.flash_light_on))
                     add(context.getString(R.string.torch_on))
+                }
+            }
+
+            if (meetingViewModel.canUseTranscription()) {
+                if (isTranscriptionOn.value) {
+                    add(context.getString(R.string.transcription_off))
+                } else {
+                    add(context.getString(R.string.transcription_on))
                 }
             }
         }

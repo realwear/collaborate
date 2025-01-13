@@ -54,6 +54,9 @@
   <string name="torch_on">Lampe torche activée</string>
   <string name="torch_off">Lampe torche désactivée</string>
 
+  <string name="transcription_on">Transcription activée</string>
+  <string name="transcription_off">Transcription désactivée</string>
+
   <string name="muted_by_others">Vous avez été mis en sourdine par un autre participant</string>
 
   <string name="camera_hidden">La caméra est actuellement masquée.</string>

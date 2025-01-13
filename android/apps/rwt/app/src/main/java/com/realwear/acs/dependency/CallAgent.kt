@@ -52,6 +52,12 @@ interface ICallAgent {
 
     fun stopOutgoingVideo(context: Context)
 
+    fun getIncomingAudioQueue(): ArrayBlockingQueue<ByteArray>
+    fun releaseIncomingAudioQueue()
+
+    fun captureIncomingAudio()
+    fun releaseIncomingAudio()
+
     fun dispose()
 }
 
@@ -59,7 +65,7 @@ class CallAgentWrapper @Inject constructor(
     private val callAgent: CallAgent,
     private val teamsMeetingLinkLocator: ITeamsMeetingLinkLocator
 ) : ICallAgent {
-    private val incomingAudioQueue = ArrayBlockingQueue<ByteArray>(10)
+    private val incomingAudioQueue = ArrayBlockingQueue<ByteArray>(20)
 
     private var incomingAudioPlaybackScope: CoroutineScope? = null
     private var incomingAudioTrack: AudioTrack? = null
@@ -79,8 +85,7 @@ class CallAgentWrapper @Inject constructor(
 
         if (!incomingAudioQueue.offer(bufferByteArray)) {
             Timber.w("Failed to add audio buffer to incoming audio queue. Dropping Audio.")
-            incomingAudioQueue.poll()
-            incomingAudioQueue.offer(bufferByteArray)
+            incomingAudioQueue.clear()
         }
     }
 
@@ -102,7 +107,29 @@ class CallAgentWrapper @Inject constructor(
         )
     }
 
+    override fun getIncomingAudioQueue(): ArrayBlockingQueue<ByteArray> {
+        releaseIncomingAudio()
+        stopPlayingIncomingAudioStream()
+
+        return incomingAudioQueue
+    }
+
+    override fun releaseIncomingAudioQueue() {
+        startPlayingIncomingAudioStream()
+    }
+
+    override fun captureIncomingAudio() {
+        rawIncomingAudioStream.addOnMixedAudioBufferReceivedListener(playbackOnlyIncomingMixedAudioListener)
+    }
+
+    override fun releaseIncomingAudio() {
+        rawIncomingAudioStream.removeOnMixedAudioBufferReceivedListener(playbackOnlyIncomingMixedAudioListener)
+        incomingAudioQueue.clear()
+    }
+
     private fun startPlayingIncomingAudioStream() {
+        releaseIncomingAudio()
+
         incomingAudioTrack = createAudioTrack().apply {
             play()
         }
@@ -110,6 +137,7 @@ class CallAgentWrapper @Inject constructor(
         incomingAudioPlaybackScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
         incomingAudioPlaybackScope?.launch {
             Timber.i("Incoming audio playback started.")
+            captureIncomingAudio()
             while (isActive) {
                 incomingAudioQueue.poll()?.let { audioData ->
                     incomingAudioTrack?.write(audioData, 0, audioData.size, AudioTrack.WRITE_BLOCKING)
@@ -117,8 +145,17 @@ class CallAgentWrapper @Inject constructor(
             }
             Timber.i("Incoming audio playback stopped.")
         }
+    }
 
-        rawIncomingAudioStream.addOnMixedAudioBufferReceivedListener(playbackOnlyIncomingMixedAudioListener)
+    private fun stopPlayingIncomingAudioStream() {
+        incomingAudioPlaybackScope?.cancel()
+        incomingAudioPlaybackScope = null
+
+        incomingAudioTrack?.stop()
+        incomingAudioTrack?.release()
+        incomingAudioTrack = null
+
+        incomingAudioQueue.clear()
     }
 
     override fun switchOutgoingVideoFeed(
@@ -143,17 +180,10 @@ class CallAgentWrapper @Inject constructor(
     }
 
     override fun dispose() {
-        rawIncomingAudioStream.removeOnMixedAudioBufferReceivedListener(playbackOnlyIncomingMixedAudioListener)
+        releaseIncomingAudio()
         rawIncomingAudioStream.removeOnStateChangedListener(rawAudioStreamStateListener)
 
-        incomingAudioQueue.clear()
-
-        incomingAudioPlaybackScope?.cancel()
-        incomingAudioPlaybackScope = null
-
-        incomingAudioTrack?.stop()
-        incomingAudioTrack?.release()
-        incomingAudioTrack = null
+        stopPlayingIncomingAudioStream()
 
         callAgent.dispose()
     }

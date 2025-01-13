@@ -54,6 +54,9 @@
   <string name="torch_on">懐中電灯オン</string>
   <string name="torch_off">懐中電灯オフ</string>
 
+  <string name="transcription_on">文字起こしオン</string>
+  <string name="transcription_off">文字起こしオフ</string>
+
   <string name="muted_by_others">他の参加者によってミュートされました</string>
 
   <string name="camera_hidden">カメラは現在非表示です。</string>

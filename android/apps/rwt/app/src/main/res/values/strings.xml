@@ -54,6 +54,9 @@
   <string name="torch_on">Torch On</string>
   <string name="torch_off">Torch Off</string>
 
+  <string name="transcription_on">Transcription On</string>
+  <string name="transcription_off">Transcription Off</string>
+
   <string name="muted_by_others">You have been muted my another participant</string>
 
   <string name="camera_hidden">The camera is currently hidden.</string>

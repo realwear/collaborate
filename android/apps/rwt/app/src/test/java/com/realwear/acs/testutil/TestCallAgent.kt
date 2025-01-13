@@ -20,11 +20,16 @@ import android.content.Context
 import com.realwear.acs.dependency.ICall
 import com.realwear.acs.dependency.ICallAgent
 import com.realwear.acs.dependency.IOutgoingVideoStream
+import java.util.concurrent.ArrayBlockingQueue
 
 class TestCallAgent(private val testCall: TestCall) : ICallAgent {
     var hasJoinBeenCalled = false
     var hasDisposeBeenCalled = false
     var hasStopOutgoingVideoBeenCalled = false
+    var hasGetIncomingAudioQueueBeenCalled = false
+    var hasCaptureIncomingAudioBeenCalled = false
+    var hasReleaseIncomingAudioQueueBeenCalled = false
+    var hasReleaseIncomingAudioBeenCalled = false
 
     override fun join(appContext: Application, meetingLink: String): ICall {
         hasJoinBeenCalled = true
@@ -37,6 +42,23 @@ class TestCallAgent(private val testCall: TestCall) : ICallAgent {
 
     override fun stopOutgoingVideo(context: Context) {
         hasStopOutgoingVideoBeenCalled = true
+    }
+
+    override fun getIncomingAudioQueue(): ArrayBlockingQueue<ByteArray> {
+        hasGetIncomingAudioQueueBeenCalled = true
+        return ArrayBlockingQueue(1)
+    }
+
+    override fun releaseIncomingAudioQueue() {
+        hasReleaseIncomingAudioQueueBeenCalled = true
+    }
+
+    override fun captureIncomingAudio() {
+        hasCaptureIncomingAudioBeenCalled = true
+    }
+
+    override fun releaseIncomingAudio() {
+        hasReleaseIncomingAudioBeenCalled = true
     }
 
     override fun dispose() {
